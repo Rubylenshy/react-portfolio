@@ -1,0 +1,342 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base & Reset */
+html.lenis { 
+  height: auto; 
+}
+
+.lenis.lenis-smooth { 
+  scroll-behavior: auto; 
+}
+
+body {
+  background-color: #030303;
+  color: #EDEDED;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection { 
+  background-color: #3b82f6; 
+  color: white; 
+}
+
+/* Custom Cursor */
+@media (pointer: fine) {
+  .cursor-circle {
+    display: block;
+    position: fixed;
+    top: 0; 
+    left: 0;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+  }
+  
+  .cursor-circle {
+    width: 32px; 
+    height: 32px;
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                height 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                background-color 0.3s;
+  }
+  
+  body:hover .cursor-circle { 
+    opacity: 1; 
+  }
+  
+  .hover-active .cursor-circle {
+    width: 60px; 
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: transparent;
+  }
+}
+
+@media (pointer: coarse) {
+  .cursor-circle { 
+    display: none !important; 
+  }
+  
+  body { 
+    cursor: auto; 
+  }
+}
+
+/* Utils */
+.loader {
+  position: fixed; 
+  inset: 0; 
+  z-index: 10000;
+  background: #030303; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  color: #EDEDED;
+}
+
+/* Reveal Animations */
+.hero-char {
+  display: inline-block;
+  opacity: 1;
+  will-change: transform, opacity;
+}
+
+.gradient-text {
+  background: linear-gradient(to bottom, #fff, #666);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Marquee */
+.marquee-track {
+  display: flex; 
+  white-space: nowrap; 
+  width: max-content;
+  will-change: transform; 
+  animation: marquee 60s linear infinite;
+}
+
+@keyframes marquee {
+  0% { 
+    transform: translateX(0); 
+  }
+  100% { 
+    transform: translateX(-50%); 
+  }
+}
+
+/* --- Animated Button Styles (Scoped) --- */
+.btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  isolation: isolate;
+}
+
+.btn-wrapper {
+  --dot-size: 6px; 
+  --line-weight: 1px; 
+  --line-distance: 0.6rem 0.8rem; 
+  --animation-speed: 0.35s; 
+  --dot-color: #fff; 
+  --line-color: #ffffff40; 
+  --grid-color: #ffffff20; 
+  position: relative; 
+  display: inline-flex; 
+  justify-content: center; 
+  align-items: center; 
+  width: auto; 
+  height: auto; 
+  padding: var(--line-distance); 
+  background-color: transparent; 
+  user-select: none;
+}
+
+.btn-wrapper::after {
+  content: ""; 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  border-radius: inherit; 
+  pointer-events: none;
+  background-image: repeating-linear-gradient(45deg, var(--grid-color) 0 1px, transparent 2px 5px);
+  opacity: 0; 
+  z-index: -1;
+}
+
+.btn-wrapper:has(.btn:hover)::after { 
+  animation: opacity-anim calc(var(--animation-speed) * 4) ease-in-out forwards; 
+}
+
+@keyframes opacity-anim { 
+  80% { 
+    opacity: 0; 
+  } 
+  100% { 
+    opacity: 0.3; 
+  } 
+}
+
+.btn-wrapper .btn {
+  position: relative; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  padding: 0.8rem 1.5rem; 
+  background-color: transparent; 
+  border: 1px solid var(--grid-color);
+  color: #ccc; 
+  font-family: "JetBrains Mono", monospace; 
+  letter-spacing: -0.01em; 
+  font-size: 0.875rem;
+  font-weight: 500; 
+  text-transform: uppercase; 
+  border-radius: 4px; 
+  cursor: pointer;
+  transition: transform .2s ease-in-out, color .2s ease-in-out;
+  backdrop-filter: blur(4px);
+}
+
+.btn-wrapper .btn:hover { 
+  background-color: rgba(255,255,255,0.05); 
+  color: #fff; 
+  transform: scale(1.02); 
+}
+
+.btn-wrapper .btn:active { 
+  transform: scale(.98); 
+}
+
+.btn-wrapper .btn-svg { 
+  margin-left: .5rem; 
+  height: 16px; 
+  width: 16px; 
+  stroke: #888; 
+  transition: all .2s; 
+}
+
+.btn-wrapper .btn:hover .btn-svg { 
+  stroke: #fff; 
+}
+
+.btn-wrapper .dot { 
+  position: absolute; 
+  width: var(--dot-size); 
+  aspect-ratio: 1; 
+  border-radius: 50%; 
+  background-color: var(--dot-color); 
+  opacity: 0; 
+  pointer-events: none;
+}
+
+/* Dot Animations */
+.btn-wrapper:has(.btn:hover) .dot.top.left { 
+  top: 50%; 
+  left: 20%; 
+  animation: move-top-left var(--animation-speed) ease-in-out forwards; 
+}
+
+@keyframes move-top-left { 
+  90% { 
+    opacity: .6; 
+  } 
+  100% { 
+    top: calc(var(--dot-size) * -0.5); 
+    left: calc(var(--dot-size) * -0.5); 
+    opacity: 1; 
+  } 
+}
+
+.btn-wrapper:has(.btn:hover) .dot.top.right { 
+  top: 50%; 
+  right: 20%; 
+  animation: move-top-right var(--animation-speed) ease-in-out forwards; 
+  animation-delay: calc(var(--animation-speed)*.6); 
+}
+
+@keyframes move-top-right { 
+  80% { 
+    opacity: .6; 
+  } 
+  100% { 
+    top: calc(var(--dot-size) * -0.5); 
+    right: calc(var(--dot-size) * -0.5); 
+    opacity: 1; 
+  } 
+}
+
+.btn-wrapper:has(.btn:hover) .dot.bottom.right { 
+  bottom: 50%; 
+  right: 20%; 
+  animation: move-bottom-right var(--animation-speed) ease-in-out forwards; 
+  animation-delay: calc(var(--animation-speed)*1.2); 
+}
+
+@keyframes move-bottom-right { 
+  80% { 
+    opacity: .6; 
+  } 
+  100% { 
+    bottom: calc(var(--dot-size) * -0.5); 
+    right: calc(var(--dot-size) * -0.5); 
+    opacity: 1; 
+  } 
+}
+
+.btn-wrapper:has(.btn:hover) .dot.bottom.left { 
+  bottom: 50%; 
+  left: 20%; 
+  animation: move-bottom-left var(--animation-speed) ease-in-out forwards; 
+  animation-delay: calc(var(--animation-speed)*1.8); 
+}
+
+@keyframes move-bottom-left { 
+  80% { 
+    opacity: .6; 
+  } 
+  100% { 
+    bottom: calc(var(--dot-size) * -0.5); 
+    left: calc(var(--dot-size) * -0.5); 
+    opacity: 1; 
+  } 
+}
+
+.btn-wrapper .line { 
+  position: absolute; 
+  background-color: var(--line-color); 
+  opacity: 0; 
+  pointer-events: none;
+}
+
+.btn-wrapper:has(.btn:hover) .line { 
+  opacity: 1; 
+}
+
+.btn-wrapper .line.horizontal { 
+  height: var(--line-weight); 
+  width: 100%; 
+  left: 0; 
+}
+
+.btn-wrapper .line.vertical { 
+  width: var(--line-weight); 
+  height: 100%; 
+  top: 0; 
+}
+
+.btn-wrapper .line.top { 
+  top: calc(var(--line-weight)*-0.5); 
+}
+
+.btn-wrapper .line.bottom { 
+  bottom: calc(var(--line-weight)*-0.5); 
+}
+
+.btn-wrapper .line.left { 
+  left: calc(var(--line-weight)*-0.5); 
+}
+
+.btn-wrapper .line.right { 
+  right: calc(var(--line-weight)*-0.5); 
+}
+
+/* Project Card Hover */
+.project-card:hover .project-overlay { 
+  opacity: 0; 
+}
+
+.project-card img { 
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s; 
+}
+
+.project-card:hover img { 
+  transform: scale(1.05); 
+}
+

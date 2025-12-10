@@ -1,0 +1,52 @@
+[
+  {
+    "title": "RetrieveX",
+    "subtitle": "Personal project",
+    "description": "A community-driven platform for reporting and reclaiming lost items with user accounts, detailed submissions, verification, and an admin dashboard.",
+    "mockup": "https://placehold.co/1200x700/0d0d0d/ffffff?text=RetrieveX+Mockup",
+    "bullet_points": [
+      "User authentication and profiles",
+      "Lost item reporting and searching",
+      "Ownership verification system",
+      "Admin dashboard for moderation",
+      "Dark/light mode toggle"
+    ],
+    "stack_icons": [
+      "react",
+      "next",
+      "tailwind",
+      "supabase",
+      "postgresql",
+      "typescript"
+    ],
+    "live_link": "#",
+    "code_link": "#",
+    "direction": "left"
+  },
+  {
+    "title": "Project One",
+    "subtitle": "Frontend build",
+    "description": "A visually rich UI concept built to showcase dashboard-level interaction and responsiveness.",
+    "mockup": "https://placehold.co/1200x700/111/ccc?text=Project+One+Mockup",
+    "bullet_points": [
+      "Advanced UI animations",
+      "Custom design system",
+      "High-performance rendering"
+    ],
+    "stack_icons": ["react", "vite", "tailwind"],
+    "live_link": "#",
+    "code_link": "#",
+    "direction": "right"
+  },
+  {
+    "title": "Project Two",
+    "subtitle": "Frontend project",
+    "description": "A clean, responsive landing page system built with React.",
+    "mockup": "https://placehold.co/1200x700/161616/ffffff?text=Project+Two+Mockup",
+    "bullet_points": ["Modern layout", "Fast load time", "Reusable components"],
+    "stack_icons": ["react", "tailwind", "typescript"],
+    "live_link": "#",
+    "code_link": "#",
+    "direction": "left"
+  }
+]
