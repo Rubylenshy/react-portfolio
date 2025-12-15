@@ -1,32 +1,89 @@
-import { ArrowLeft, Github, ArrowUpRight, FileText } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import projects from '../assets/data/projects.json'
 import Footer from '../components/Footer'
+import BackHomeButton from '../components/BackHomeButton'
 
 const Projects = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const typeFromUrl = searchParams.get('type') || 'all'
+  const validTypes = ['frontend', 'design', 'plugin']
+  const activeType = validTypes.includes(typeFromUrl) ? typeFromUrl : 'all'
+
+  const handleFilterChange = (type) => {
+    if (type === 'all') {
+      searchParams.delete('type')
+      setSearchParams(searchParams, { replace: true })
+    } else {
+      const next = new URLSearchParams(searchParams.toString())
+      next.set('type', type)
+      setSearchParams(next, { replace: true })
+    }
+  }
+
+  const filteredProjects =
+    activeType === 'all' ? projects : projects.filter((project) => project.type === activeType)
+
   return (
     <>
-      <main className="min-h-screen bg-[#030303] text-white px-6 pt-16 pb-20 md:pt-20 md:pb-24">
+      <main
+        className="min-h-screen bg-[#030303] text-white px-6 pt-16 pb-20 md:pt-20 md:pb-24"
+        data-scroll-animate
+      >
         <div className="max-w-6xl mx-auto w-full">
           <div className="flex items-center justify-between mb-10">
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-white border border-white/10 rounded-full px-4 py-2 hover:bg-white hover:text-black transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back Home
-            </Link>
+            <BackHomeButton />
             <div className="text-xs font-mono uppercase tracking-[0.2em] text-gray-500">
               All Projects
             </div>
           </div>
 
-          <div className="space-y-24">
-            {projects.map((project, idx) => (
-              <article
-                key={`${project.title}-${idx}`}
-                className="flex flex-col gap-6"
-              >
+          {/* Filter Row */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">
+            <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
+              Filter by Project Type
+            </p>
+            <div className="inline-flex flex-wrap gap-2 rounded-full bg-white/5 border border-white/10 px-2 py-1.5 backdrop-blur-md">
+              {[
+                { value: 'all', label: 'All' },
+                { value: 'frontend', label: 'Frontend' },
+                { value: 'design', label: 'Design' },
+                { value: 'plugin', label: 'Plugin' },
+              ].map((filter) => {
+                const isActive = activeType === filter.value
+                return (
+                  <button
+                    key={filter.value}
+                    type="button"
+                    onClick={() => handleFilterChange(filter.value)}
+                    className={`px-2 py-1 md:px-4 md:py-1.5 rounded-full text-[10px] font-mono uppercase tracking-[0.18em] transition-colors ${
+                      isActive
+                        ? 'bg-white text-black'
+                        : 'text-gray-300 hover:bg-white/10'
+                    }`}
+                  >
+                    {filter.label}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+          {filteredProjects.length === 0 ? (
+            <div className="mt-16 rounded-md border border-dashed border-white/15 bg-white/5 px-6 py-10 text-center">
+              <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-gray-400 mb-2">
+                No projects found for “{activeType}”
+              </p>
+              <p className="text-sm text-gray-400 max-w-md mx-auto">
+                This category doesn&apos;t have any case studies yet. Check back soon — new builds ship regularly.
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-24">
+              {filteredProjects.map((project, idx) => (
+                <article
+                  key={`${project.title}-${idx}`}
+                  className="flex flex-col gap-6"
+                >
                 <div className="w-full overflow-hidden rounded-sm bg-[#111] border border-white/5">
                   <img
                     src={project.mockup}
@@ -37,6 +94,11 @@ const Projects = () => {
 
                 <div className="space-y-4">
                   <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-white/60 flex-wrap">
+                    {project.type && (
+                      <span className="px-3 py-1 border border-white/10 rounded-full bg-white/5 text-[9px] tracking-[0.2em] text-gray-200">
+                        {project.type}
+                      </span>
+                    )}
                     {project.stack_icons?.map((badge) => (
                       <span key={badge} className="px-2 py-1 border border-white/10 rounded bg-white/5">
                         {badge}
@@ -71,7 +133,7 @@ const Projects = () => {
                         href={project.code_link}
                         className="inline-flex items-center gap-2 text-xs py-3 pr-2 font-mono uppercase tracking-widest text-white hover:text-gray-300 transition-colors magnetic-btn"
                       >
-                        View Codebase <Github className="w-4 h-4" />
+                        View Codebase <i className="fa-brands fa-github text-[0.9rem]" />
                       </a>
                     )}
                     {project.live_link && (
@@ -79,7 +141,7 @@ const Projects = () => {
                         href={project.live_link}
                         className="inline-flex items-center gap-2 text-xs py-3 px-2 font-mono uppercase tracking-widest text-white hover:text-gray-300 transition-colors magnetic-btn"
                       >
-                        View Live Demo <ArrowUpRight className="w-4 h-4" />
+                        View Live Demo <i className="fa-solid fa-arrow-up-right-from-square text-[0.85rem]" />
                       </a>
                     )}
                     {project.case_study && (
@@ -87,14 +149,15 @@ const Projects = () => {
                         href={project.case_study}
                         className="inline-flex items-center gap-2 text-xs py-3 px-2 font-mono uppercase tracking-widest text-white hover:text-gray-300 transition-colors magnetic-btn"
                       >
-                        Read Case Study <FileText className="w-4 h-4" />
+                        Read Case Study <i className="fa-regular fa-file-lines text-[0.9rem]" />
                       </a>
                     )}
                   </div>
                 </div>
               </article>
             ))}
-          </div>
+            </div>
+          )}
         </div>
       </main>
 

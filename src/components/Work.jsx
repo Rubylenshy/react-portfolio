@@ -25,7 +25,10 @@ const Work = () => {
   const handleSeeAll = (e) => {
     e.preventDefault()
     if (window.lenis) {
-      window.lenis.scrollTo(0, { immediate: true })
+      window.lenis.scrollTo(0, {
+        duration: 1.2,
+        easing: (t) => 1 - Math.pow(1 - t, 3)
+      })
     } else {
       window.scrollTo({ top: 0, behavior: 'auto' })
     }
@@ -101,7 +104,7 @@ const Work = () => {
                   {project.live_link && (
                     <a
                       href={project.live_link}
-                      className="inline-flex items-center gap-2 text-xs border border-white font-mono uppercase tracking-widest text-white hover:text-gray-300 transition-colors magnetic-btn"
+                      className="inline-flex items-center gap-2 text-xs border border-white font-mono uppercase tracking-widest text-white hover:text-gray-800 hover:bg-white transition-colors magnetic-btn"
                     >
                       <ArrowUpRight className="w-4 h-4" />
                     </a>

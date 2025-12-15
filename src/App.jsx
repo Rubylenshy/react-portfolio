@@ -4,6 +4,7 @@ import Loader from './components/Loader'
 import Cursor from './components/Cursor'
 import Home from './pages/Home'
 import Projects from './pages/Projects'
+import Blogs from './pages/Blogs'
 import { useLenis } from './hooks/useLenis'
 import { useCursor } from './hooks/useCursor'
 import { useMagneticButtons } from './hooks/useMagneticButtons'
@@ -23,6 +24,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/blogs" element={<Blogs />} />
         </Routes>
       </div>
     </Router>

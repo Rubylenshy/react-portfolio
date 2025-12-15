@@ -1,4 +1,6 @@
 
+import GlassyBubbles from './GlassyBubbles'
+
 const Hero = () => {
   const scrollToSection = (e, sectionId) => {
     e.preventDefault()
@@ -30,14 +32,19 @@ const Hero = () => {
           </span>
         </div>
 
-        <h1 className="text-5xl md:text-8xl lg:text-9xl font-semibold tracking-tighter text-white uppercase leading-[0.9] flex flex-col items-center mix-blend-overlay">
-          <div className="overflow-hidden">
-            <span className="hero-char">Reuben</span>
-          </div>
-          <div className="overflow-hidden">
-            <span className="hero-char">Oluwafemi</span>
-          </div>
-        </h1>
+        <div className="relative inline-block">
+          <h1 className="text-5xl md:text-8xl lg:text-9xl font-semibold tracking-tighter text-white uppercase leading-[0.9] flex flex-col items-center mix-blend-overlay relative z-10">
+            <div className="overflow-hidden">
+              <span className="hero-char">Reuben</span>
+            </div>
+            <div className="overflow-hidden">
+              <span className="hero-char">Oluwafemi</span>
+            </div>
+          </h1>
+
+          {/* Floating glassy labels around the hero text */}
+          <GlassyBubbles />
+        </div>
 
         <div className="mt-8 md:mt-12 max-w-xl mx-auto opacity-0 hero-fade-in px-6">
           <p className="font-sans text-sm md:text-lg text-gray-300 leading-relaxed font-light">

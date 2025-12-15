@@ -1,5 +1,3 @@
-import { Box, Layers, Cpu, Gauge } from 'lucide-react'
-
 const About = () => {
   return (
     <section id="about" className="px-6 py-12 md:py-24 max-w-[1400px] mx-auto border-t border-white/5">
@@ -53,7 +51,7 @@ const About = () => {
           {/* Card 1 */}
           <div className="p-8 bg-white/5 border border-white/5 rounded-sm hover:bg-white/10 transition-colors duration-500 group">
             <div className="w-10 h-10 bg-black border border-white/10 rounded-full flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform">
-              <Box className="w-5 h-5" />
+              <i className="fa-solid fa-puzzle-piece text-sm" />
             </div>
             <h4 className="text-lg font-medium text-white mb-2">Plugin Development</h4>
             <p className="text-sm text-secondary leading-relaxed">
@@ -65,7 +63,7 @@ const About = () => {
           {/* Card 2 */}
           <div className="p-8 bg-white/5 border border-white/5 rounded-sm hover:bg-white/10 transition-colors duration-500 group">
             <div className="w-10 h-10 bg-black border border-white/10 rounded-full flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform">
-              <Layers className="w-5 h-5" />
+              <i className="fa-solid fa-layer-group text-sm" />
             </div>
             <h4 className="text-lg font-medium text-white mb-2">Design Engineering</h4>
             <p className="text-sm text-secondary leading-relaxed">
@@ -77,7 +75,7 @@ const About = () => {
           {/* Card 3 */}
           <div className="p-8 bg-white/5 border border-white/5 rounded-sm hover:bg-white/10 transition-colors duration-500 group">
             <div className="w-10 h-10 bg-black border border-white/10 rounded-full flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform">
-              <Cpu className="w-5 h-5" />
+              <i className="fa-solid fa-microchip text-sm" />
             </div>
             <h4 className="text-lg font-medium text-white mb-2">API Integration</h4>
             <p className="text-sm text-secondary leading-relaxed">
@@ -89,7 +87,7 @@ const About = () => {
           {/* Card 4 */}
           <div className="p-8 bg-white/5 border border-white/5 rounded-sm hover:bg-white/10 transition-colors duration-500 group">
             <div className="w-10 h-10 bg-black border border-white/10 rounded-full flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform">
-              <Gauge className="w-5 h-5" />
+              <i className="fa-solid fa-gauge-high text-sm" />
             </div>
             <h4 className="text-lg font-medium text-white mb-2">Performance Optimization</h4>
             <p className="text-sm text-secondary leading-relaxed">

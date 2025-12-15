@@ -2,6 +2,7 @@
   {
     "title": "RetrieveX",
     "subtitle": "Personal project",
+    "type": "plugin",
     "description": "A community-driven platform for reporting and reclaiming lost items with user accounts, detailed submissions, verification, and an admin dashboard.",
     "mockup": "https://placehold.co/1200x700/0d0d0d/ffffff?text=RetrieveX+Mockup",
     "bullet_points": [
@@ -26,6 +27,7 @@
   {
     "title": "Project One",
     "subtitle": "Frontend build",
+    "type": "frontend",
     "description": "A visually rich UI concept built to showcase dashboard-level interaction and responsiveness.",
     "mockup": "https://placehold.co/1200x700/111/ccc?text=Project+One+Mockup",
     "bullet_points": [
@@ -41,6 +43,7 @@
   {
     "title": "Project Two",
     "subtitle": "Frontend project",
+    "type": "frontend",
     "description": "A clean, responsive landing page system built with React.",
     "mockup": "https://placehold.co/1200x700/161616/ffffff?text=Project+Two+Mockup",
     "bullet_points": ["Modern layout", "Fast load time", "Reusable components"],

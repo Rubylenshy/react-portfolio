@@ -1,57 +1,40 @@
-import {
-  Atom,
-  Box,
-  Boxes,
-  Braces,
-  CircleDot,
-  Columns,
-  Database,
-  Figma,
-  FileCode2,
-  GitBranch,
-  Globe,
-  Laptop,
-  LayoutTemplate,
-  Palette,
-  Sparkles,
-  Triangle,
-  Wrench,
-} from 'lucide-react'
-
 const Stack = () => {
   const tools = [
-    { label: 'VS Code', icon: Laptop },
-    { label: 'CodeSandbox', icon: Boxes },
-    { label: 'Wordpress', icon: Globe },
-    { label: 'Vercel', icon: Triangle },
-    { label: 'Bitbucket', icon: GitBranch },
-    { label: 'Figma', icon: Figma },
-    { label: 'Notion', icon: LayoutTemplate },
-    { label: 'Trello', icon: Columns },
-    { label: 'Canva', icon: Sparkles },
-    { label: 'Adobe Photoshop', icon: Palette },
+    { label: 'VS Code', iconClass: 'fa-solid fa-code' },
+    { label: 'CodeSandbox', iconClass: 'fa-solid fa-boxes-stacked' },
+    { label: 'WordPress', iconClass: 'fa-brands fa-wordpress' },
+    { label: 'Vercel', iconClass: 'fa-solid fa-play' },
+    { label: 'Bitbucket', iconClass: 'fa-brands fa-bitbucket' },
+    { label: 'Figma', iconClass: 'fa-brands fa-figma' },
+    { label: 'Notion', iconClass: 'fa-brands fa-notion' },
+    { label: 'Trello', iconClass: 'fa-brands fa-trello' },
+    { label: 'Canva', iconClass: 'fa-solid fa-wand-magic-sparkles' },
+    { label: 'Adobe Photoshop', iconClass: 'fa-solid fa-image' },
   ]
 
   const frontendStack = [
-    { label: 'VueJS', icon: '' },
-    { label: 'ReactJS', icon: Atom },
-    { label: 'Next.js', icon: CircleDot },
-    { label: 'JavaScript (ES6+)', icon: Braces },
-    { label: 'PHP', icon: Braces },
-    { label: 'DevTools', icon: Wrench },
-    { label: 'Bootstrap', icon: Box },
-    { label: 'SCSS', icon: Palette },
-    { label: 'HTML5', icon: FileCode2 },
-    { label: 'MySQL', icon: Database },
-    { label: 'Git/GitHub', icon: GitBranch },
+    { label: 'VueJS', iconClass: 'fa-brands fa-vuejs' },
+    { label: 'ReactJS', iconClass: 'fa-brands fa-react' },
+    { label: 'Next.js', iconClass: 'fa-solid fa-circle-dot' },
+    { label: 'JavaScript (ES6+)', iconClass: 'fa-brands fa-js' },
+    { label: 'PHP', iconClass: 'fa-brands fa-php' },
+    { label: 'DevTools', iconClass: 'fa-solid fa-screwdriver-wrench' },
+    { label: 'Bootstrap', iconClass: 'fa-brands fa-bootstrap' },
+    { label: 'SCSS', iconClass: 'fa-brands fa-sass' },
+    { label: 'HTML5', iconClass: 'fa-brands fa-html5' },
+    { label: 'MySQL', iconClass: 'fa-solid fa-database' },
+    { label: 'Git/GitHub', iconClass: 'fa-brands fa-git-alt' },
   ]
 
   const renderItems = (items) => {
     return [...items, ...items].map((item, idx) => {
-      const Icon = item.icon
       return (
         <span key={`${item.label}-${idx}`} className="mx-8 inline-flex items-center gap-2">
-          {Icon ? <Icon className="w-4 h-4 text-white/80" /> : <i className="fa fa-circle text-white/80"></i>}
+          {item.iconClass ? (
+            <i className={`${item.iconClass} text-white/80 text-sm`}></i>
+          ) : (
+            <i className="fa-solid fa-circle text-white/80 text-[0.6rem]"></i>
+          )}
           <span>{item.label}</span>
         </span>
       )
