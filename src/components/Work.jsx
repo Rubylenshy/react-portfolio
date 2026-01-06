@@ -104,6 +104,7 @@ const Work = () => {
                   {project.live_link && (
                     <a
                       href={project.live_link}
+                      title="Live"
                       className="inline-flex items-center gap-2 text-xs border border-white font-mono uppercase tracking-widest text-white hover:text-gray-800 hover:bg-white transition-colors magnetic-btn"
                     >
                       <ArrowUpRight className="w-4 h-4" />

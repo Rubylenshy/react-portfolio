@@ -4,7 +4,7 @@
     "subtitle": "Personal project",
     "type": "plugin",
     "description": "A community-driven platform for reporting and reclaiming lost items with user accounts, detailed submissions, verification, and an admin dashboard.",
-    "mockup": "https://placehold.co/1200x700/0d0d0d/ffffff?text=RetrieveX+Mockup",
+    "mockup": "../assets/images/agile.jpg",
     "bullet_points": [
       "User authentication and profiles",
       "Lost item reporting and searching",
