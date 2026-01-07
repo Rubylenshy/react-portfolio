@@ -69,7 +69,7 @@ const Work = () => {
                 <img
                   src={project.mockup}
                   alt={project.title}
-                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100"
+                  className="w-full h-full object-contain opacity-80 group-hover:opacity-100"
                 />
               </div>
 
@@ -92,11 +92,11 @@ const Work = () => {
                   {project.description}
                 </p>
 
-                <div className="flex items-center gap-4 mt-2 flex-wrap">
+                <div className="flex items-center gap-5 mt-2 flex-wrap">
                   {project.code_link && (
                     <a
                       href={project.code_link}
-                      className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-white hover:text-gray-300 transition-colors magnetic-btn"
+                      className="inline-flex items-center gap-2 p-1 text-xs border border-white font-mono uppercase tracking-widest text-white hover:text-gray-300 transition-colors magnetic-btn"
                     >
                       View Codebase <Github className="w-4 h-4" />
                     </a>
@@ -105,7 +105,7 @@ const Work = () => {
                     <a
                       href={project.live_link}
                       title="Live"
-                      className="inline-flex items-center gap-2 text-xs border border-white font-mono uppercase tracking-widest text-white hover:text-gray-800 hover:bg-white transition-colors magnetic-btn"
+                      className="inline-flex items-center gap-2 p-0.5 text-xs border border-white font-mono uppercase tracking-widest text-white hover:text-gray-800 hover:bg-white transition-colors magnetic-btn"
                     >
                       <ArrowUpRight className="w-4 h-4" />
                     </a>

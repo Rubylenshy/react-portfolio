@@ -1,55 +1,187 @@
 [
+  
   {
-    "title": "RetrieveX",
-    "subtitle": "Personal project",
-    "type": "plugin",
-    "description": "A community-driven platform for reporting and reclaiming lost items with user accounts, detailed submissions, verification, and an admin dashboard.",
-    "mockup": "../assets/images/agile.jpg",
+    "title": "Shortly",
+    "subtitle": "URL Shortener Integration",
+    "type": "frontend",
+    "description": "A functional URL shortening application integrated with the Shrtcode API. It allows users to generate short links and manage them within a session.",
+    "mockup": "https://lh3.googleusercontent.com/u/0/d/1vci4v7JydDkBiXX-_mAT89ww69GyskLa",
     "bullet_points": [
-      "User authentication and profiles",
-      "Lost item reporting and searching",
-      "Ownership verification system",
-      "Admin dashboard for moderation",
-      "Dark/light mode toggle"
+      "API integration for link shortening",
+      "Copy-to-clipboard functionality",
+      "Link history management",
+      "Form validation and error handling",
+      "Responsive landing page"
     ],
     "stack_icons": [
       "react",
-      "next",
-      "tailwind",
-      "supabase",
-      "postgresql",
-      "typescript"
+      "javascript",
+      "sass",
+      "api"
     ],
-    "live_link": "#",
-    "code_link": "#",
-    "direction": "left"
-  },
-  {
-    "title": "Project One",
-    "subtitle": "Frontend build",
-    "type": "frontend",
-    "description": "A visually rich UI concept built to showcase dashboard-level interaction and responsiveness.",
-    "mockup": "https://placehold.co/1200x700/111/ccc?text=Project+One+Mockup",
-    "bullet_points": [
-      "Advanced UI animations",
-      "Custom design system",
-      "High-performance rendering"
-    ],
-    "stack_icons": ["react", "vite", "tailwind"],
     "live_link": "#",
     "code_link": "#",
     "direction": "right"
   },
   {
-    "title": "Project Two",
-    "subtitle": "Frontend project",
+    "title": "Agile System",
+    "subtitle": "Project Management Tool",
     "type": "frontend",
-    "description": "A clean, responsive landing page system built with React.",
-    "mockup": "https://placehold.co/1200x700/161616/ffffff?text=Project+Two+Mockup",
-    "bullet_points": ["Modern layout", "Fast load time", "Reusable components"],
-    "stack_icons": ["react", "tailwind", "typescript"],
+    "description": "A productivity dashboard featuring a Kanban-style workflow. Users can track project progress, manage tasks across columns, and visualize team velocity.",
+    "mockup": "https://lh3.googleusercontent.com/u/0/d/1dJ7eREN4Ci90nbN7WfD-uE35CmCet3AX",
+    "bullet_points": [
+      "Kanban board task management",
+      "Progress bar visualization",
+      "Task creation and editing",
+      "User dashboard interface",
+      "Team member assignment"
+    ],
+    "stack_icons": [
+      "react",
+      "redux",
+      "styled-components",
+      "firebase"
+    ],
     "live_link": "#",
     "code_link": "#",
     "direction": "left"
+  },
+  {
+    "title": "Nestlify",
+    "subtitle": "SaaS Marketing Site",
+    "type": "frontend",
+    "description": "A modern marketing website for a business growth platform. It features clean typography, data visualization previews, and a structured layout to convert visitors.",
+    "mockup": "https://lh3.googleusercontent.com/u/0/d/1n0FOR1dS-BmOGvVat8vlg6oaBRdfaRmo",
+    "bullet_points": [
+      "Modern SaaS layout",
+      "Data visualization components",
+      "Service feature breakdown",
+      "Responsive grid system",
+      "Performance optimized"
+    ],
+    "stack_icons": [
+      "react",
+      "tailwind",
+      "typescript",
+      "framer"
+    ],
+    "live_link": "#",
+    "code_link": "#",
+    "direction": "right"
+  },
+  {
+    "title": "Todo Master",
+    "subtitle": "Productivity App",
+    "type": "frontend",
+    "description": "A robust todo application supporting drag-and-drop reordering and theme toggling. It persists data locally to ensure users never lose track of their tasks.",
+    "mockup": "https://lh3.googleusercontent.com/u/0/d/1khw1g6oUDEMTEZ3ruhteCpoqo0M8p2Iq",
+    "bullet_points": [
+      "Dark and Light mode toggle",
+      "Drag-and-drop reordering",
+      "Filter by Active/Completed",
+      "LocalStorage persistence",
+      "Cross-device responsiveness"
+    ],
+    "stack_icons": [
+      "react",
+      "javascript",
+      "css",
+      "html"
+    ],
+    "live_link": "#",
+    "code_link": "#",
+    "direction": "left"
+  },
+  {
+    "title": "Reuben Oluwafemi",
+    "subtitle": "Personal Portfolio",
+    "type": "frontend",
+    "description": "A high-performance personal portfolio showcasing the intersection of engineering logic and creative design, featuring smooth transitions and a unique dark aesthetic.",
+    "mockup": "https://lh3.googleusercontent.com/u/0/d/1FMvqSfr71wi_TcCFEw-drfgfrgf-u4gA",
+    "bullet_points": [
+      "Custom hero animations",
+      "Smooth page transitions",
+      "Project case study layouts",
+      "Typography-driven design",
+      "Interactive UI elements"
+    ],
+    "stack_icons": [
+      "next",
+      "react",
+      "tailwind",
+      "framer-motion",
+      "gsap"
+    ],
+    "live_link": "#",
+    "code_link": "#",
+    "direction": "right"
+  },
+  {
+    "title": "The Marque Hub",
+    "subtitle": "Talent Agency Platform",
+    "type": "frontend",
+    "description": "A refined modeling agency platform designed to connect world-class models with clients. Features a high-fashion minimalist aesthetic to highlight talent portfolios.",
+    "mockup": "https://lh3.googleusercontent.com/u/0/d/17Aw5NzK_e_QhnHMXDm0D4kprAS333hSv",
+    "bullet_points": [
+      "Talent portfolio showcase",
+      "Model application forms",
+      "Responsive minimal design",
+      "Blog and news section",
+      "Client contact integration"
+    ],
+    "stack_icons": [
+      "html",
+      "css",
+      "javascript"
+    ],
+    "live_link": "#",
+    "code_link": "#",
+    "direction": "left"
+  },
+  {
+    "title": "Sushi Restaurant",
+    "subtitle": "Landing Page",
+    "type": "frontend",
+    "description": "An immersive, dark-themed landing page for a sushi restaurant that emphasizes visual storytelling. Designed to guide customers seamlessly from visual discovery to ordering.",
+    "mockup": "https://lh3.googleusercontent.com/u/0/d/1UVaod1UOfXFy8wxLrDyR7dxITxsAFvDs",
+    "bullet_points": [
+      "Immersive dark mode aesthetic",
+      "Interactive menu sections",
+      "Scroll-triggered animations",
+      "Responsive mobile navigation",
+      "Visual-first layout"
+    ],
+    "stack_icons": [
+      "html",
+      "css",
+      "javascript",
+      "sass"
+    ],
+    "live_link": "#",
+    "code_link": "#",
+    "direction": "left"
+  },
+  {
+    "title": "DevJobs Board",
+    "subtitle": "Job Filtering System",
+    "type": "frontend",
+    "description": "A dynamic job listing board that filters positions based on tech stacks and seniority. Users can select multiple tags to narrow down the JSON-sourced data.",
+    "mockup": "https://lh3.googleusercontent.com/u/0/d/133-kbkT589_yRFGsAIZ-dQilz0uxlRsn",
+    "bullet_points": [
+      "Dynamic data rendering",
+      "Multi-tag filtering logic",
+      "Add/Remove filter tags",
+      "Responsive list layout",
+      "State management"
+    ],
+    "stack_icons": [
+      "html",
+      "css",
+      "javascript",
+      "json"
+    ],
+    "live_link": "#",
+    "code_link": "#",
+    "direction": "right"
   }
 ]
