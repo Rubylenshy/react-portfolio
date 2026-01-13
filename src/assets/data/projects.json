@@ -1,5 +1,4 @@
 [
-  
   {
     "title": "Shortly",
     "subtitle": "URL Shortener Integration",
@@ -19,8 +18,8 @@
       "sass",
       "api"
     ],
-    "live_link": "#",
-    "code_link": "#",
+    "live_link": "https://url-shortener-zeta-ebon.vercel.app/",
+    "code_link": "https://github.com/Rubylenshy/url-shortener",
     "direction": "right"
   },
   {
@@ -42,8 +41,8 @@
       "styled-components",
       "firebase"
     ],
-    "live_link": "#",
-    "code_link": "#",
+    "live_link": "https://agile-system.vercel.app/",
+    "code_link": "https://github.com/Rubylenshy/agile-system",
     "direction": "left"
   },
   {
@@ -65,33 +64,11 @@
       "typescript",
       "framer"
     ],
-    "live_link": "#",
+    "live_link": "https://nestlify-react-app.vercel.app/",
     "code_link": "#",
     "direction": "right"
   },
-  {
-    "title": "Todo Master",
-    "subtitle": "Productivity App",
-    "type": "frontend",
-    "description": "A robust todo application supporting drag-and-drop reordering and theme toggling. It persists data locally to ensure users never lose track of their tasks.",
-    "mockup": "https://lh3.googleusercontent.com/u/0/d/1khw1g6oUDEMTEZ3ruhteCpoqo0M8p2Iq",
-    "bullet_points": [
-      "Dark and Light mode toggle",
-      "Drag-and-drop reordering",
-      "Filter by Active/Completed",
-      "LocalStorage persistence",
-      "Cross-device responsiveness"
-    ],
-    "stack_icons": [
-      "react",
-      "javascript",
-      "css",
-      "html"
-    ],
-    "live_link": "#",
-    "code_link": "#",
-    "direction": "left"
-  },
+  
   {
     "title": "Reuben Oluwafemi",
     "subtitle": "Personal Portfolio",
@@ -112,8 +89,8 @@
       "framer-motion",
       "gsap"
     ],
-    "live_link": "#",
-    "code_link": "#",
+    "live_link": "https://reuben-oluwafemi.vercel.app/",
+    "code_link": "https://github.com/Rubylenshy/react-portfolio",
     "direction": "right"
   },
   {
@@ -134,8 +111,8 @@
       "css",
       "javascript"
     ],
-    "live_link": "#",
-    "code_link": "#",
+    "live_link": "https://rubylenshy.github.io/the-marquee-hub-landing-page/",
+    "code_link": "https://github.com/Rubylenshy/the-marquee-hub-landing-page",
     "direction": "left"
   },
   {
@@ -157,8 +134,8 @@
       "javascript",
       "sass"
     ],
-    "live_link": "#",
-    "code_link": "#",
+    "live_link": "https://rubylenshy.github.io/sushi-restaurant/",
+    "code_link": "https://github.com/Rubylenshy/sushi-restaurant",
     "direction": "left"
   },
   {
@@ -180,8 +157,8 @@
       "javascript",
       "json"
     ],
-    "live_link": "#",
-    "code_link": "#",
+    "live_link": "http://static-job-listings-pink.vercel.app/",
+    "code_link": "https://github.com/Rubylenshy/static-job-listings",
     "direction": "right"
   }
 ]
