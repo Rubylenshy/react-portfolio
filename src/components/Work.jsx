@@ -93,9 +93,10 @@ const Work = () => {
                 </p>
 
                 <div className="flex items-center gap-5 mt-2 flex-wrap">
-                  {project.code_link && (
+                  {project.code_link && project.code_link !== '#' && (
                     <a
                       href={project.code_link}
+                      target="_blank"
                       className="inline-flex items-center gap-2 p-1 text-xs border border-white font-mono uppercase tracking-widest text-white hover:text-gray-300 transition-colors magnetic-btn"
                     >
                       View Codebase <Github className="w-4 h-4" />
@@ -104,6 +105,7 @@ const Work = () => {
                   {project.live_link && (
                     <a
                       href={project.live_link}
+                      target="_blank"
                       title="Live"
                       className="inline-flex items-center gap-2 p-0.5 text-xs border border-white font-mono uppercase tracking-widest text-white hover:text-gray-800 hover:bg-white transition-colors magnetic-btn"
                     >
@@ -113,6 +115,7 @@ const Work = () => {
                   {!project.live_link && project.case_study && (
                     <a
                       href={project.case_study}
+                      target="_blank"
                       className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-white hover:text-gray-300 transition-colors magnetic-btn"
                     >
                       Read Case Study <FileText className="w-4 h-4" />

@@ -128,9 +128,10 @@ const Projects = () => {
                   )}
 
                   <div className="flex items-center gap-5 mt-5 flex-wrap">
-                    {project.code_link && (
+                    {project.code_link && project.code_link !== '#' && (
                       <a
                         href={project.code_link}
+                        target="_blank"
                         className="inline-flex items-center gap-2 text-xs py-3 pr-2 font-mono uppercase tracking-widest text-white hover:text-gray-300 transition-colors magnetic-btn"
                       >
                         View Codebase <i className="fa-brands fa-github text-[0.9rem]" />
@@ -139,6 +140,7 @@ const Projects = () => {
                     {project.live_link && (
                       <a
                         href={project.live_link}
+                        target="_blank"
                         className="inline-flex items-center gap-2 text-xs py-3 px-2 font-mono uppercase tracking-widest text-white hover:text-gray-300 transition-colors magnetic-btn"
                       >
                         View Live Demo <i className="fa-solid fa-arrow-up-right-from-square text-[0.85rem]" />
