@@ -2,6 +2,219 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   THEME TOKENS - Comprehensive Semantic Colors
+   ============================================ */
+
+:root {
+  /* Prevent flash of unstyled content */
+  color-scheme: light dark;
+}
+
+/* Light Theme */
+:root.light {
+  /* Text Colors */
+  --color-text-primary: #030303;
+  --color-text-secondary: #525252;
+  --color-text-tertiary: #737373;
+  --color-text-disabled: #a3a3a3;
+  --color-text-inverse: #fafafa;
+  --color-text-link: #2563eb;
+  --color-text-link-hover: #1d4ed8;
+  
+  /* Background Colors */
+  --color-bg-base: #ffffff;
+  --color-bg-surface: #fafafa;
+  --color-bg-elevated: #f5f5f5;
+  --color-bg-overlay: rgba(0, 0, 0, 0.4);
+  --color-bg-backdrop: rgba(255, 255, 255, 0.8);
+  
+  /* Surface Colors (for cards, panels, etc.) */
+  --color-surface-base: #ffffff;
+  --color-surface-elevated: #fafafa;
+  --color-surface-hover: #f5f5f5;
+  --color-surface-active: #e5e5e5;
+  --color-surface-disabled: #fafafa;
+  
+  /* Border & Divider Colors */
+  --color-border-base: rgba(0, 0, 0, 0.1);
+  --color-border-strong: rgba(0, 0, 0, 0.2);
+  --color-border-subtle: rgba(0, 0, 0, 0.05);
+  --color-divider: rgba(0, 0, 0, 0.08);
+  
+  /* Shadow Colors (elevation-based, not black fog) */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  
+  /* Icon Colors */
+  --color-icon-primary: #030303;
+  --color-icon-secondary: #525252;
+  --color-icon-tertiary: #737373;
+  --color-icon-disabled: #a3a3a3;
+  --color-icon-inverse: #fafafa;
+  
+  /* Input Colors */
+  --color-input-bg: #ffffff;
+  --color-input-border: rgba(0, 0, 0, 0.2);
+  --color-input-border-hover: rgba(0, 0, 0, 0.3);
+  --color-input-border-focus: #2563eb;
+  --color-input-border-error: #dc2626;
+  --color-input-text: #030303;
+  --color-input-placeholder: #737373;
+  --color-input-disabled-bg: #f5f5f5;
+  --color-input-disabled-text: #a3a3a3;
+  --color-input-autofill-bg: #fef3c7;
+  --color-input-autofill-text: #030303;
+  
+  /* Interactive States */
+  --color-interactive-hover: rgba(0, 0, 0, 0.05);
+  --color-interactive-active: rgba(0, 0, 0, 0.1);
+  --color-interactive-focus-ring: rgba(37, 99, 235, 0.5);
+  --color-interactive-disabled: rgba(0, 0, 0, 0.05);
+  
+  /* Feedback States */
+  --color-success: #16a34a;
+  --color-success-bg: #dcfce7;
+  --color-success-text: #166534;
+  --color-error: #dc2626;
+  --color-error-bg: #fee2e2;
+  --color-error-text: #991b1b;
+  --color-warning: #ea580c;
+  --color-warning-bg: #ffedd5;
+  --color-warning-text: #9a3412;
+  --color-info: #2563eb;
+  --color-info-bg: #dbeafe;
+  --color-info-text: #1e40af;
+  
+  /* Accent Colors (for highlights, etc.) */
+  --color-accent-cyan: rgba(34, 211, 238, 0.5);
+  --color-accent-purple: rgba(168, 85, 247, 0.5);
+  --color-accent-amber: rgba(251, 191, 36, 0.5);
+  --color-accent-green: rgba(74, 222, 128, 0.5);
+  
+  /* Glass/Backdrop Effects */
+  --color-glass-bg: rgba(255, 255, 255, 0.1);
+  --color-glass-border: rgba(255, 255, 255, 0.2);
+  --color-glass-hover: rgba(255, 255, 255, 0.15);
+  
+  /* Button Specific */
+  --color-btn-dot: #030303;
+  --color-btn-line: rgba(0, 0, 0, 0.25);
+  --color-btn-grid: rgba(0, 0, 0, 0.12);
+}
+
+/* Dark Theme */
+:root.dark {
+  /* Text Colors */
+  --color-text-primary: #ededed;
+  --color-text-secondary: #a3a3a3;
+  --color-text-tertiary: #737373;
+  --color-text-disabled: #525252;
+  --color-text-inverse: #030303;
+  --color-text-link: #60a5fa;
+  --color-text-link-hover: #93c5fd;
+  
+  /* Background Colors */
+  --color-bg-base: #030303;
+  --color-bg-surface: #0a0a0a;
+  --color-bg-elevated: #111111;
+  --color-bg-overlay: rgba(0, 0, 0, 0.6);
+  --color-bg-backdrop: rgba(3, 3, 3, 0.8);
+  
+  /* Surface Colors */
+  --color-surface-base: #0a0a0a;
+  --color-surface-elevated: #111111;
+  --color-surface-hover: rgba(255, 255, 255, 0.05);
+  --color-surface-active: rgba(255, 255, 255, 0.1);
+  --color-surface-disabled: rgba(255, 255, 255, 0.02);
+  
+  /* Border & Divider Colors */
+  --color-border-base: rgba(255, 255, 255, 0.1);
+  --color-border-strong: rgba(255, 255, 255, 0.2);
+  --color-border-subtle: rgba(255, 255, 255, 0.05);
+  --color-divider: rgba(255, 255, 255, 0.08);
+  
+  /* Shadow Colors (elevation-based) */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -4px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 8px 10px -6px rgba(0, 0, 0, 0.7);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+  
+  /* Icon Colors */
+  --color-icon-primary: #ededed;
+  --color-icon-secondary: #a3a3a3;
+  --color-icon-tertiary: #737373;
+  --color-icon-disabled: #525252;
+  --color-icon-inverse: #030303;
+  
+  /* Input Colors */
+  --color-input-bg: #0a0a0a;
+  --color-input-border: rgba(255, 255, 255, 0.2);
+  --color-input-border-hover: rgba(255, 255, 255, 0.3);
+  --color-input-border-focus: #60a5fa;
+  --color-input-border-error: #f87171;
+  --color-input-text: #ededed;
+  --color-input-placeholder: #737373;
+  --color-input-disabled-bg: #111111;
+  --color-input-disabled-text: #525252;
+  --color-input-autofill-bg: #1c1917;
+  --color-input-autofill-text: #fbbf24;
+  
+  /* Interactive States */
+  --color-interactive-hover: rgba(255, 255, 255, 0.05);
+  --color-interactive-active: rgba(255, 255, 255, 0.1);
+  --color-interactive-focus-ring: rgba(96, 165, 250, 0.5);
+  --color-interactive-disabled: rgba(255, 255, 255, 0.02);
+  
+  /* Feedback States */
+  --color-success: #22c55e;
+  --color-success-bg: rgba(34, 197, 94, 0.1);
+  --color-success-text: #86efac;
+  --color-error: #ef4444;
+  --color-error-bg: rgba(239, 68, 68, 0.1);
+  --color-error-text: #fca5a5;
+  --color-warning: #f59e0b;
+  --color-warning-bg: rgba(245, 158, 11, 0.1);
+  --color-warning-text: #fcd34d;
+  --color-info: #3b82f6;
+  --color-info-bg: rgba(59, 130, 246, 0.1);
+  --color-info-text: #93c5fd;
+  
+  /* Accent Colors */
+  --color-accent-cyan: rgba(34, 211, 238, 0.5);
+  --color-accent-purple: rgba(168, 85, 247, 0.5);
+  --color-accent-amber: rgba(251, 191, 36, 0.5);
+  --color-accent-green: rgba(74, 222, 128, 0.5);
+  
+  /* Glass/Backdrop Effects */
+  --color-glass-bg: rgba(255, 255, 255, 0.05);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+  --color-glass-hover: rgba(255, 255, 255, 0.1);
+  
+  /* Button Specific */
+  --color-btn-dot: #ededed;
+  --color-btn-line: rgba(255, 255, 255, 0.25);
+  --color-btn-grid: rgba(255, 255, 255, 0.12);
+}
+
+/* Smooth theme transitions */
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Prevent transitions on initial load to avoid flash */
+html:not(.theme-transition-ready) * {
+  transition: none !important;
+}
+
 /* Base & Reset */
 html.lenis { 
   height: auto; 
@@ -12,15 +225,47 @@ html.lenis {
 }
 
 body {
-  background-color: #030303;
-  color: #EDEDED;
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Text Selection */
 ::selection { 
-  background-color: #3b82f6; 
-  color: white; 
+  background-color: var(--color-text-link);
+  color: var(--color-text-inverse);
+}
+
+::-moz-selection {
+  background-color: var(--color-text-link);
+  color: var(--color-text-inverse);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-base);
+  border-radius: 6px;
+  border: 2px solid var(--color-bg-surface);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-strong);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-base) var(--color-bg-surface);
 }
 
 /* Custom Cursor */
@@ -39,7 +284,7 @@ body {
   .cursor-circle {
     width: 32px; 
     height: 32px;
-    border: 1px solid rgba(255,255,255,0.3);
+    border: 1px solid var(--color-border-strong);
     transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
                 height 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
                 background-color 0.3s;
@@ -52,7 +297,7 @@ body {
   .hover-active .cursor-circle {
     width: 60px; 
     height: 60px;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: var(--color-interactive-hover);
     border-color: transparent;
   }
 }
@@ -72,11 +317,11 @@ body {
   position: fixed; 
   inset: 0; 
   z-index: 10000;
-  background: #030303; 
+  background: var(--color-bg-base); 
   display: flex; 
   justify-content: center; 
   align-items: center; 
-  color: #EDEDED;
+  color: var(--color-text-primary);
 }
 
 /* Reveal Animations */
@@ -87,9 +332,10 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(to bottom, #fff, #666);
+  background: linear-gradient(to bottom, var(--color-text-primary), var(--color-text-secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* Marquee */
@@ -123,9 +369,9 @@ body {
   --line-weight: 1px; 
   --line-distance: 0.6rem 0.8rem; 
   --animation-speed: 0.35s; 
-  --dot-color: #fff; 
-  --line-color: #ffffff40; 
-  --grid-color: #ffffff20; 
+  --dot-color: var(--color-btn-dot); 
+  --line-color: var(--color-btn-line); 
+  --grid-color: var(--color-btn-grid); 
   position: relative; 
   display: inline-flex; 
   justify-content: center; 
@@ -172,21 +418,21 @@ body {
   padding: 0.8rem 1.5rem; 
   background-color: transparent; 
   border: 1px solid var(--grid-color);
-  color: #ccc; 
-  font-family: "JetBrains Mono", monospace; 
+  color: var(--color-text-secondary); 
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; 
   letter-spacing: -0.01em; 
   font-size: 0.875rem;
   font-weight: 500; 
   text-transform: uppercase; 
   border-radius: 4px; 
   cursor: pointer;
-  transition: transform .2s ease-in-out, color .2s ease-in-out;
+  transition: transform .2s ease-in-out, color .2s ease-in-out, background-color .2s ease-in-out;
   backdrop-filter: blur(4px);
 }
 
 .btn-wrapper .btn:hover { 
-  background-color: rgba(255,255,255,0.05); 
-  color: #fff; 
+  background-color: var(--color-interactive-hover); 
+  color: var(--color-text-primary); 
   transform: scale(1.02); 
 }
 
@@ -194,16 +440,21 @@ body {
   transform: scale(.98); 
 }
 
+.btn-wrapper .btn:focus-visible {
+  outline: 2px solid var(--color-interactive-focus-ring);
+  outline-offset: 2px;
+}
+
 .btn-wrapper .btn-svg { 
   margin-left: .5rem; 
   height: 16px; 
   width: 16px; 
-  stroke: #888; 
+  stroke: var(--color-icon-secondary); 
   transition: all .2s; 
 }
 
 .btn-wrapper .btn:hover .btn-svg { 
-  stroke: #fff; 
+  stroke: var(--color-icon-primary); 
 }
 
 .btn-wrapper .dot { 
@@ -344,13 +595,12 @@ body {
 .glass-bubble {
   position: absolute;
   border-radius: 9999px;
-  background: radial-gradient(circle at 0% 0%, rgba(255,255,255,0.16), transparent 55%),
-              linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02));
-  border: 1px solid rgba(255,255,255,0.16);
+  background: radial-gradient(circle at 0% 0%, var(--color-glass-bg), transparent 55%),
+              linear-gradient(135deg, var(--color-glass-bg), transparent);
+  border: 1px solid var(--color-glass-border);
   backdrop-filter: blur(18px);
-  box-shadow:
-    0 12px 30px rgba(0,0,0,0.7),
-    inset 0 0 0 1px rgba(255,255,255,0.06);
+  box-shadow: var(--shadow-xl),
+    inset 0 0 0 1px var(--color-border-subtle);
 }
 
 .glass-bubble::before {
@@ -358,7 +608,7 @@ body {
   position: absolute;
   inset: 1px;
   border-radius: inherit;
-  background: radial-gradient(circle at 10% 0%, rgba(255,255,255,0.35), transparent 55%);
+  background: radial-gradient(circle at 10% 0%, var(--color-glass-hover), transparent 55%);
   opacity: 0.6;
   pointer-events: none;
 }
@@ -372,28 +622,16 @@ body {
 .hero-bubble-designs {
   top: 2.5rem;
   left: -3.5rem;
-  /* box-shadow:
-    0 0 40px rgba(96,165,250,0.65),
-    0 18px 40px rgba(0,0,0,0.9),
-    inset 0 0 0 1px rgba(255,255,255,0.08); */
 }
 
 .hero-bubble-codes {
   bottom: -2.75rem;
   right: -4rem;
-  /* box-shadow:
-    0 0 40px rgba(34,197,94,0.7),
-    0 18px 40px rgba(0,0,0,0.9),
-    inset 0 0 0 1px rgba(255,255,255,0.08); */
 }
 
 .hero-bubble-wp {
   top: 1.5rem;
   right: -5rem;
-  /* box-shadow:
-    0 0 40px rgba(244,114,182,0.7),
-    0 18px 40px rgba(0,0,0,0.9),
-    inset 0 0 0 1px rgba(255,255,255,0.08); */
 }
 
 .glass-bubble-float-1 {
@@ -465,7 +703,8 @@ body {
 
 .code-rain-char {
   font-size: 10px;
-  color: rgba(34,197,94,0.28);
+  color: var(--color-accent-green);
+  opacity: 0.28;
   animation: code-rain 10s linear infinite;
 }
 
@@ -490,10 +729,10 @@ body {
     opacity: 0;
   }
   10% {
-    opacity: 1;
+    opacity: 0.28;
   }
   90% {
-    opacity: 1;
+    opacity: 0.28;
   }
   100% {
     transform: translateY(40%);
@@ -511,7 +750,8 @@ body {
   width: 8px;
   height: 1em;
   margin-left: 4px;
-  background-color: rgba(110,231,183,0.9);
+  background-color: var(--color-accent-green);
+  opacity: 0.9;
   border-radius: 999px;
   vertical-align: middle;
   animation: cursor-blink 1s steps(2, start) infinite;
@@ -519,7 +759,7 @@ body {
 
 @keyframes cursor-blink {
   0%, 50% {
-    opacity: 1;
+    opacity: 0.9;
   }
   50.01%, 100% {
     opacity: 0;
@@ -544,7 +784,7 @@ body {
   bottom: 0.15em;
   width: 100%;
   height: 0.4em;
-  background-color: rgba(34, 211, 238, 0.5);
+  background-color: var(--color-accent-cyan);
   z-index: -1;
   border-radius: 2px;
 }
@@ -556,7 +796,7 @@ body {
   bottom: 0.15em;
   width: 100%;
   height: 0.4em;
-  background-color: rgba(168, 85, 247, 0.5);
+  background-color: var(--color-accent-purple);
   z-index: -1;
   border-radius: 2px;
 }
@@ -568,7 +808,7 @@ body {
   bottom: 0.15em;
   width: 100%;
   height: 0.4em;
-  background-color: rgba(251, 191, 36, 0.5);
+  background-color: var(--color-accent-amber);
   z-index: -1;
   border-radius: 2px;
 }
@@ -580,8 +820,85 @@ body {
   bottom: 0.15em;
   width: 100%;
   height: 0.4em;
-  background-color: rgba(74, 222, 128, 0.5);
+  background-color: var(--color-accent-green);
   z-index: -1;
   border-radius: 2px;
 }
 
+/* SVG Color Inheritance */
+svg {
+  fill: currentColor;
+}
+
+svg[stroke] {
+  stroke: currentColor;
+}
+
+/* Image Dark Mode Handling */
+img {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+/* Form Input Styles */
+input,
+textarea,
+select {
+  background-color: var(--color-input-bg);
+  border-color: var(--color-input-border);
+  color: var(--color-input-text);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-input-placeholder);
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+  border-color: var(--color-input-border-hover);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-input-border-focus);
+  outline: 2px solid var(--color-interactive-focus-ring);
+  outline-offset: 2px;
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled {
+  background-color: var(--color-input-disabled-bg);
+  color: var(--color-input-disabled-text);
+  cursor: not-allowed;
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  background-color: var(--color-input-autofill-bg) !important;
+  color: var(--color-input-autofill-text) !important;
+  -webkit-text-fill-color: var(--color-input-autofill-text) !important;
+  box-shadow: 0 0 0px 1000px var(--color-input-autofill-bg) inset !important;
+}
+
+input:autofill,
+textarea:autofill,
+select:autofill {
+  background-color: var(--color-input-autofill-bg);
+  color: var(--color-input-autofill-text);
+}
+
+/* Focus Visible (keyboard navigation) */
+:focus-visible {
+  outline: 2px solid var(--color-interactive-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Remove default focus for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}

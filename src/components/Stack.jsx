@@ -31,24 +31,24 @@ const Stack = () => {
       return (
         <span key={`${item.label}-${idx}`} className="mx-8 inline-flex items-center gap-2">
           {item.iconClass ? (
-            <i className={`${item.iconClass} text-white/80 text-sm`}></i>
+            <i className={`${item.iconClass} text-icon-secondary text-sm`}></i>
           ) : (
-            <i className="fa-solid fa-circle text-white/80 text-[0.6rem]"></i>
+            <i className="fa-solid fa-circle text-icon-secondary text-[0.6rem]"></i>
           )}
-          <span>{item.label}</span>
+          <span className="text-text-secondary">{item.label}</span>
         </span>
       )
     })
   }
 
   return (
-    <section id="stack" className="py-12 border-y border-white/5 bg-black/50 backdrop-blur-sm overflow-hidden mt-12">
+    <section id="stack" className="py-12 border-y border-divider bg-bg-overlay backdrop-blur-sm overflow-hidden mt-12">
       <div className="space-y-6">
-        <div className="marquee-track font-mono text-sm md:text-base text-gray-500 uppercase tracking-widest">
+        <div className="marquee-track font-mono text-sm md:text-base text-text-tertiary uppercase tracking-widest">
           {renderItems(tools)}
         </div>
         <div
-          className="marquee-track font-mono text-sm md:text-base text-gray-500 uppercase tracking-widest"
+          className="marquee-track font-mono text-sm md:text-base text-text-tertiary uppercase tracking-widest"
           style={{ animationDirection: 'reverse' }}
         >
           {renderItems(frontendStack)}

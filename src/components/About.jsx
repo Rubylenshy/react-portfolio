@@ -2,10 +2,10 @@ const About = () => {
   return (
       <section
           id="about"
-          className="px-6 py-12 md:py-24 max-w-[1400px] mx-auto border-t border-white/5"
+          className="px-6 py-12 md:py-24 max-w-[1400px] mx-auto border-t border-divider"
       >
           <div className="flex flex-col items-center pb-5">
-              <h2 className="text-xs font-mono uppercase tracking-[0.2em] text-secondary mb-4">
+              <h2 className="text-xs font-mono uppercase tracking-[0.2em] text-text-secondary mb-4">
                   The Developer Story
               </h2>
           </div>
@@ -13,7 +13,7 @@ const About = () => {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-16">
               <div className="md:col-span-4">
                   <div className="flex flex-row md:flex-col gap-3 pb-5">
-                      <div className="magnetic-btn max-h-fit max-w-fit inline-flex items-center justify-center rounded-full border border-white p-[3px] transition duration-300">
+                      <div className="magnetic-btn max-h-fit max-w-fit inline-flex items-center justify-center rounded-full border border-border-base p-[3px] transition duration-300">
                           <img
                               src="./src/assets/images/profile.jpg"
                               alt="Profile"
@@ -22,13 +22,13 @@ const About = () => {
                               className="rounded-full grayscale hover:grayscale-0 transition duration-500"
                           />
                       </div>
-                      <h3 className="text-3xl md:text-5xl font-semibold tracking-tighter text-white mb-6">
+                      <h3 className="text-3xl md:text-5xl font-semibold tracking-tighter text-text-primary mb-6">
                           Engineering
                           <br />
-                          <span className="text-gray-500">Solutions</span>
+                          <span className="text-text-tertiary">Solutions</span>
                       </h3>
                   </div>
-                  <p className="text-sm md:text-base text-gray-400 leading-7 font-light mb-8">
+                  <p className="text-sm md:text-base text-text-secondary leading-7 font-light mb-8">
                       I'm a{" "}
                       <span className="highlight-cyan">
                           frontend-focused engineer
@@ -37,7 +37,8 @@ const About = () => {
                       <span className="highlight-purple">
                           systems, not just screens
                       </span>
-                      . With a strong foundation in WordPress plugin development and{" "}
+                      . With a strong foundation in WordPress plugin development
+                      and{" "}
                       <span className="highlight-cyan">
                           modern frontend engineering
                       </span>
@@ -45,8 +46,9 @@ const About = () => {
                       <span className="highlight-green">intuitive</span> and
                       codebases that stay{" "}
                       <span className="highlight-green">maintainable</span> long
-                      after launch. I'm currently working on a number of exciting projects
-                      that I'm looking forward to sharing each one pushing{" "}
+                      after launch. I'm currently working on a number of
+                      exciting projects that I'm looking forward to sharing each
+                      one pushing{" "}
                       <span className="highlight-amber">
                           performance, clarity, and user experience
                       </span>{" "}
@@ -55,28 +57,28 @@ const About = () => {
 
                   <div className="flex gap-4">
                       <div className="flex flex-col">
-                          <span className="text-2xl font-semibold text-white">
+                          <span className="text-2xl font-semibold text-text-primary">
                               8+
                           </span>
-                          <span className="text-[10px] uppercase tracking-widest text-secondary mt-1">
+                          <span className="text-[10px] uppercase tracking-widest text-text-secondary mt-1">
                               WordPress plugins delivered
                           </span>
                       </div>
-                      <div className="w-[1px] bg-white/10"></div>
+                      <div className="w-[1px] bg-divider"></div>
                       <div className="flex flex-col">
-                          <span className="text-2xl font-semibold text-white">
+                          <span className="text-2xl font-semibold text-text-primary">
                               6+
                           </span>
-                          <span className="text-[10px] uppercase tracking-widest text-secondary mt-1">
+                          <span className="text-[10px] uppercase tracking-widest text-text-secondary mt-1">
                               Satisfied clients
                           </span>
                       </div>
-                      <div className="w-[1px] bg-white/10"></div>
+                      <div className="w-[1px] bg-divider"></div>
                       <div className="flex flex-col">
-                          <span className="text-2xl font-semibold text-white">
+                          <span className="text-2xl font-semibold text-text-primary">
                               98.9%
                           </span>
-                          <span className="text-[10px] uppercase tracking-widest text-secondary mt-1">
+                          <span className="text-[10px] uppercase tracking-widest text-text-secondary mt-1">
                               Delivery Success Rate
                           </span>
                       </div>
@@ -85,14 +87,14 @@ const About = () => {
 
               <div className="md:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Card 1 */}
-                  <div className="p-8 bg-white/5 border border-white/5 rounded-sm hover:bg-white/10 transition-colors duration-500 group">
-                      <div className="w-10 h-10 bg-black border border-white/10 rounded-full flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform">
+                  <div className="p-8 bg-surface-elevated border border-border-base rounded-sm hover:bg-surface-hover transition-colors duration-500 group">
+                      <div className="w-10 h-10 bg-surface-base border border-border-base rounded-full flex items-center justify-center mb-6 text-icon-primary group-hover:scale-110 transition-transform">
                           <i className="fa-solid fa-puzzle-piece text-sm" />
                       </div>
-                      <h4 className="text-lg font-medium text-white mb-2">
+                      <h4 className="text-lg font-medium text-text-primary mb-2">
                           Plugin Development
                       </h4>
-                      <p className="text-sm text-secondary leading-relaxed">
+                      <p className="text-sm text-text-secondary leading-relaxed">
                           I develop custom, high-performance WordPress plugins
                           designed to extend functionality without sacrificing
                           speed, security, or scalability. Every plugin is built
@@ -102,14 +104,14 @@ const About = () => {
                   </div>
 
                   {/* Card 2 */}
-                  <div className="p-8 bg-white/5 border border-white/5 rounded-sm hover:bg-white/10 transition-colors duration-500 group">
-                      <div className="w-10 h-10 bg-black border border-white/10 rounded-full flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform">
+                  <div className="p-8 bg-surface-elevated border border-border-base rounded-sm hover:bg-surface-hover transition-colors duration-500 group">
+                      <div className="w-10 h-10 bg-surface-base border border-border-base rounded-full flex items-center justify-center mb-6 text-icon-primary group-hover:scale-110 transition-transform">
                           <i className="fa-solid fa-layer-group text-sm" />
                       </div>
-                      <h4 className="text-lg font-medium text-white mb-2">
+                      <h4 className="text-lg font-medium text-text-primary mb-2">
                           Design Engineering
                       </h4>
-                      <p className="text-sm text-secondary leading-relaxed">
+                      <p className="text-sm text-text-secondary leading-relaxed">
                           I translate Figma designs into precise, interactive
                           interfaces using React, Tailwind CSS, and modern
                           frontend techniques—bridging the gap between design
@@ -118,14 +120,14 @@ const About = () => {
                   </div>
 
                   {/* Card 3 */}
-                  <div className="p-8 bg-white/5 border border-white/5 rounded-sm hover:bg-white/10 transition-colors duration-500 group">
-                      <div className="w-10 h-10 bg-black border border-white/10 rounded-full flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform">
+                  <div className="p-8 bg-surface-elevated border border-border-base rounded-sm hover:bg-surface-hover transition-colors duration-500 group">
+                      <div className="w-10 h-10 bg-surface-base border border-border-base rounded-full flex items-center justify-center mb-6 text-icon-primary group-hover:scale-110 transition-transform">
                           <i className="fa-solid fa-microchip text-sm" />
                       </div>
-                      <h4 className="text-lg font-medium text-white mb-2">
+                      <h4 className="text-lg font-medium text-text-primary mb-2">
                           API Integration
                       </h4>
-                      <p className="text-sm text-secondary leading-relaxed">
+                      <p className="text-sm text-text-secondary leading-relaxed">
                           I integrate third-party services like Stripe and
                           HubSpot into web applications, creating seamless data
                           flows and automated workflows that quietly do their
@@ -134,14 +136,14 @@ const About = () => {
                   </div>
 
                   {/* Card 4 */}
-                  <div className="p-8 bg-white/5 border border-white/5 rounded-sm hover:bg-white/10 transition-colors duration-500 group">
-                      <div className="w-10 h-10 bg-black border border-white/10 rounded-full flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform">
+                  <div className="p-8 bg-surface-elevated border border-border-base rounded-sm hover:bg-surface-hover transition-colors duration-500 group">
+                      <div className="w-10 h-10 bg-surface-base border border-border-base rounded-full flex items-center justify-center mb-6 text-icon-primary group-hover:scale-110 transition-transform">
                           <i className="fa-solid fa-gauge-high text-sm" />
                       </div>
-                      <h4 className="text-lg font-medium text-white mb-2">
+                      <h4 className="text-lg font-medium text-text-primary mb-2">
                           Performance Optimization
                       </h4>
-                      <p className="text-sm text-secondary leading-relaxed">
+                      <p className="text-sm text-text-secondary leading-relaxed">
                           I audit and refactor existing codebases to improve
                           load times, accessibility, and Core Web Vitals,
                           consistently targeting 90+ Lighthouse scores and fast,

@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { ThemeProvider } from './contexts/ThemeContext'
 import Loader from './components/Loader'
 import Cursor from './components/Cursor'
 import Home from './pages/Home'
@@ -17,17 +18,19 @@ function App() {
   useAnimations()
 
   return (
-    <Router>
-      <div className="overflow-x-hidden w-full selection:bg-white/20 selection:text-white">
-        <Loader />
-        <Cursor />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/blogs" element={<Blogs />} />
-        </Routes>
-      </div>
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <div className="overflow-x-hidden w-full">
+          <Loader />
+          <Cursor />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/blogs" element={<Blogs />} />
+          </Routes>
+        </div>
+      </Router>
+    </ThemeProvider>
   )
 }
 
