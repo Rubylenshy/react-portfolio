@@ -23,6 +23,31 @@
     "direction": "right"
   },
   {
+    "title": "Linksy",
+    "subtitle": "AI Internal Linking Plugin",
+    "type": "plugin",
+    "description": "Build the internal links that search engines love, using Linksy's AI-powered Keyword Extraction Algorithm and Natural Language Processing content analysis.",
+    "mockup": "https://lh3.googleusercontent.com/u/0/d/1QfUd_nxxxWB8FR_GJQMn497xnYAP3oEy",
+    "bullet_points": [
+      "Automated link suggestions",
+      "Silo network visualization",
+      "Content processing stats",
+      "Internal/External link analytics",
+      "Snippet rewriter"
+    ],
+    "stack_icons": [
+      "wordpress",
+      "gemini",
+      "vue",
+      "php",
+      "mysql",
+      "chartjs"
+    ],
+    "live_link": "https://linksyai.com",
+    "code_link": "#",
+    "direction": "left"
+  },
+  {
     "title": "Agile System",
     "subtitle": "Project Management Tool",
     "type": "frontend",
@@ -43,7 +68,7 @@
     ],
     "live_link": "https://agile-system.vercel.app/",
     "code_link": "https://github.com/Rubylenshy/agile-system",
-    "direction": "left"
+    "direction": "right"
   },
   {
     "title": "Nestlify",
@@ -66,9 +91,32 @@
     ],
     "live_link": "https://nestlify-react-app.vercel.app/",
     "code_link": "#",
+    "direction": "left"
+  },
+  {
+    "title": "Linksy Search & Replace",
+    "subtitle": "Advanced Database Utility Plugin",
+    "type": "plugin",
+    "description": "A robust database management interface to search and update URLs, Anchors, Titles and more on your site without digging into your database.",
+    "mockup": "https://lh3.googleusercontent.com/u/0/d/1XZhFkGNlZEpWokLglT5eKCr8ZfC-uAlW",
+    "bullet_points": [
+      "Broken link detection",
+      "Bulk URL replacement",
+      "Redirect management",
+      "Database anchor scanning",
+      "Status code monitoring"
+    ],
+    "stack_icons": [
+      "wordpress",
+      "vue",
+      "php",
+      "mysql",
+      "regex"
+    ],
+    "live_link": "https://linksyai.com",
+    "code_link": "#",
     "direction": "right"
   },
-  
   {
     "title": "Reuben Oluwafemi",
     "subtitle": "Personal Portfolio",
@@ -91,7 +139,7 @@
     ],
     "live_link": "https://reuben-oluwafemi.vercel.app/",
     "code_link": "https://github.com/Rubylenshy/react-portfolio",
-    "direction": "right"
+    "direction": "left"
   },
   {
     "title": "The Marque Hub",
@@ -113,6 +161,54 @@
     ],
     "live_link": "https://rubylenshy.github.io/the-marquee-hub-landing-page/",
     "code_link": "https://github.com/Rubylenshy/the-marquee-hub-landing-page",
+    "direction": "right"
+  },
+  {
+    "title": "Datey AI",
+    "subtitle": "Content Freshness Manager Plugin",
+    "type": "plugin",
+    "description": "An intelligent auditing dashboard that identifies outdated years and terms across blog posts, streamlining the process of keeping evergreen content current.",
+    "mockup": "https://lh3.googleusercontent.com/u/0/d/1HsjrD8C48cpDOnYAPuwy32y9bdsJKlxT",
+    "bullet_points": [
+      "Automated post scanning",
+      "Outdated term detection",
+      "Urgent review queue",
+      "Year-based invalidation logic",
+      "Bulk status updates"
+    ],
+    "stack_icons": [
+      "wordpress",
+      "react",
+      "php",
+      "gemini",
+      "tailwind"
+    ],
+    "live_link": "https://plugli.com",
+    "code_link": "#",
+    "direction": "right"
+  },
+  {
+    "title": "AltTexty",
+    "subtitle": "Automated Image Accessibility Plugin",
+    "type": "plugin",
+    "description": "A bulk accessibility tool that leverages AI to analyze media libraries and generate descriptive alt text for images, ensuring WCAG compliance and better SEO.",
+    "mockup": "https://lh3.googleusercontent.com/u/0/d/1aaEVXR2hNWbOIFppyedj665cEqpCQEsG",
+    "bullet_points": [
+      "Bulk alt text generation",
+      "Credit usage tracking",
+      "Media library integration",
+      "Missing alt text detection",
+      "Automated image analysis"
+    ],
+    "stack_icons": [
+      "wordpress",
+      "react",
+      "php",
+      "nano-banana",
+      "api"
+    ],
+    "live_link": "https://plugli.com",
+    "code_link": "#",
     "direction": "left"
   },
   {
@@ -136,7 +232,7 @@
     ],
     "live_link": "https://rubylenshy.github.io/sushi-restaurant/",
     "code_link": "https://github.com/Rubylenshy/sushi-restaurant",
-    "direction": "left"
+    "direction": "right"
   },
   {
     "title": "DevJobs Board",
@@ -159,6 +255,6 @@
     ],
     "live_link": "http://static-job-listings-pink.vercel.app/",
     "code_link": "https://github.com/Rubylenshy/static-job-listings",
-    "direction": "right"
+    "direction": "left"
   }
 ]
