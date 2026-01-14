@@ -21,6 +21,11 @@ const Contact = () => {
             label: "LinkedIn",
         },
         {
+            icon: "fa-brands fa-wordpress",
+            href: "https://profiles.wordpress.org/reztomoloju/",
+            label: "WordPress.org",
+        },
+        {
             icon: "fa-solid fa-envelope",
             href: "mailto:reztomoloju@gmail.com",
             label: "Email",
