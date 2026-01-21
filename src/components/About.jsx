@@ -10,25 +10,33 @@ const About = () => {
               </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-16">
-              <div className="md:col-span-4">
-                  <div className="flex flex-row md:flex-col gap-3 pb-5">
-                      <div className="magnetic-btn max-h-fit max-w-fit inline-flex items-center justify-center rounded-full border border-white p-[3px] transition duration-300">
-                          <img
-                              src="./src/assets/images/profile.jpg"
-                              alt="Profile"
-                              width={60}
-                              height={60}
-                              className="rounded-full grayscale hover:grayscale-0 transition duration-500"
-                          />
-                      </div>
-                      <h3 className="text-3xl md:text-5xl font-semibold tracking-tighter text-white mb-6">
+          <div className="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-16 mx-auto max-w-6xl">
+              {/* Left column: avatar + bold intro */}
+              <div className="flex items-center lg:items-start gap-4 lg:gap-6">
+                  <div className="magnetic-btn max-h-fit max-w-fit inline-flex items-center justify-center rounded-full border border-white/80 p-[3px] shadow-[0_0_0_1px_rgba(255,255,255,0.1)] transition duration-300">
+                      <img
+                          src="./src/assets/images/profile.jpg"
+                          alt="Profile"
+                          width={72}
+                          height={72}
+                          className="rounded-full grayscale hover:grayscale-0 transition duration-500"
+                      />
+                  </div>
+                  <div className="flex flex-col">
+                      <span className="text-[11px] md:text-xs font-mono uppercase tracking-[0.25em] text-secondary mb-3">
+                          Frontend & Wordpress Engineer
+                      </span>
+                      <h3 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-white leading-[1.05]">
                           Engineering
                           <br />
-                          <span className="text-gray-500">Solutions</span>
+                          <span className="text-gray-500">for real users</span>
                       </h3>
                   </div>
-                  <p className="text-sm md:text-base text-gray-400 leading-7 font-light mb-8">
+              </div>
+
+              {/* Right column: story + metrics */}
+              <div className="flex-1 w-full space-y-8">
+                  <p className="text-sm md:text-base text-gray-400 leading-7 md:leading-8 font-light max-w-xl">
                       I'm a{" "}
                       <span className="highlight-cyan">
                           frontend-focused engineer
@@ -37,7 +45,8 @@ const About = () => {
                       <span className="highlight-purple">
                           systems, not just screens
                       </span>
-                      . With a strong foundation in WordPress plugin development and{" "}
+                      . With a strong foundation in WordPress plugin development
+                      and{" "}
                       <span className="highlight-cyan">
                           modern frontend engineering
                       </span>
@@ -45,108 +54,41 @@ const About = () => {
                       <span className="highlight-green">intuitive</span> and
                       codebases that stay{" "}
                       <span className="highlight-green">maintainable</span> long
-                      after launch. I'm currently working on a number of exciting projects
-                      that I'm looking forward to sharing each one pushing{" "}
+                      after launch. I'm currently working on a number of
+                      exciting projects, each one pushing{" "}
                       <span className="highlight-amber">
                           performance, clarity, and user experience
                       </span>{" "}
                       a little further.
                   </p>
 
-                  <div className="flex gap-4">
-                      <div className="flex flex-col">
-                          <span className="text-2xl font-semibold text-white">
+                  <div className="flex flex-wrap lg:flex-nowrap gap-6 md:gap-10">
+                      <div className="flex flex-col min-w-[120px]">
+                          <span className="text-3xl font-semibold text-white">
                               8+
                           </span>
                           <span className="text-[10px] uppercase tracking-widest text-secondary mt-1">
                               WordPress plugins delivered
                           </span>
                       </div>
-                      <div className="w-[1px] bg-white/10"></div>
-                      <div className="flex flex-col">
-                          <span className="text-2xl font-semibold text-white">
+                      <div className="h-10 w-px bg-white/10 hidden md:block"></div>
+                      <div className="flex flex-col min-w-[120px]">
+                          <span className="text-3xl font-semibold text-white">
                               6+
                           </span>
                           <span className="text-[10px] uppercase tracking-widest text-secondary mt-1">
                               Satisfied clients
                           </span>
                       </div>
-                      <div className="w-[1px] bg-white/10"></div>
-                      <div className="flex flex-col">
-                          <span className="text-2xl font-semibold text-white">
+                      <div className="h-10 w-px bg-white/10 hidden md:block"></div>
+                      <div className="flex flex-col min-w-[120px]">
+                          <span className="text-3xl font-semibold text-white">
                               98.9%
                           </span>
                           <span className="text-[10px] uppercase tracking-widest text-secondary mt-1">
-                              Delivery Success Rate
+                              Delivery success rate
                           </span>
                       </div>
-                  </div>
-              </div>
-
-              <div className="md:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Card 1 */}
-                  <div className="p-8 bg-white/5 border border-white/5 rounded-sm hover:bg-white/10 transition-colors duration-500 group">
-                      <div className="w-10 h-10 bg-black border border-white/10 rounded-full flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform">
-                          <i className="fa-solid fa-puzzle-piece text-sm" />
-                      </div>
-                      <h4 className="text-lg font-medium text-white mb-2">
-                          Plugin Development
-                      </h4>
-                      <p className="text-sm text-secondary leading-relaxed">
-                          I develop custom, high-performance WordPress plugins
-                          designed to extend functionality without sacrificing
-                          speed, security, or scalability. Every plugin is built
-                          with users experience and long-term maintenance in
-                          mind.
-                      </p>
-                  </div>
-
-                  {/* Card 2 */}
-                  <div className="p-8 bg-white/5 border border-white/5 rounded-sm hover:bg-white/10 transition-colors duration-500 group">
-                      <div className="w-10 h-10 bg-black border border-white/10 rounded-full flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform">
-                          <i className="fa-solid fa-layer-group text-sm" />
-                      </div>
-                      <h4 className="text-lg font-medium text-white mb-2">
-                          Design Engineering
-                      </h4>
-                      <p className="text-sm text-secondary leading-relaxed">
-                          I translate Figma designs into precise, interactive
-                          interfaces using React, Tailwind CSS, and modern
-                          frontend techniques—bridging the gap between design
-                          intent and production-ready code.
-                      </p>
-                  </div>
-
-                  {/* Card 3 */}
-                  <div className="p-8 bg-white/5 border border-white/5 rounded-sm hover:bg-white/10 transition-colors duration-500 group">
-                      <div className="w-10 h-10 bg-black border border-white/10 rounded-full flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform">
-                          <i className="fa-solid fa-microchip text-sm" />
-                      </div>
-                      <h4 className="text-lg font-medium text-white mb-2">
-                          API Integration
-                      </h4>
-                      <p className="text-sm text-secondary leading-relaxed">
-                          I integrate third-party services like Stripe and
-                          HubSpot into web applications, creating seamless data
-                          flows and automated workflows that quietly do their
-                          job in the background.
-                      </p>
-                  </div>
-
-                  {/* Card 4 */}
-                  <div className="p-8 bg-white/5 border border-white/5 rounded-sm hover:bg-white/10 transition-colors duration-500 group">
-                      <div className="w-10 h-10 bg-black border border-white/10 rounded-full flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform">
-                          <i className="fa-solid fa-gauge-high text-sm" />
-                      </div>
-                      <h4 className="text-lg font-medium text-white mb-2">
-                          Performance Optimization
-                      </h4>
-                      <p className="text-sm text-secondary leading-relaxed">
-                          I audit and refactor existing codebases to improve
-                          load times, accessibility, and Core Web Vitals,
-                          consistently targeting 90+ Lighthouse scores and fast,
-                          reliable user experiences.
-                      </p>
                   </div>
               </div>
           </div>
