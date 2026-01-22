@@ -15,7 +15,7 @@ const About = () => {
               <div className="flex items-center lg:items-start gap-4 lg:gap-6">
                   <div className="magnetic-btn max-h-fit max-w-fit inline-flex items-center justify-center rounded-full border border-white/80 p-[3px] shadow-[0_0_0_1px_rgba(255,255,255,0.1)] transition duration-300">
                       <img
-                          src="./src/assets/images/profile.jpg"
+                          src="https://lh3.googleusercontent.com/u/0/d/1f8xtRXV_rfbaZOKP8vV9xkF9T6-1DEfy"
                           alt="Profile"
                           width={72}
                           height={72}
@@ -35,7 +35,7 @@ const About = () => {
               </div>
 
               {/* Right column: story + metrics */}
-              <div className="flex-1 w-full space-y-8">
+              <div className="flex-1 items-center lg:items-start w-full space-y-8">
                   <p className="text-sm md:text-base text-gray-400 leading-7 md:leading-8 font-light max-w-xl">
                       I'm a{" "}
                       <span className="highlight-cyan">

@@ -40,28 +40,28 @@ const Stack = () => {
             icon: "fa-solid fa-puzzle-piece",
             description:
                 "Custom WordPress plugins built for performance, security, and scalability.",
-            pills: ["PHP", "WordPress", "MySQL"],
+            pills: ["Custom WordPress Plugins", "WooCommerce Feat.", "SEO & Automation"],
         },
         {
             role: "Frontend Engineer",
             icon: "fa-solid fa-layer-group",
             description:
                 "Translating designs into production-ready React interfaces with modern frontend techniques.",
-            pills: ["React", "Tailwind CSS", "Figma"],
+            pills: ["Web App UI", "E-commerce", "AI-Driven UI"],
         },
         {
             role: "API Integration Specialist",
             icon: "fa-solid fa-microchip",
             description:
                 "Seamless third-party integrations creating automated workflows and data flows.",
-            pills: ["REST APIs", "Stripe", "HubSpot"],
+            pills: ["CRM & Marketing API", "App-to-App Automation", "HubSpot"],
         },
         {
             role: "Performance Optimizer",
             icon: "fa-solid fa-gauge-high",
             description:
                 "Code audits and refactoring targeting 90+ Lighthouse scores and Core Web Vitals.",
-            pills: ["Lighthouse", "Web Vitals", "Optimization"],
+            pills: ["Core Web Vitals Fix", "Website Performance", "Site Optimization"],
         },
     ];
 
@@ -192,7 +192,7 @@ const Stack = () => {
                             <h4 className="text-lg font-semibold text-white mb-3">
                                 {roles[0].role}
                             </h4>
-                            <p className="text-sm text-secondary leading-relaxed mb-4">
+                            <p className="text-sm text-white leading-relaxed mb-4">
                                 {roles[0].description}
                             </p>
                             <div className="flex flex-wrap gap-2">
@@ -219,7 +219,7 @@ const Stack = () => {
                             <h4 className="text-lg font-semibold text-white mb-3">
                                 {roles[1].role}
                             </h4>
-                            <p className="text-sm text-secondary leading-relaxed mb-4">
+                            <p className="text-sm text-white leading-relaxed mb-4">
                                 {roles[1].description}
                             </p>
                             <div className="flex flex-wrap gap-2">
@@ -246,7 +246,7 @@ const Stack = () => {
                             <h4 className="text-lg font-semibold text-white mb-3">
                                 {roles[2].role}
                             </h4>
-                            <p className="text-sm text-secondary leading-relaxed mb-4">
+                            <p className="text-sm text-white leading-relaxed mb-4">
                                 {roles[2].description}
                             </p>
                             <div className="flex flex-wrap gap-2">
@@ -273,7 +273,7 @@ const Stack = () => {
                             <h4 className="text-lg font-semibold text-white mb-3">
                                 {roles[3].role}
                             </h4>
-                            <p className="text-sm text-secondary leading-relaxed mb-4">
+                            <p className="text-sm text-white leading-relaxed mb-4">
                                 {roles[3].description}
                             </p>
                             <div className="flex flex-wrap gap-2">
