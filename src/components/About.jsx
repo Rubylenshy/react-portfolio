@@ -15,7 +15,7 @@ const About = () => {
               <div className="flex items-center lg:items-start gap-4 lg:gap-6">
                   <div className="magnetic-btn max-h-fit max-w-fit inline-flex items-center justify-center rounded-full border border-white/80 p-[3px] shadow-[0_0_0_1px_rgba(255,255,255,0.1)] transition duration-300">
                       <img
-                          src="https://lh3.googleusercontent.com/u/0/d/1f8xtRXV_rfbaZOKP8vV9xkF9T6-1DEfy"
+                          src="/images/profile.jpeg"
                           alt="Profile"
                           width={72}
                           height={72}
