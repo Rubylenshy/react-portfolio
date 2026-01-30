@@ -1,4 +1,8 @@
+import { useState } from 'react'
+import ContactModal from './ContactModal'
+
 const Contact = () => {
+    const [showRequestModal, setShowRequestModal] = useState(false)
     const socialLinks = [
         {
             icon: "fa-brands fa-x-twitter",
@@ -64,12 +68,14 @@ const Contact = () => {
                 </h2>
 
                 <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                    <a
-                        href="mailto:reztomoloju@gmail.com"
+                    <button
+                        type="button"
+                        onClick={() => setShowRequestModal(true)}
                         className="px-8 py-4 border border-white/20 text-gray-800 bg-white rounded-sm font-mono text-xs uppercase font-bold tracking-widest hover:bg-white/80 transition-colors magnetic-btn"
                     >
                         <span className="">hello@reuben.dev</span>
-                    </a>
+                    </button>
+                    <ContactModal isOpen={showRequestModal} onClose={() => setShowRequestModal(false)} />
 
                     <a
                         href="https://github.com/Rubylenshy"
