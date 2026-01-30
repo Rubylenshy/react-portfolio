@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import projects from '../assets/data/projects.json'
 import Footer from '../components/Footer'
@@ -5,6 +6,7 @@ import BackHomeButton from '../components/BackHomeButton'
 
 const Projects = () => {
   const [searchParams, setSearchParams] = useSearchParams()
+  const [expandedImage, setExpandedImage] = useState(null)
   const typeFromUrl = searchParams.get('type') || 'all'
   const validTypes = ['frontend', 'design', 'plugin']
   const activeType = validTypes.includes(typeFromUrl) ? typeFromUrl : 'all'
@@ -23,8 +25,55 @@ const Projects = () => {
   const filteredProjects =
     activeType === 'all' ? projects : projects.filter((project) => project.type === activeType)
 
+  useEffect(() => {
+    if (!expandedImage) return
+    const onEscape = (e) => e.key === 'Escape' && setExpandedImage(null)
+    document.addEventListener('keydown', onEscape)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onEscape)
+      document.body.style.overflow = ''
+    }
+  }, [expandedImage])
+
   return (
     <>
+      {/* Image expand modal */}
+      {expandedImage && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Expanded image"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          onClick={() => setExpandedImage(null)}
+        >
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-md"
+            aria-hidden="true"
+          />
+          <div
+            className="relative z-10 flex flex-col items-end gap-4 max-w-[90vw] max-h-[90vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setExpandedImage(null)}
+              className="shrink-0 rounded-full w-10 h-10 flex items-center justify-center bg-white/10 hover:bg-white/20 border border-white/20 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
+              aria-label="Close"
+            >
+              <i className="fa-solid fa-times text-lg" />
+            </button>
+            <div className="overflow-auto rounded-sm border border-white/10 bg-[#111] shadow-2xl modal-zoom-in">
+              <img
+                src={expandedImage.src}
+                alt={expandedImage.alt}
+                className="max-w-full max-h-[85vh] w-auto h-auto object-contain"
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
       <main
         className="min-h-screen bg-[#030303] text-white px-6 pt-16 pb-20 md:pt-20 md:pb-24"
         data-scroll-animate
@@ -85,11 +134,17 @@ const Projects = () => {
                   className="flex flex-col gap-6"
                 >
                 <div className="w-full overflow-hidden rounded-sm bg-[#111] border border-white/5">
-                  <img
-                    src={project.mockup}
-                    alt={project.title}
-                    className="w-full h-auto object-cover"
-                  />
+                  <button
+                    type="button"
+                    onClick={() => setExpandedImage({ src: project.mockup, alt: project.title })}
+                    className="w-full h-auto block cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-[#030303] rounded-sm"
+                  >
+                    <img
+                      src={project.mockup}
+                      alt={project.title}
+                      className="w-full h-auto object-cover"
+                    />
+                  </button>
                 </div>
 
                 <div className="space-y-4">

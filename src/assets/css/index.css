@@ -110,6 +110,21 @@ body {
   }
 }
 
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-zoom-in {
+  animation: zoomIn 0.25s ease-out;
+}
+
 /* --- Animated Button Styles (Scoped) --- */
 .btn-container {
   display: flex;
