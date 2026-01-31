@@ -68,7 +68,7 @@ const ContactModal = ({ isOpen, onClose }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <label className="block">
-                  <span className="block font-mono text-[10px] uppercase tracking-widest text-gray-400 mb-2">Your name</span>
+                  <span className="block font-mono text-[10px] text-left uppercase tracking-widest text-gray-400 mb-2">Your name</span>
                   <input
                     type="text"
                     name="from_name"
@@ -78,7 +78,7 @@ const ContactModal = ({ isOpen, onClose }) => {
                   />
                 </label>
                 <label className="block">
-                  <span className="block font-mono text-[10px] uppercase tracking-widest text-gray-400 mb-2">Company</span>
+                  <span className="block font-mono text-[10px] text-left uppercase tracking-widest text-gray-400 mb-2">Company</span>
                   <input
                     type="text"
                     name="company"
@@ -86,19 +86,10 @@ const ContactModal = ({ isOpen, onClose }) => {
                     className="w-full px-4 py-3 rounded-md bg-white/5 border border-white/10 text-white placeholder-gray-500 font-mono text-sm focus:outline-none focus:border-white/30 transition-colors"
                   />
                 </label>
-                <label className="block">
-                  <span className="block font-mono text-[10px] uppercase tracking-widest text-gray-400 mb-2">What are you building?</span>
-                  <textarea
-                    name="message"
-                    placeholder="A few sentences about your goals, timeline, and success metrics."
-                    rows={4}
-                    className="w-full px-4 py-3 rounded-md bg-white/5 border border-white/10 text-white placeholder-gray-500 font-mono text-sm focus:outline-none focus:border-white/30 transition-colors resize-y min-h-[100px]"
-                  />
-                </label>
               </div>
               <div className="space-y-4">
                 <label className="block">
-                  <span className="block font-mono text-[10px] uppercase tracking-widest text-gray-400 mb-2">Email</span>
+                  <span className="block font-mono text-[10px] text-left uppercase tracking-widest text-gray-400 mb-2">Email</span>
                   <input
                     type="email"
                     name="email"
@@ -108,7 +99,7 @@ const ContactModal = ({ isOpen, onClose }) => {
                   />
                 </label>
                 <label className="block">
-                  <span className="block font-mono text-[10px] uppercase tracking-widest text-gray-400 mb-2">Project type</span>
+                  <span className="block font-mono text-[10px] text-left uppercase tracking-widest text-gray-400 mb-2">Project type</span>
                   <input
                     type="text"
                     name="project_type"
@@ -118,6 +109,15 @@ const ContactModal = ({ isOpen, onClose }) => {
                 </label>
               </div>
             </div>
+            <label className="block mt-4">
+              <span className="block font-mono text-[10px] text-left uppercase tracking-widest text-gray-400 mb-2">What are you building?</span>
+              <textarea
+                name="message"
+                placeholder="A few sentences about your goals, timeline, and success metrics."
+                rows={4}
+                className="w-full px-4 py-3 rounded-md bg-white/5 border border-white/10 text-white placeholder-gray-500 font-mono text-sm focus:outline-none focus:border-white/30 transition-colors resize-y min-h-[100px]"
+              />
+            </label>
 
             {status === 'success' && (
               <p className="mt-4 font-mono text-sm text-green-400">Request sent. We’ll get back to you soon.</p>
