@@ -183,7 +183,7 @@ const Stack = () => {
                         {/* Card 1 */}
                         <div
                             ref={card1Ref}
-                            className="p-8 bg-white/5 border border-white/10 rounded-lg shadow-[0_0_0_1px_rgba(255,255,255,0.04)] cursor-pointer"
+                            className="stack-card p-8 bg-white/5 border border-white/10 rounded-lg shadow-[0_0_0_1px_rgba(255,255,255,0.04)] cursor-pointer"
                             style={{ transformStyle: "preserve-3d" }}
                         >
                             <div className="w-10 h-10 bg-black border border-white/10 rounded-full flex items-center justify-center mb-6 text-white">
@@ -210,7 +210,7 @@ const Stack = () => {
                         {/* Card 2 */}
                         <div
                             ref={card2Ref}
-                            className="p-8 bg-white/5 border border-white/10 rounded-lg shadow-[0_0_0_1px_rgba(255,255,255,0.04)] cursor-pointer"
+                            className="stack-card p-8 bg-white/5 border border-white/10 rounded-lg shadow-[0_0_0_1px_rgba(255,255,255,0.04)] cursor-pointer"
                             style={{ transformStyle: "preserve-3d" }}
                         >
                             <div className="w-10 h-10 bg-black border border-white/10 rounded-full flex items-center justify-center mb-6 text-white">
@@ -237,7 +237,7 @@ const Stack = () => {
                         {/* Card 3 */}
                         <div
                             ref={card3Ref}
-                            className="p-8 bg-white/5 border border-white/10 rounded-lg shadow-[0_0_0_1px_rgba(255,255,255,0.04)] cursor-pointer"
+                            className="stack-card p-8 bg-white/5 border border-white/10 rounded-lg shadow-[0_0_0_1px_rgba(255,255,255,0.04)] cursor-pointer"
                             style={{ transformStyle: "preserve-3d" }}
                         >
                             <div className="w-10 h-10 bg-black border border-white/10 rounded-full flex items-center justify-center mb-6 text-white">
@@ -264,7 +264,7 @@ const Stack = () => {
                         {/* Card 4 */}
                         <div
                             ref={card4Ref}
-                            className="p-8 bg-white/5 border border-white/10 rounded-lg shadow-[0_0_0_1px_rgba(255,255,255,0.04)] cursor-pointer"
+                            className="stack-card p-8 bg-white/5 border border-white/10 rounded-lg shadow-[0_0_0_1px_rgba(255,255,255,0.04)] cursor-pointer"
                             style={{ transformStyle: "preserve-3d" }}
                         >
                             <div className="w-10 h-10 bg-black border border-white/10 rounded-full flex items-center justify-center mb-6 text-white">

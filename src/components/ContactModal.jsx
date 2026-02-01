@@ -52,7 +52,7 @@ const ContactModal = ({ isOpen, onClose }) => {
     >
       <div className="absolute inset-0 bg-black/60 backdrop-blur-md" aria-hidden="true" />
       <div
-        className="relative z-10 flex flex-col items-end gap-4 w-full max-w-2xl max-h-[90vh] overflow-auto"
+        className="relative z-10 flex flex-col items-end gap-4 w-full max-w-2xl max-h-[90vh] mt-[15vh] overflow-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -63,7 +63,7 @@ const ContactModal = ({ isOpen, onClose }) => {
         >
           <i className="fa-solid fa-times text-lg" />
         </button>
-        <div className="w-full rounded-sm border border-white/10 bg-[#1a1a1a] shadow-2xl modal-zoom-in overflow-hidden">
+        <div className="w-full rounded-sm border border-white/10 bg-[#1a1a1a] shadow-2xl modal-zoom-in overflow-auto mb-[10vh]">
           <form onSubmit={handleSubmit} className="p-6 md:p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">

@@ -62,9 +62,26 @@ body {
     display: none !important; 
   }
   
-  body { 
+  /* body { 
     cursor: auto; 
-  }
+  } */
+}
+
+html,
+body {
+  cursor: url("/cursor-default.png") 0 0, auto;
+}
+
+
+a,
+button,
+.magnetic-btn,
+.magnetic-btn *,
+.magnetic-btn button,
+.stack-card,
+.stack-card *,
+[role="button"] {
+  cursor: url("/cursor-hover.png") 0 0, pointer !important;
 }
 
 /* Utils */
