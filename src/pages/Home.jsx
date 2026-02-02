@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import Navigation from '../components/Navigation'
 import Hero from '../components/Hero'
 import About from '../components/About'
+import Clients from '../components/Clients'
 import Work from '../components/Work'
 import Stack from '../components/Stack'
 import Contact from '../components/Contact'
@@ -27,13 +28,14 @@ const Home = () => {
 
   return (
     <>
-      <Navigation />
-      <Hero />
-      <About />
-      <Work />
-      <Stack />
-      <Contact />
-      <Footer />
+        <Navigation />
+        <Hero />
+        <About />
+        {/* <Clients /> */}
+        <Work />
+        <Stack />
+        <Contact />
+        <Footer />
     </>
   )
 }
