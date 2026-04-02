@@ -42,7 +42,7 @@ export default function SampleProposal() {
         .cover {
           min-height: 100vh;
           background: var(--charcoal);
-          display: flex;
+          display: none;
           flex-direction: column;
           justify-content: space-between;
           padding: 60px;
