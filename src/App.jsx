@@ -5,6 +5,7 @@ import Cursor from './components/Cursor'
 import Home from './pages/Home'
 import Projects from './pages/Projects'
 import Blogs from './pages/Blogs'
+import SampleProposal from './pages/SampleProposal'
 import NotFound from './pages/NotFound'
 import { useLenis } from './hooks/useLenis'
 import { useCursor } from './hooks/useCursor'
@@ -26,6 +27,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/blogs" element={<Blogs />} />
+          <Route path="/proposal" element={<SampleProposal />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
