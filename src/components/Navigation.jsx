@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Navigation = () => {
     const [hasScrolled, setHasScrolled] = useState(false);
     const resumeLink =
-        "https://drive.google.com/file/d/1rfrexOJ8LFlsh_uwTFipmUpxtaFIoqIz/view?usp=sharing";
+        "https://drive.google.com/file/d/1AHhSlbWkMrOxUsWm0TBRxScXkZNG78b_/view?usp=sharing";
     const githubLink = "https://github.com/Rubylenshy";
 
     useEffect(() => {

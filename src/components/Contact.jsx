@@ -93,7 +93,7 @@ const Contact = () => {
                             Location
                         </h4>
                         <p className="text-sm font-medium text-white">
-                            Ibadan, Nigeria
+                            Nigeria
                         </p>
                         <p className="text-sm text-gray-400">
                             Remote Worldwide
