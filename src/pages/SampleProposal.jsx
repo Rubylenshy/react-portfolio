@@ -777,7 +777,7 @@ export default function SampleProposal() {
                     <li>Social media integration</li>
                     <li>Website deployment / launch</li>
                     <li>3 rounds of revisions</li>
-                    <li>Post-launch support period</li>
+                    <li>4 weeks Post-launch support period</li>
                   </ul>
                 </div>
               </div>
