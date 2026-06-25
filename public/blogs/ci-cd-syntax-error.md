@@ -34,20 +34,6 @@ jobs:
 
 Did you catch it? Look at line 8.
 
-```yaml
-  deploy          # ❌ missing colon after the job name
-    runs-on: ubuntu-latest
-```
-
-It should be:
-
-```yaml
-  deploy:         # ✅ correct
-    runs-on: ubuntu-latest
-```
-
-One missing colon. YAML doesn't care about your feelings — it will parse `deploy` as a key with no value, and then `runs-on` becomes a mystery mapping at an unexpected indentation level.
-
 ---
 
 ## Why This Is So Hard to See
@@ -80,31 +66,7 @@ yamllint .github/workflows/deploy.yml
 
 Or paste it into [yamllint.com](https://www.yamllint.com) — it will flag the exact line.
 
-### 2. Check every block-level key for a trailing colon
-
-Block mappings in YAML follow the pattern `key: value`. At the **job** and **step** level, this means:
-
-```yaml
-jobs:
-  my-job:           # ← needs colon
-    runs-on: ubuntu-latest
-    steps:
-      - name: Step  # ← name needs colon (it has one here)
-        run: echo "hi"
-```
-
-Go through every key at the `jobs.X` level manually.
-
-### 3. Check for tab characters
-
-YAML forbids tabs for indentation. If your editor silently inserts a tab, the error is nearly invisible:
-
-```bash
-cat -A .github/workflows/deploy.yml | grep -n '\^I'
-# ^I is a tab character
-```
-
-### 4. Diff against a workflow that works
+### 2. Diff against a workflow that works
 
 If you have another workflow that runs fine, diff them:
 

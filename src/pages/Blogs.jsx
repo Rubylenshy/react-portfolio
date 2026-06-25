@@ -5,13 +5,11 @@ import BlogNavigation from '../components/BlogNavigation'
 import Footer from '../components/Footer'
 import blogsData from '../assets/data/blogs.json'
 
-// Transform Google Drive shareable link → direct embed thumbnail
+// Transform Google Drive file ID or shareable link → direct embed thumbnail
 function getThumbnailSrc(url) {
   if (!url) return null
   const match = url.match(/[-\w]{25,}/)
-  if (match) {
-    return `https://drive.google.com/thumbnail?id=${match[0]}&sz=w800`
-  }
+  if (match) return `https://lh3.googleusercontent.com/d/${match[0]}=w800`
   return url
 }
 
@@ -29,7 +27,7 @@ const BlogCard = ({ post }) => {
   return (
     <Link
       to={`/blogs/${post.slug}`}
-      className="group blog-card flex flex-col sm:flex-row gap-5 p-5 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[rgba(255,255,255,0.2)] transition-all duration-300 hover:bg-[rgba(255,255,255,0.07)]"
+      className="group blog-card flex flex-col sm:flex-row gap-5 p-5 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] transition-all duration-300"
     >
       {/* Thumbnail */}
       <div className="sm:w-44 sm:flex-shrink-0 h-44 sm:h-32 rounded-xl overflow-hidden bg-[var(--color-bg-secondary)] relative">
@@ -42,7 +40,7 @@ const BlogCard = ({ post }) => {
           />
         ) : (
           /* Gradient fallback */
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[rgba(255,255,255,0.08)] to-[rgba(255,255,255,0.02)]">
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[var(--color-surface)] to-[var(--color-bg-secondary)]">
             <span className="font-mono text-2xl text-[var(--color-text-muted)] select-none">{'</>'}</span>
           </div>
         )}
@@ -64,7 +62,7 @@ const BlogCard = ({ post }) => {
         </div>
 
         {/* Title */}
-        <h2 className="text-base md:text-lg font-semibold text-[var(--color-text-primary)] leading-snug group-hover:text-white transition-colors duration-200 line-clamp-2">
+        <h2 className="text-base md:text-lg font-semibold text-[var(--color-text-primary)] leading-snug group-hover:text-[var(--color-accent)] transition-colors duration-200 line-clamp-2">
           {post.title}
         </h2>
 

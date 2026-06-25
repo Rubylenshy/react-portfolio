@@ -763,4 +763,40 @@ button,
   background-color: var(--color-bg);
 }
 
+/* ============================================================
+   Light-mode contrast overrides for Blog components
+   ============================================================ */
+html[data-theme="light"] .blog-card {
+  border-color: rgba(0,0,0,0.12);
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+html[data-theme="light"] .blog-card:hover {
+  border-color: rgba(0,0,0,0.35);
+  background-color: #f0f0f0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+html[data-theme="light"] .blog-card h2 {
+  color: #111111;
+}
+
+html[data-theme="light"] .blog-card:hover h2 {
+  color: #000000;
+}
+
+html[data-theme="light"] #blog-search {
+  border-color: rgba(0,0,0,0.18);
+  background-color: #ffffff;
+  color: #111111;
+}
+
+html[data-theme="light"] #blog-search::placeholder {
+  color: #9ca3af;
+}
+
+html[data-theme="light"] #blog-search:focus {
+  border-color: rgba(0,0,0,0.4);
+}
 

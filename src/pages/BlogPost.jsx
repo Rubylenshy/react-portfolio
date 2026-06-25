@@ -23,8 +23,9 @@ function formatDate(dateStr) {
 
 function getThumbnailSrc(url) {
   if (!url) return null
+
   const match = url.match(/[-\w]{25,}/)
-  if (match) return `https://drive.google.com/thumbnail?id=${match[0]}&sz=w800`
+  if (match) return `https://lh3.googleusercontent.com/d/${match[0]}=w800`
   return url
 }
 
@@ -62,7 +63,7 @@ const ShareButton = ({ title }) => {
       try {
         await navigator.share({ title, url })
         return
-      } catch {}
+      } catch { }
     }
     await navigator.clipboard.writeText(url)
     setCopied(true)
@@ -147,11 +148,10 @@ const TocSidebar = ({ headings }) => {
             <li key={h.id} style={{ paddingLeft: h.level === 3 ? '0.75rem' : '0' }}>
               <a
                 href={`#${h.id}`}
-                className={`block text-xs leading-relaxed transition-colors duration-200 ${
-                  activeId === h.id
+                className={`block text-xs leading-relaxed transition-colors duration-200 ${activeId === h.id
                     ? 'text-[var(--color-text-primary)] font-medium'
                     : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'
-                }`}
+                  }`}
               >
                 {h.text}
               </a>
@@ -250,8 +250,20 @@ const BlogPost = () => {
         {/* Breadcrumb */}
         <Breadcrumb postTitle={post.title} />
 
+        {/* Cover Image — full-width, after breadcrumb */}
+        {thumb && (
+          <div className="w-full rounded-2xl overflow-hidden border border-[var(--color-border)] mb-10" style={{ maxHeight: '420px' }}>
+            <img
+              src={thumb}
+              alt={post.title}
+              className="w-full h-full object-cover"
+              style={{ maxHeight: '420px', width: '100%' }}
+            />
+          </div>
+        )}
+
         {/* Hero Header */}
-        <header className="mb-12 flex flex-col md:flex-row gap-8 items-start">
+        <header className="mb-12">
           <div className="flex-1 min-w-0">
             {/* Tags */}
             <div className="flex flex-wrap gap-1.5 mb-4">
@@ -294,17 +306,6 @@ const BlogPost = () => {
               <ShareButton title={post.title} />
             </div>
           </div>
-
-          {/* Thumbnail */}
-          {thumb && (
-            <div className="w-full md:w-72 h-44 rounded-2xl overflow-hidden flex-shrink-0 border border-[var(--color-border)]">
-              <img
-                src={thumb}
-                alt={post.title}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          )}
         </header>
 
         {/* Two-column body: Markdown + sticky TOC */}
@@ -334,7 +335,35 @@ const BlogPost = () => {
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]]}
-                components={{ code: CodeBlock }}
+                components={{
+                  code(props) {
+                    const { children, className, node, ...rest } = props;
+                    const isBlockCode = /language-(\w+)/.exec(className || '');
+
+                    if (!isBlockCode) {
+                      return (
+                        <code
+                          style={{
+                            color: '#9c27b0',
+                            backgroundColor: 'rgba(128, 128, 128, 0.15)',
+                            padding: '0.2em 0.4em',
+                            borderRadius: '4px',
+                            fontWeight: '500'
+                          }}
+                          {...rest}
+                        >
+                          {children}
+                        </code>
+                      );
+                    }
+
+                    return (
+                      <CodeBlock className={className} {...rest}>
+                        {children}
+                      </CodeBlock>
+                    );
+                  }
+                }}
               >
                 {markdown}
               </ReactMarkdown>
