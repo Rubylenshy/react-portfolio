@@ -5,8 +5,10 @@ import Cursor from './components/Cursor'
 import Home from './pages/Home'
 import Projects from './pages/Projects'
 import Blogs from './pages/Blogs'
+import BlogPost from './pages/BlogPost'
 import SampleProposal from './pages/SampleProposal'
 import NotFound from './pages/NotFound'
+import { ThemeProvider } from './context/ThemeContext'
 import { useLenis } from './hooks/useLenis'
 import { useCursor } from './hooks/useCursor'
 import { useMagneticButtons } from './hooks/useMagneticButtons'
@@ -27,6 +29,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogs/:slug" element={<BlogPost />} />
           <Route path="/proposal" element={<SampleProposal />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
@@ -35,5 +38,10 @@ function App() {
   )
 }
 
-export default App
-
+export default function Root() {
+  return (
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
+  )
+}

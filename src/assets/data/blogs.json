@@ -1,0 +1,13 @@
+[
+  {
+    "slug": "ci-cd-syntax-error",
+    "title": "The CI/CD Syntax Error That Just Cost You 3 Hours of Debugging",
+    "excerpt": "One missing colon in a YAML workflow file. Three hours of hair-pulling. Here's how to spot it faster next time.",
+    "date": "2026-06-24",
+    "author": "Reuben Oluwafemi",
+    "authorAvatar": "",
+    "tags": ["devops", "ci-cd", "debugging", "github-actions"],
+    "thumbnail": "",
+    "readingTime": "6 min read"
+  }
+]

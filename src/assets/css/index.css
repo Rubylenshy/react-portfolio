@@ -2,6 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   CSS CUSTOM PROPERTY TOKENS — Dark/Light Theme
+   ============================================================ */
+html,
+html[data-theme="dark"] {
+  --color-bg:             #030303;
+  --color-bg-secondary:   #0f0f0f;
+  --color-surface:        rgba(255,255,255,0.05);
+  --color-border:         rgba(255,255,255,0.10);
+  --color-text-primary:   #ededed;
+  --color-text-secondary: #6b7280;
+  --color-text-muted:     #374151;
+  --color-accent:         #ffffff;
+  --color-accent-inverse: #000000;
+  --gradient-text-from:   #ffffff;
+  --gradient-text-to:     #666666;
+}
+
+html[data-theme="light"] {
+  --color-bg:             #f8f8f8;
+  --color-bg-secondary:   #ffffff;
+  --color-surface:        rgba(0,0,0,0.04);
+  --color-border:         rgba(0,0,0,0.10);
+  --color-text-primary:   #111111;
+  --color-text-secondary: #4b5563;
+  --color-text-muted:     #9ca3af;
+  --color-accent:         #000000;
+  --color-accent-inverse: #ffffff;
+  --gradient-text-from:   #111111;
+  --gradient-text-to:     #555555;
+}
+
+/* ============================================================
+   Blog-specific typography & layout tokens
+   ============================================================ */
+.blog-page {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 /* Base & Reset */
 html.lenis { 
   height: auto; 
@@ -616,4 +657,110 @@ button,
   z-index: -1;
   border-radius: 2px;
 }
+
+/* ============================================================
+   Blog Prose Typography (.prose-blog)
+   ============================================================ */
+.prose-blog {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--color-text-primary);
+}
+
+.prose-blog h1,
+.prose-blog h2,
+.prose-blog h3,
+.prose-blog h4 {
+  color: var(--color-text-primary);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  scroll-margin-top: 5rem;
+}
+
+.prose-blog h1 { font-size: 2rem; }
+.prose-blog h2 {
+  font-size: 1.4rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+.prose-blog h3 { font-size: 1.15rem; }
+
+.prose-blog p {
+  margin-bottom: 1.4rem;
+  color: var(--color-text-secondary);
+}
+
+.prose-blog a {
+  color: var(--color-text-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--color-border);
+  transition: text-decoration-color 0.2s;
+}
+.prose-blog a:hover {
+  text-decoration-color: var(--color-text-primary);
+}
+
+.prose-blog strong { color: var(--color-text-primary); font-weight: 600; }
+.prose-blog em { color: var(--color-text-secondary); font-style: italic; }
+
+.prose-blog hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 2.5rem 0;
+}
+
+.prose-blog blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--color-border);
+  background: var(--color-surface);
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+.prose-blog ul,
+.prose-blog ol {
+  margin: 1rem 0 1.4rem 1.5rem;
+  color: var(--color-text-secondary);
+}
+
+.prose-blog ul { list-style-type: disc; }
+.prose-blog ol { list-style-type: decimal; }
+.prose-blog li { margin-bottom: 0.4rem; }
+
+.prose-blog table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.875rem;
+}
+
+.prose-blog th,
+.prose-blog td {
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--color-border);
+  text-align: left;
+}
+
+.prose-blog th {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.prose-blog td { color: var(--color-text-secondary); }
+
+/* ============================================================
+   Blog Navigation Bar
+   ============================================================ */
+.blog-nav {
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+}
+
 

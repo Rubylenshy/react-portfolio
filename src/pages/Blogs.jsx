@@ -1,86 +1,160 @@
-import BackHomeButton from '../components/BackHomeButton'
+import { useState, useMemo } from 'react'
+import { Link } from 'react-router-dom'
+import { Search, Clock, Calendar, Tag } from 'lucide-react'
+import BlogNavigation from '../components/BlogNavigation'
+import Footer from '../components/Footer'
+import blogsData from '../assets/data/blogs.json'
 
-const Blogs = () => {
-  const codeSnippets = [
-    'const blogStatus = "compiling..."',
-    'function launchSoon() {',
-    '  return "devlog, breakdowns, snippets";',
-    '}',
-    '/* shipping shortly */',
-  ]
+// Transform Google Drive shareable link → direct embed thumbnail
+function getThumbnailSrc(url) {
+  if (!url) return null
+  const match = url.match(/[-\w]{25,}/)
+  if (match) {
+    return `https://drive.google.com/thumbnail?id=${match[0]}&sz=w800`
+  }
+  return url
+}
+
+function formatDate(dateStr) {
+  return new Date(dateStr).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
+
+const BlogCard = ({ post }) => {
+  const thumb = getThumbnailSrc(post.thumbnail)
 
   return (
-    <main
-      className="min-h-screen bg-[#030303] text-white px-6 pt-20 pb-20 flex items-center justify-center relative overflow-hidden"
-      data-scroll-animate
+    <Link
+      to={`/blogs/${post.slug}`}
+      className="group blog-card flex flex-col sm:flex-row gap-5 p-5 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[rgba(255,255,255,0.2)] transition-all duration-300 hover:bg-[rgba(255,255,255,0.07)]"
     >
-      {/* Code rain background */}
-      <div className="pointer-events-none absolute inset-0 opacity-30">
-        <div className="code-rain-grid">
-          {Array.from({ length: 40 }).map((_, i) => (
-            <span key={i} className="code-rain-char">
-              {'</>'}
+      {/* Thumbnail */}
+      <div className="sm:w-44 sm:flex-shrink-0 h-44 sm:h-32 rounded-xl overflow-hidden bg-[var(--color-bg-secondary)] relative">
+        {thumb ? (
+          <img
+            src={thumb}
+            alt={post.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+          />
+        ) : (
+          /* Gradient fallback */
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[rgba(255,255,255,0.08)] to-[rgba(255,255,255,0.02)]">
+            <span className="font-mono text-2xl text-[var(--color-text-muted)] select-none">{'</>'}</span>
+          </div>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 flex flex-col justify-between gap-3 min-w-0">
+        {/* Tags */}
+        <div className="flex flex-wrap gap-1.5">
+          {post.tags.slice(0, 3).map(tag => (
+            <span
+              key={tag}
+              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] text-[10px] font-mono uppercase tracking-wider text-[var(--color-text-secondary)]"
+            >
+              <Tag className="w-2.5 h-2.5" />
+              {tag}
             </span>
           ))}
         </div>
-      </div>
 
-      <div className="relative z-10 max-w-3xl w-full text-center space-y-10">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md text-xs font-mono uppercase tracking-[0.25em] text-gray-300">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span>Blog is compiling</span>
-        </div>
+        {/* Title */}
+        <h2 className="text-base md:text-lg font-semibold text-[var(--color-text-primary)] leading-snug group-hover:text-white transition-colors duration-200 line-clamp-2">
+          {post.title}
+        </h2>
 
-        <div className="space-y-4">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-semibold tracking-tighter uppercase">
-            <span className="gradient-text">Dev Logs</span>
-            <br />
-            <span className="text-gray-500">Coming Soon</span>
-          </h1>
-          <p className="max-w-xl mx-auto text-sm md:text-base text-gray-300 leading-relaxed font-light">
-            Long-form breakdowns of WordPress plugins, system design notes, and front-end deep dives.
-            I&apos;m wiring up drafts, diagrams and code examples — they&apos;ll be live here shortly.
-          </p>
-        </div>
-
-        <div className="mx-auto max-w-xl rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl p-5 text-left shadow-2xl shadow-black/40">
-          <div className="flex items-center gap-1 mb-4">
-            <span className="w-2 h-2 rounded-full bg-red-500/80" />
-            <span className="w-2 h-2 rounded-full bg-amber-400/80" />
-            <span className="w-2 h-2 rounded-full bg-emerald-400/80" />
-            <span className="ml-3 text-[10px] font-mono uppercase tracking-[0.2em] text-gray-500">
-              /blog/coming-soon.tsx
-            </span>
-          </div>
-
-          <div className="space-y-1 font-mono text-xs md:text-sm leading-relaxed text-emerald-200/90 code-typing-block">
-            {codeSnippets.map((line, idx) => (
-              <div key={idx} className="flex gap-3">
-                <span className="text-[10px] text-emerald-500/60 select-none">
-                  {String(idx + 1).padStart(2, '0')}
-                </span>
-                <span className="whitespace-pre-wrap">{line}</span>
-              </div>
-            ))}
-            <div className="flex gap-3">
-              <span className="text-[10px] text-emerald-500/60 select-none">
-                {'>'}
-              </span>
-              <span className="code-cursor text-emerald-300">npm run blog:ship</span>
-            </div>
-          </div>
-        </div>
-
-        <p className="text-[11px] md:text-xs font-mono uppercase tracking-[0.28em] text-gray-500">
-          Meanwhile — explore the projects, plugins and design systems already live.
+        {/* Excerpt */}
+        <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed line-clamp-2">
+          {post.excerpt}
         </p>
 
-        <BackHomeButton className="text-xs md:text-sm" />
+        {/* Meta */}
+        <div className="flex items-center gap-4 text-[11px] font-mono text-[var(--color-text-muted)] mt-auto">
+          <span className="flex items-center gap-1">
+            <Calendar className="w-3 h-3" />
+            {formatDate(post.date)}
+          </span>
+          <span className="flex items-center gap-1">
+            <Clock className="w-3 h-3" />
+            {post.readingTime}
+          </span>
+        </div>
       </div>
-    </main>
+    </Link>
+  )
+}
+
+const Blogs = () => {
+  const [query, setQuery] = useState('')
+
+  const filtered = useMemo(() => {
+    if (!query.trim()) return blogsData
+    const q = query.toLowerCase()
+    return blogsData.filter(
+      p =>
+        p.title.toLowerCase().includes(q) ||
+        p.excerpt.toLowerCase().includes(q) ||
+        p.tags.some(t => t.toLowerCase().includes(q))
+    )
+  }, [query])
+
+  return (
+    <div className="blog-page min-h-screen flex flex-col">
+      <BlogNavigation />
+
+      <main className="flex-1 max-w-3xl mx-auto w-full px-6 py-16">
+        {/* Header */}
+        <header className="mb-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[10px] font-mono uppercase tracking-[0.25em] text-[var(--color-text-secondary)] mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            Dev Logs
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tighter text-[var(--color-text-primary)] mb-4">
+            The Blog.
+          </h1>
+          <p className="text-base text-[var(--color-text-secondary)] leading-relaxed max-w-lg">
+            Long-form breakdowns of WordPress plugins, system design notes,
+            and front-end deep dives.
+          </p>
+        </header>
+
+        {/* Search */}
+        <div className="relative mb-10">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
+          <input
+            id="blog-search"
+            type="text"
+            placeholder="Search posts, tags…"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            className="w-full pl-11 pr-4 py-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] text-sm font-mono outline-none focus:border-[rgba(255,255,255,0.3)] transition-colors duration-200"
+          />
+        </div>
+
+        {/* TODO: FILTER_BAR — add tag filters + pagination here when post count reaches 8+ */}
+
+        {/* List */}
+        {filtered.length > 0 ? (
+          <div className="flex flex-col gap-4">
+            {filtered.map(post => (
+              <BlogCard key={post.slug} post={post} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-20 text-[var(--color-text-muted)] font-mono text-sm">
+            No posts match &quot;{query}&quot;
+          </div>
+        )}
+      </main>
+
+      <Footer />
+    </div>
   )
 }
 
 export default Blogs
-
-
