@@ -7,7 +7,7 @@ const BlogNavigation = () => {
 
   return (
     <nav className="blog-nav sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-bg)] backdrop-blur-md bg-opacity-80">
-      <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Left: back link */}
         <Link
           to={isPost ? '/blogs' : '/'}
@@ -20,26 +20,25 @@ const BlogNavigation = () => {
         {/* Right: nav links */}
         <div className="flex items-center gap-6 text-sm font-mono">
           <Link
-            to="/blogs"
-            className={`transition-colors duration-200 ${
-              pathname === '/blogs'
-                ? 'text-[var(--color-text-primary)]'
-                : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
-            }`}
+            to="/"
+            className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200"
           >
-            Blog
+            Home
           </Link>
           <Link
             to="/projects"
-            className="text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200"
+            className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200"
           >
             Projects
           </Link>
           <Link
-            to="/"
-            className="text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200"
+            to="/blogs"
+            className={`font-mono text-[10px] uppercase tracking-widest transition-colors duration-200 ${pathname === '/blogs'
+                ? 'text-[var(--color-text-primary)]'
+                : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
+              }`}
           >
-            Home
+            Blog
           </Link>
         </div>
       </div>
