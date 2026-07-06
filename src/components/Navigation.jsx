@@ -140,6 +140,12 @@ const Navigation = () => {
                 >
                     Stack
                 </a>
+                <Link
+                    to="/blogs"
+                    className="px-5 py-2 rounded-full font-mono text-[10px] uppercase tracking-widest hover:bg-white/10 transition-colors"
+                >
+                    Blogs
+                </Link>
             </div>
         </>
     );

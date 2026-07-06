@@ -66,18 +66,18 @@ body {
 
 /* Custom Cursor */
 @media (pointer: fine) {
-  .cursor-circle {
+  .cursor-circle, .cursor-dot {
     display: block;
     position: fixed;
     top: 0; 
     left: 0;
-    transform: translate(-50%, -50%);
     pointer-events: none;
     z-index: 9999;
     mix-blend-mode: difference;
   }
   
   .cursor-circle {
+    transform: translate(-50%, -50%);
     width: 24px; 
     height: 24px;
     border: 1px solid rgba(255,255,255,0.3);
@@ -85,8 +85,17 @@ body {
                 height 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
                 background-color 0.3s;
   }
+
+  .cursor-dot {
+    width: 32px;
+    height: 32px;
+    background-image: url("/cursor-default.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: translate(0, 0); 
+  }
   
-  body:hover .cursor-circle { 
+  body:hover .cursor-circle, body:hover .cursor-dot { 
     opacity: 1; 
   }
   
@@ -96,21 +105,21 @@ body {
     background-color: rgba(255, 255, 255, 0.05);
     border-color: transparent;
   }
+
+  .hover-active .cursor-dot {
+    background-image: url("/cursor-hover.png");
+  }
 }
 
 @media (pointer: coarse) {
-  .cursor-circle { 
+  .cursor-circle, .cursor-dot { 
     display: none !important; 
   }
-  
-  /* body { 
-    cursor: auto; 
-  } */
 }
 
 html,
 body {
-  cursor: url("/cursor-default.png") 0 0, auto;
+  cursor: none;
 }
 
 
@@ -122,7 +131,7 @@ button,
 .stack-card,
 .stack-card *,
 [role="button"] {
-  cursor: url("/cursor-hover.png") 0 0, pointer !important;
+  cursor: none !important;
 }
 
 /* Utils */

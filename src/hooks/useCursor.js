@@ -14,7 +14,8 @@ export function useCursor() {
     // Use setTimeout to ensure DOM is ready
     const timeoutId = setTimeout(() => {
       const cursorCircle = document.querySelector('.cursor-circle')
-      if (!cursorCircle) return
+      const cursorDot = document.querySelector('.cursor-dot')
+      if (!cursorCircle || !cursorDot) return
 
       let mouseX = 0
       let mouseY = 0
@@ -24,6 +25,8 @@ export function useCursor() {
       handleMouseMove = (e) => {
         mouseX = e.clientX
         mouseY = e.clientY
+        cursorDot.style.left = mouseX + 'px'
+        cursorDot.style.top = mouseY + 'px'
       }
 
       document.addEventListener('mousemove', handleMouseMove)
