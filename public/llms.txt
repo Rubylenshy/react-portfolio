@@ -1,0 +1,34 @@
+# Reuben Oluwafemi
+
+> Design & Plugin Engineer specializing in React frontend development and custom WordPress plugins.
+
+## About
+
+Reuben Oluwafemi is a frontend and plugin engineer. He builds intuitive, performant user interfaces using React and creates custom WordPress plugins for real-world productivity problems. He combines design aesthetics with deep technical expertise to deliver seamless digital experiences.
+
+## Specializations
+
+- React & modern frontend (Vite, Tailwind CSS, GSAP animations)
+- Custom WordPress plugin development
+- UI/UX design implementation
+- Design systems and component libraries
+
+## Projects
+
+- **Shortly** — A URL shortener with analytics built in React
+- **Linksy** — Link management tool
+- **Agile System** — Project management and team collaboration system
+- **Upthy Pro** — Advanced WordPress Pinterest automation plugin
+
+## Contact
+
+- Email: reztomoloju@gmail.com
+- Website: https://www.usereuben.com
+
+## Profiles
+
+- GitHub: https://github.com/Rubylenshy
+- LinkedIn: https://www.linkedin.com/in/reuben-tomoloju/
+- WordPress.org: https://profiles.wordpress.org/reztomoloju/
+- Twitter/X: https://twitter.com/tomoloj_
+- Instagram: https://www.instagram.com/reuben.ig_

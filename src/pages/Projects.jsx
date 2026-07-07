@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import projects from '../assets/data/projects.json'
 import Footer from '../components/Footer'
 import BackHomeButton from '../components/BackHomeButton'
+import SEOHead from '../components/SEOHead'
 
 const Projects = () => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -38,6 +39,11 @@ const Projects = () => {
 
   return (
     <>
+      <SEOHead
+        title="Projects"
+        description="Explore Reuben Oluwafemi's frontend, design, and WordPress plugin projects — from URL shorteners and link managers to full-featured productivity tools."
+        canonical="https://www.usereuben.com/projects"
+      />
       {/* Image expand modal */}
       {expandedImage && (
         <div

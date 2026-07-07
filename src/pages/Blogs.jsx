@@ -4,6 +4,7 @@ import { Search, Clock, Calendar, Tag } from 'lucide-react'
 import BlogNavigation from '../components/BlogNavigation'
 import Footer from '../components/Footer'
 import blogsData from '../assets/data/blogs.json'
+import SEOHead from '../components/SEOHead'
 
 // Transform Google Drive file ID or shareable link → direct embed thumbnail
 function getThumbnailSrc(url) {
@@ -103,6 +104,11 @@ const Blogs = () => {
 
   return (
     <div className="blog-page min-h-screen flex flex-col">
+      <SEOHead
+        title="Dev Blog"
+        description="Long-form breakdowns of WordPress plugins, system design notes, and front-end deep dives by Reuben Oluwafemi."
+        canonical="https://www.usereuben.com/blogs"
+      />
       <BlogNavigation />
 
       <main className="flex-1 max-w-3xl mx-auto w-full px-6 py-16">

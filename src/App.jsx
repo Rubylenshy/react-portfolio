@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import Loader from './components/Loader'
 import Cursor from './components/Cursor'
 import Home from './pages/Home'
@@ -40,8 +41,10 @@ function App() {
 
 export default function Root() {
   return (
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </HelmetProvider>
   )
 }

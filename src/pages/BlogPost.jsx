@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import SEOHead from '../components/SEOHead'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
@@ -216,17 +217,29 @@ const BlogPost = () => {
       .catch(() => setError(true))
   }, [slug, post])
 
-  /* Update page title for SEO */
-  useEffect(() => {
-    if (post) {
-      document.title = `${post.title} — Reuben Oluwafemi`
-      const metaDesc = document.querySelector('meta[name="description"]')
-      if (metaDesc) metaDesc.setAttribute('content', post.excerpt)
-    }
-    return () => {
-      document.title = 'Reuben Oluwafemi'
-    }
-  }, [post])
+  const articleSchema = post
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: post.title,
+        description: post.excerpt,
+        datePublished: post.date,
+        author: {
+          '@type': 'Person',
+          name: post.author,
+          url: 'https://www.usereuben.com/',
+        },
+        publisher: {
+          '@type': 'Person',
+          name: 'Reuben Oluwafemi',
+          url: 'https://www.usereuben.com/',
+        },
+        url: `https://www.usereuben.com/blogs/${post.slug}`,
+        ...(getThumbnailSrc(post.thumbnail) && {
+          image: getThumbnailSrc(post.thumbnail),
+        }),
+      }
+    : null
 
   if (!post) {
     return (
@@ -244,6 +257,16 @@ const BlogPost = () => {
 
   return (
     <div className="blog-page min-h-screen flex flex-col">
+      {post && (
+        <SEOHead
+          title={post.title}
+          description={post.excerpt}
+          canonical={`https://www.usereuben.com/blogs/${post.slug}`}
+          image={getThumbnailSrc(post.thumbnail) || undefined}
+          type="article"
+          schema={articleSchema}
+        />
+      )}
       <BlogNavigation />
 
       <main className="flex-1 max-w-6xl mx-auto w-full px-6 py-12">

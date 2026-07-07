@@ -7,6 +7,39 @@ import Work from '../components/Work'
 import Stack from '../components/Stack'
 import Contact from '../components/Contact'
 import Footer from '../components/Footer'
+import SEOHead from '../components/SEOHead'
+
+const homeSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': 'https://www.usereuben.com/#person',
+      name: 'Reuben Oluwafemi',
+      url: 'https://www.usereuben.com/',
+      jobTitle: 'Design & Plugin Engineer',
+      description:
+        'Frontend & WordPress plugin engineer specializing in custom UI and innovative solutions.',
+      email: 'reztomoloju@gmail.com',
+      sameAs: [
+        'https://twitter.com/tomoloj_',
+        'https://www.instagram.com/reuben.ig_',
+        'https://github.com/Rubylenshy',
+        'https://www.linkedin.com/in/reuben-tomoloju/',
+        'https://profiles.wordpress.org/reztomoloju/',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://www.usereuben.com/#website',
+      name: 'Reuben Oluwafemi — Design & Plugin Engineer',
+      url: 'https://www.usereuben.com/',
+      description:
+        'Portfolio of Reuben Oluwafemi, Design & Plugin Engineer.',
+      author: { '@id': 'https://www.usereuben.com/#person' },
+    },
+  ],
+}
 
 const Home = () => {
   useEffect(() => {
@@ -28,14 +61,20 @@ const Home = () => {
 
   return (
     <>
-        <Navigation />
-        <Hero />
-        <About />
-        {/* <Clients /> */}
-        <Work />
-        <Stack />
-        <Contact />
-        <Footer />
+      <SEOHead
+        title="Design & Plugin Engineer"
+        description="Reuben Oluwafemi is a Design & Frontend Engineer crafting intuitive user interfaces and building custom WordPress plugins. Available for freelance projects."
+        canonical="https://www.usereuben.com/"
+        schema={homeSchema}
+      />
+      <Navigation />
+      <Hero />
+      <About />
+      {/* <Clients /> */}
+      <Work />
+      <Stack />
+      <Contact />
+      <Footer />
     </>
   )
 }
