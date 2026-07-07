@@ -1,5 +1,16 @@
 [
   {
+    "slug": "github-actions-variable-interpolation",
+    "title": "${{ }} vs ${ } in GitHub Actions: The Variable Interpolation Trap",
+    "excerpt": "One runs before the shell ever starts, the other runs inside it — here's why that difference broke your workflow and how to use each correctly.",
+    "date": "2026-07-07",
+    "author": "Reuben Oluwafemi",
+    "authorAvatar": "",
+    "tags": ["github-actions", "ci-cd", "devops", "bash", "debugging"],
+    "thumbnail": "",
+    "readingTime": "3 min read"
+  },
+  {
     "slug": "ci-cd-syntax-error",
     "title": "The CI/CD Syntax Error That Just Cost You 3 Hours of Debugging",
     "excerpt": "One missing colon in a YAML workflow file. Three hours of hair-pulling. Here's how to spot it faster next time.",
