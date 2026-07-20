@@ -89,7 +89,6 @@ body {
   .cursor-dot {
     width: 32px;
     height: 32px;
-    background-image: url("/cursor-default.png");
     background-size: contain;
     background-repeat: no-repeat;
     transform: translate(0, 0); 
@@ -105,10 +104,6 @@ body {
     background-color: rgba(255, 255, 255, 0.05);
     border-color: transparent;
   }
-
-  .hover-active .cursor-dot {
-    background-image: url("/cursor-hover.png");
-  }
 }
 
 @media (pointer: coarse) {
@@ -117,22 +112,6 @@ body {
   }
 }
 
-html,
-body {
-  cursor: none;
-}
-
-
-a,
-button,
-.magnetic-btn,
-.magnetic-btn *,
-.magnetic-btn button,
-.stack-card,
-.stack-card *,
-[role="button"] {
-  cursor: none !important;
-}
 
 /* Utils */
 .loader {
