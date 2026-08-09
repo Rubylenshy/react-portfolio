@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Monitor, Sun, Moon } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Monitor, Sun, Moon, Check } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 
 // True only on mount when no theme was ever explicitly chosen
@@ -11,8 +11,17 @@ function hadNoStoredTheme() {
   }
 }
 
-const ACTIVE = "p-2 rounded-full transition-all duration-200 bg-[var(--color-bg-secondary)] text-[var(--color-text-primary)] shadow-sm";
-const INACTIVE = "p-2 rounded-full transition-all duration-200 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-surface)]";
+const THEME_OPTIONS = [
+  { mode: "light", label: "Light", icon: Sun },
+  { mode: "dark", label: "Dark", icon: Moon },
+  { mode: "system", label: "System", icon: Monitor },
+];
+
+const TRIGGER_META = {
+  light: { label: "Light Theme", icon: Sun },
+  dark: { label: "Dark Theme", icon: Moon },
+  system: { label: "System Theme", icon: Monitor },
+};
 
 const Footer = () => {
   const { toggleTheme } = useTheme();
@@ -21,11 +30,32 @@ const Footer = () => {
   const [active, setActive] = useState(() =>
     hadNoStoredTheme() ? "system" : (localStorage.getItem("theme") ?? "dark")
   );
+  const [open, setOpen] = useState(false);
+  const menuRef = useRef(null);
 
+  useEffect(() => {
+    if (!open) return;
+    const onClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) setOpen(false);
+    };
+    const onEscape = (e) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("mousedown", onClickOutside);
+    document.addEventListener("keydown", onEscape);
+    return () => {
+      document.removeEventListener("mousedown", onClickOutside);
+      document.removeEventListener("keydown", onEscape);
+    };
+  }, [open]);
+
+  // System has no real OS-preference detection — selecting it just resets to dark,
+  // same as the previous segmented control's behavior.
   const pick = (mode) => {
-    toggleTheme(mode);
-    setActive(mode);
+    toggleTheme(mode === "system" ? "dark" : mode);
+    setActive(mode === "system" ? "dark" : mode);
+    setOpen(false);
   };
+
+  const Trigger = TRIGGER_META[active]?.icon ?? Moon;
 
   return (
     <footer className="py-6 px-8 border-t border-[var(--color-border)] mb-12 md:mb-0">
@@ -34,38 +64,41 @@ const Footer = () => {
           © MMXXVI - Reuben Oluwafemi. Engineered with Precision.
         </p>
 
-        <div className="flex items-center gap-1 rounded-full p-1 border border-[var(--color-border)] bg-[var(--color-surface)]">
-          {/* System / auto — active only on initial mount when no preference was stored */}
-          <button
-            id="theme-system-btn"
-            onClick={() => pick("dark")}
-            className={active === "system" ? ACTIVE : INACTIVE}
-            aria-label="System default"
-            title="System default"
-          >
-            <Monitor className="w-4 h-4" />
-          </button>
+        <div className="relative" ref={menuRef}>
+          {open && (
+            <div
+              role="menu"
+              className="absolute bottom-full right-0 mb-2 w-40 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-secondary)] shadow-lg py-1.5 overflow-hidden z-10"
+            >
+              <p className="px-3 py-1.5 text-[11px] font-semibold text-[var(--color-text-primary)]">
+                Theme
+              </p>
+              {THEME_OPTIONS.map(({ mode, label, icon: Icon }) => (
+                <button
+                  key={mode}
+                  type="button"
+                  role="menuitemradio"
+                  aria-checked={active === mode}
+                  onClick={() => pick(mode)}
+                  className="w-full flex items-center gap-2.5 px-3 py-1.5 text-sm text-[var(--color-text-primary)] hover:bg-[var(--color-surface-strong)] transition-colors"
+                >
+                  <Icon className="w-4 h-4 text-[var(--color-text-secondary)]" />
+                  <span className="flex-1 text-left">{label}</span>
+                  {active === mode && <Check className="w-3.5 h-3.5" />}
+                </button>
+              ))}
+            </div>
+          )}
 
-          {/* Light */}
           <button
-            id="theme-light-btn"
-            onClick={() => pick("light")}
-            className={active === "light" ? ACTIVE : INACTIVE}
-            aria-label="Light theme"
-            title="Light theme"
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-haspopup="menu"
+            aria-expanded={open}
+            className="flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-border-strong)] transition-colors text-xs font-mono uppercase tracking-widest"
           >
-            <Sun className="w-4 h-4" />
-          </button>
-
-          {/* Dark */}
-          <button
-            id="theme-dark-btn"
-            onClick={() => pick("dark")}
-            className={active === "dark" ? ACTIVE : INACTIVE}
-            aria-label="Dark theme"
-            title="Dark theme"
-          >
-            <Moon className="w-4 h-4" />
+            <Trigger className="w-4 h-4" />
+            {TRIGGER_META[active]?.label ?? "Theme"}
           </button>
         </div>
       </div>

@@ -99,7 +99,7 @@ const Stack = () => {
             {/* ── Marquee section ── */}
             <section
                 id="stack"
-                className="py-12 border-y border-[var(--color-border)] bg-[var(--color-surface-strong)] backdrop-blur-sm overflow-hidden mt-12"
+                className="py-12 border-y border-[var(--color-border)] bg-[var(--color-bg-secondary)] overflow-hidden mt-12"
             >
                 <div className="space-y-6">
                     <div className="marquee-track">
@@ -112,7 +112,7 @@ const Stack = () => {
             </section>
 
             {/* ── Role Cards ── */}
-            <section className="py-12">
+            <section className="py-12 bg-[var(--color-bg-secondary)]">
                 <div className="flex items-center lg:items-start justify-center mx-auto max-w-5xl px-6">
                     <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
                         {[card1Ref, card2Ref, card3Ref, card4Ref].map((ref, i) => (

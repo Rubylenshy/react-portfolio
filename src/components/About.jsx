@@ -2,7 +2,7 @@ const About = () => {
   return (
       <section
           id="about"
-          className="px-6 py-12 md:py-24 max-w-[1400px] mx-auto border-t border-[var(--color-border)]"
+          className="px-6 py-12 md:py-24 max-w-[1400px] mx-auto border-t border-[var(--color-border)] bg-[var(--color-bg)]"
       >
           <div className="flex flex-col items-center pb-5">
               <h2 className="text-xs font-mono uppercase tracking-[0.2em] text-secondary mb-4">
