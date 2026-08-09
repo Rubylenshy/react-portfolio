@@ -17,23 +17,23 @@ const Hero = () => {
         <img
           src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/2b8b3b39-e23c-43e6-be7b-500fa586c81f_1600w.jpg"
           alt="Background"
-          className="w-full h-full object-cover opacity-60 scale-105"
+          className="w-full h-full object-cover scale-105"
           id="hero-bg"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-[#030303]/80 to-transparent"></div>
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 hero-overlay-gradient"></div>
+        <div className="absolute inset-0 hero-overlay-scrim"></div>
       </div>
 
       <div className="z-10 relative flex flex-col items-center text-center w-full max-w-5xl mx-auto">
-        <div className="mb-6 flex items-center gap-3 px-3 py-1.5 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 hero-fade-in opacity-0">
+        <div className="mb-6 flex items-center gap-3 px-3 py-1.5 rounded-full bg-[var(--color-surface)] backdrop-blur-sm border border-[var(--color-border)] hero-fade-in opacity-0">
           <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-          <span className="font-mono text-[10px] uppercase tracking-widest text-gray-300">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-secondary">
             Available for Hire
           </span>
         </div>
 
         <div className="relative inline-block">
-          <h1 className="text-5xl md:text-8xl lg:text-9xl font-semibold tracking-tighter text-white uppercase leading-[0.9] flex flex-col items-center mix-blend-overlay relative z-10">
+          <h1 className="text-5xl md:text-8xl lg:text-9xl font-semibold tracking-tighter text-primary uppercase leading-[0.9] flex flex-col items-center mix-blend-overlay relative z-10">
             <div className="overflow-hidden">
               <span className="hero-char">Reuben</span>
             </div>
@@ -47,10 +47,10 @@ const Hero = () => {
         </div>
 
         <div className="mt-8 md:mt-12 max-w-xl mx-auto opacity-0 hero-fade-in px-6">
-          <p className="font-sans text-sm md:text-lg text-gray-300 leading-relaxed font-light">
+          <p className="font-sans text-sm md:text-lg text-secondary leading-relaxed font-light">
             Bridging the gap between{' '}
-            <span className="text-white font-medium">engineering logic</span> and{' '}
-            <span className="text-white font-medium">creative design</span>. Specializing in
+            <span className="text-primary font-medium">engineering logic</span> and{' '}
+            <span className="text-primary font-medium">creative design</span>. Specializing in
             high-performance WordPress Plugin architecture and top-value digital experiences.
           </p>
         </div>

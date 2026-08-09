@@ -51,27 +51,27 @@ const Contact = () => {
     return (
         <section
             id="contact"
-            className="px-6 pt-24 pb-12 md:py-40 md:py-20 bg-[#030303] relative overflow-hidden"
+            className="px-6 pt-24 pb-12 md:py-40 md:py-20 bg-[var(--color-bg)] relative overflow-hidden"
         >
             {/* Abstract Decoration */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03),transparent_70%)] pointer-events-none"></div>
 
             <div className="max-w-4xl mx-auto text-center relative z-10">
-                <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] text-gray-500 mb-8">
+                <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] text-muted mb-8">
                     Ready to Collaborate?
                 </p>
 
-                <h2 className="text-4xl md:text-7xl lg:text-8xl font-semibold tracking-tighter uppercase text-white mb-12">
+                <h2 className="text-4xl md:text-7xl lg:text-8xl font-semibold tracking-tighter uppercase text-primary mb-12">
                     Let's Build
                     <br />
-                    Something <span className="text-gray-600">Iconic</span>
+                    Something <span className="text-muted">Iconic</span>
                 </h2>
 
                 <div className="flex flex-col md:flex-row items-center justify-center gap-6">
                     <button
                         type="button"
                         onClick={() => setShowRequestModal(true)}
-                        className="px-8 py-4 border border-white/20 text-gray-800 bg-white rounded-sm font-mono text-xs uppercase font-bold tracking-widest hover:bg-white/80 transition-colors magnetic-btn"
+                        className="px-8 py-4 border border-[var(--color-border)] text-[var(--color-accent-inverse)] bg-[var(--color-accent)] rounded-sm font-mono text-xs uppercase font-bold tracking-widest hover:opacity-80 transition-opacity magnetic-btn"
                     >
                         <span className="">hello@reuben.dev</span>
                     </button>
@@ -81,35 +81,35 @@ const Contact = () => {
                         href="https://github.com/Rubylenshy"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-8 py-4 border border-white/20 text-white rounded-sm font-mono text-xs uppercase font-bold tracking-widest hover:bg-white/5 transition-colors magnetic-btn"
+                        className="px-8 py-4 border border-[var(--color-border)] text-primary rounded-sm font-mono text-xs uppercase font-bold tracking-widest hover:bg-[var(--color-surface)] transition-colors magnetic-btn"
                     >
                         GitHub
                     </a>
                 </div>
 
-                <div className="mt-24 grid grid-cols-2 md:grid-cols-3 gap-8 text-left border-t border-white/10 pt-12">
+                <div className="mt-24 grid grid-cols-2 md:grid-cols-3 gap-8 text-left border-t border-[var(--color-border)] pt-12">
                     <div>
-                        <h4 className="font-mono text-[10px] uppercase text-gray-500 mb-4">
+                        <h4 className="font-mono text-[10px] uppercase text-muted mb-4">
                             Location
                         </h4>
-                        <p className="text-sm font-medium text-white">
+                        <p className="text-sm font-medium text-primary">
                             Nigeria
                         </p>
-                        <p className="text-sm text-gray-400">
+                        <p className="text-sm text-secondary">
                             Remote Worldwide
                         </p>
                     </div>
                     <div>
-                        <h4 className="font-mono text-[10px] uppercase text-gray-500 mb-4">
+                        <h4 className="font-mono text-[10px] uppercase text-muted mb-4">
                             Focus
                         </h4>
-                        <p className="text-sm font-medium text-white">
+                        <p className="text-sm font-medium text-primary">
                             Backend Development
                         </p>
-                        <p className="text-sm text-gray-400">Design Systems</p>
+                        <p className="text-sm text-secondary">Design Systems</p>
                     </div>
                     <div>
-                        <h4 className="font-mono text-[10px] uppercase text-gray-500 mb-4">
+                        <h4 className="font-mono text-[10px] uppercase text-muted mb-4">
                             Socials
                         </h4>
                         <div className="flex flex-wrap gap-3">
@@ -128,7 +128,7 @@ const Contact = () => {
                                             : undefined
                                     }
                                     aria-label={item.label}
-                                    className="w-10 h-10 flex items-center justify-center rounded-full border border-white/10 text-gray-300 hover:text-white hover:border-white/30 transition-colors"
+                                    className="w-10 h-10 flex items-center justify-center rounded-full border border-[var(--color-border)] text-secondary hover:text-primary hover:border-[var(--color-border-strong)] transition-colors"
                                 >
                                     <i className={item.icon}></i>
                                 </a>

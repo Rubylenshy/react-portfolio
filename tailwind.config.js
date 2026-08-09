@@ -11,12 +11,17 @@ export default {
         mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
-        background: '#030303',
-        surface: '#0A0A0A',
-        primary: '#EDEDED',
-        secondary: '#888888',
-        accent: '#3b82f6',
-        line: '#FFFFFF1A'
+        background: 'var(--color-bg)',
+        'background-secondary': 'var(--color-bg-secondary)',
+        surface: 'var(--color-surface)',
+        'surface-strong': 'var(--color-surface-strong)',
+        primary: 'var(--color-text-primary)',
+        secondary: 'var(--color-text-secondary)',
+        muted: 'var(--color-text-muted)',
+        accent: 'var(--color-accent)',
+        'accent-inverse': 'var(--color-accent-inverse)',
+        line: 'var(--color-border)',
+        'line-strong': 'var(--color-border-strong)',
       },
       letterSpacing: {
         tighter: '-0.04em',

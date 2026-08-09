@@ -10,7 +10,9 @@ html[data-theme="dark"] {
   --color-bg:             #030303;
   --color-bg-secondary:   #0f0f0f;
   --color-surface:        rgba(255,255,255,0.05);
+  --color-surface-strong: rgba(255,255,255,0.10);
   --color-border:         rgba(255,255,255,0.10);
+  --color-border-strong:  rgba(255,255,255,0.25);
   --color-text-primary:   #ededed;
   --color-text-secondary: #6b7280;
   --color-text-muted:     #374151;
@@ -24,7 +26,9 @@ html[data-theme="light"] {
   --color-bg:             #f8f8f8;
   --color-bg-secondary:   #ffffff;
   --color-surface:        rgba(0,0,0,0.04);
+  --color-surface-strong: rgba(0,0,0,0.08);
   --color-border:         rgba(0,0,0,0.10);
+  --color-border-strong:  rgba(0,0,0,0.25);
   --color-text-primary:   #111111;
   --color-text-secondary: #4b5563;
   --color-text-muted:     #9ca3af;
@@ -53,10 +57,11 @@ html.lenis {
 }
 
 body {
-  background-color: #030303;
-  color: #EDEDED;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ::selection { 
@@ -115,14 +120,14 @@ body {
 
 /* Utils */
 .loader {
-  position: fixed; 
-  inset: 0; 
+  position: fixed;
+  inset: 0;
   z-index: 10000;
-  background: #030303; 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  color: #EDEDED;
+  background: var(--color-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-text-primary);
 }
 
 /* Reveal Animations */
@@ -133,7 +138,7 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(to bottom, #fff, #666);
+  background: linear-gradient(to bottom, var(--gradient-text-from), var(--gradient-text-to));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -184,9 +189,9 @@ body {
   --line-weight: 1px; 
   --line-distance: 0.6rem 0.8rem; 
   --animation-speed: 0.35s; 
-  --dot-color: #fff; 
-  --line-color: #ffffff40; 
-  --grid-color: #ffffff20; 
+  --dot-color: var(--color-accent);
+  --line-color: var(--color-border-strong);
+  --grid-color: var(--color-border);
   position: relative; 
   display: inline-flex; 
   justify-content: center; 
@@ -233,8 +238,8 @@ body {
   padding: 0.8rem 1.5rem; 
   background-color: transparent; 
   border: 1px solid var(--grid-color);
-  color: #ccc; 
-  font-family: "JetBrains Mono", monospace; 
+  color: var(--color-text-secondary);
+  font-family: "JetBrains Mono", monospace;
   letter-spacing: -0.01em; 
   font-size: 0.875rem;
   font-weight: 500; 
@@ -245,26 +250,26 @@ body {
   backdrop-filter: blur(4px);
 }
 
-.btn-wrapper .btn:hover { 
-  background-color: rgba(255,255,255,0.05); 
-  color: #fff; 
-  transform: scale(1.02); 
+.btn-wrapper .btn:hover {
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  transform: scale(1.02);
 }
 
 .btn-wrapper .btn:active { 
   transform: scale(.98); 
 }
 
-.btn-wrapper .btn-svg { 
-  margin-left: .5rem; 
-  height: 16px; 
-  width: 16px; 
-  stroke: #888; 
-  transition: all .2s; 
+.btn-wrapper .btn-svg {
+  margin-left: .5rem;
+  height: 16px;
+  width: 16px;
+  stroke: var(--color-text-secondary);
+  transition: all .2s;
 }
 
-.btn-wrapper .btn:hover .btn-svg { 
-  stroke: #fff; 
+.btn-wrapper .btn:hover .btn-svg {
+  stroke: var(--color-text-primary);
 }
 
 .btn-wrapper .dot { 
@@ -386,6 +391,30 @@ body {
 
 .btn-wrapper .line.right { 
   right: calc(var(--line-weight)*-0.5); 
+}
+
+/* Hero background image + scrim — adapts to theme */
+#hero-bg {
+  opacity: 0.6;
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
+
+html[data-theme="light"] #hero-bg {
+  opacity: 0.35;
+  filter: brightness(1.35) contrast(0.85) saturate(0.75);
+}
+
+.hero-overlay-gradient {
+  background: linear-gradient(
+    to top,
+    var(--color-bg) 0%,
+    color-mix(in srgb, var(--color-bg) 80%, transparent) 45%,
+    transparent 100%
+  );
+}
+
+.hero-overlay-scrim {
+  background-color: color-mix(in srgb, var(--color-bg) 40%, transparent);
 }
 
 /* Project Card Hover */

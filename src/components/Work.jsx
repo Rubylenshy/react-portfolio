@@ -37,13 +37,13 @@ const Work = () => {
 
   return (
     <section id="work" className="px-6 py-24 md:py-32 max-w-[1400px] mx-auto">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-6">
-        <h2 className="text-4xl md:text-7xl font-semibold tracking-tighter uppercase text-white">
+      <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-[var(--color-border)] pb-6">
+        <h2 className="text-4xl md:text-7xl font-semibold tracking-tighter uppercase text-primary">
           Selected<br />
           Work
         </h2>
         <div className="mt-4 md:mt-0 flex gap-2">
-          <span className="w-3 h-3 rounded-full bg-white animate-pulse"></span>
+          <span className="w-3 h-3 rounded-full bg-[var(--color-accent)] animate-pulse"></span>
           <span className="font-mono text-xs text-secondary uppercase tracking-widest">
             Show, Don't Tell
           </span>
@@ -61,7 +61,7 @@ const Work = () => {
               className="group project-card grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center"
             >
               <div
-                className={`lg:col-span-7 overflow-hidden rounded-sm bg-[#111] aspect-[16/10] relative cursor-pointer border border-white/5 ${
+                className={`lg:col-span-7 overflow-hidden rounded-sm bg-[var(--color-bg-secondary)] aspect-[16/10] relative cursor-pointer border border-[var(--color-border)] ${
                   isRight ? 'order-1 lg:order-2' : ''
                 }`}
               >
@@ -76,15 +76,15 @@ const Work = () => {
               <div
                 className={`lg:col-span-5 flex flex-col gap-6 ${isRight ? 'order-2 lg:order-1' : ''}`}
               >
-                <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-white/60 flex-wrap">
+                <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-secondary flex-wrap">
                   {badges.map((badge) => (
-                    <span key={badge} className="px-2 py-1 border border-white/10 rounded bg-white/5">
+                    <span key={badge} className="px-2 py-1 border border-[var(--color-border)] rounded bg-[var(--color-surface)]">
                       {badge}
                     </span>
                   ))}
                 </div>
 
-                <h3 className="text-3xl md:text-5xl font-semibold tracking-tighter text-white">
+                <h3 className="text-3xl md:text-5xl font-semibold tracking-tighter text-primary">
                   {project.title}
                 </h3>
 
@@ -97,7 +97,7 @@ const Work = () => {
                     <a
                       href={project.code_link}
                       target="_blank"
-                      className="inline-flex items-center gap-2 p-1 text-xs border border-white font-mono uppercase tracking-widest text-white hover:text-gray-300 transition-colors magnetic-btn"
+                      className="inline-flex items-center gap-2 p-1 text-xs border border-[var(--color-text-primary)] font-mono uppercase tracking-widest text-primary hover:text-secondary transition-colors magnetic-btn"
                     >
                       View Codebase <Github className="w-4 h-4" />
                     </a>
@@ -107,7 +107,7 @@ const Work = () => {
                       href={project.live_link}
                       target="_blank"
                       title="Live"
-                      className="inline-flex items-center gap-2 p-0.5 text-xs border border-white font-mono uppercase tracking-widest text-white hover:text-gray-800 hover:bg-white transition-colors magnetic-btn"
+                      className="inline-flex items-center gap-2 p-0.5 text-xs border border-[var(--color-text-primary)] font-mono uppercase tracking-widest text-primary hover:text-[var(--color-accent-inverse)] hover:bg-[var(--color-accent)] transition-colors magnetic-btn"
                     >
                       <ArrowUpRight className="w-4 h-4" />
                     </a>
@@ -116,7 +116,7 @@ const Work = () => {
                     <a
                       href={project.case_study}
                       target="_blank"
-                      className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-white hover:text-gray-300 transition-colors magnetic-btn"
+                      className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-primary hover:text-secondary transition-colors magnetic-btn"
                     >
                       Read Case Study <FileText className="w-4 h-4" />
                     </a>
@@ -131,7 +131,7 @@ const Work = () => {
       <div className="mt-16 flex justify-center">
         <Link
           onClick={handleSeeAll}
-          className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-white border border-white/20 px-6 py-3 rounded-sm hover:bg-white/10 transition-colors magnetic-btn"
+          className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-primary border border-[var(--color-border)] px-6 py-3 rounded-sm hover:bg-[var(--color-surface)] transition-colors magnetic-btn"
         >
           See all projects
           <ArrowUpRight className="w-4 h-4" />

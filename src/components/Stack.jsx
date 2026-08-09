@@ -90,7 +90,7 @@ const Stack = () => {
         [...items, ...items].map((item, idx) => (
             <span key={`${item.label}-${idx}`} className="mx-8 inline-flex items-center gap-2.5 shrink-0">
                 <i className={`${item.devicon} text-2xl`} style={{ lineHeight: 1 }} />
-                <span className="font-mono text-sm text-gray-500 uppercase tracking-widest">{item.label}</span>
+                <span className="font-mono text-sm text-muted uppercase tracking-widest">{item.label}</span>
             </span>
         ));
 
@@ -99,7 +99,7 @@ const Stack = () => {
             {/* ── Marquee section ── */}
             <section
                 id="stack"
-                className="py-12 border-y border-white/5 bg-black/50 backdrop-blur-sm overflow-hidden mt-12"
+                className="py-12 border-y border-[var(--color-border)] bg-[var(--color-surface-strong)] backdrop-blur-sm overflow-hidden mt-12"
             >
                 <div className="space-y-6">
                     <div className="marquee-track">
@@ -119,17 +119,17 @@ const Stack = () => {
                             <div
                                 key={roles[i].role}
                                 ref={ref}
-                                className="stack-card p-8 bg-white/5 border border-white/10 rounded-lg shadow-[0_0_0_1px_rgba(255,255,255,0.04)] cursor-pointer"
+                                className="stack-card p-8 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg cursor-pointer"
                                 style={{ transformStyle: "preserve-3d" }}
                             >
-                                <div className="w-10 h-10 bg-black border border-white/10 rounded-full flex items-center justify-center mb-6 text-white">
+                                <div className="w-10 h-10 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-full flex items-center justify-center mb-6 text-primary">
                                     <i className={`${roles[i].icon} text-sm`} />
                                 </div>
-                                <h4 className="text-lg font-semibold text-white mb-3">{roles[i].role}</h4>
-                                <p className="text-sm text-white leading-relaxed mb-4">{roles[i].description}</p>
+                                <h4 className="text-lg font-semibold text-primary mb-3">{roles[i].role}</h4>
+                                <p className="text-sm text-secondary leading-relaxed mb-4">{roles[i].description}</p>
                                 <div className="flex flex-wrap gap-2">
                                     {roles[i].pills.map((pill, idx) => (
-                                        <span key={idx} className="px-4 py-1.5 rounded-full border border-white/15 bg-black/40 text-xs font-medium tracking-widest text-white uppercase">
+                                        <span key={idx} className="px-4 py-1.5 rounded-full border border-[var(--color-border)] bg-[var(--color-surface-strong)] text-xs font-medium tracking-widest text-primary uppercase">
                                             {pill}
                                         </span>
                                     ))}

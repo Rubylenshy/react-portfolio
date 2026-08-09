@@ -16,7 +16,27 @@ export default function SampleProposal() {
           --gold: #B8955A;
           --gold-light: #E8D9B8;
           --success: #2F5D50;
+          --card-bg: #FFFFFF;
           font-size: 14px;
+        }
+
+        /* Dark-theme palette for the proposal body (the branded cover page
+           stays fixed-dark by design, like a print title page). */
+        html[data-theme="dark"] .proposal-wrapper {
+          --cream: #16150F;
+          --warm-white: #1E1C17;
+          --charcoal: #F2EFE8;
+          --charcoal-mid: #D3CFC4;
+          --muted: #948F82;
+          --border: #34302A;
+          --gold: #C9A869;
+          --gold-light: #3A3225;
+          --success: #4F9484;
+          --card-bg: #221F19;
+        }
+
+        .proposal-wrapper {
+          transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         * {
@@ -189,7 +209,7 @@ export default function SampleProposal() {
         }
 
         .strategy-card {
-          background: white;
+          background: var(--card-bg);
           border: 1px solid var(--border);
           border-radius: 8px;
           padding: 26px;
@@ -216,7 +236,7 @@ export default function SampleProposal() {
         }
 
         .pkg {
-          background: white;
+          background: var(--card-bg);
           border: 1px solid var(--border);
           border-radius: 10px;
           overflow: hidden;
@@ -234,7 +254,7 @@ export default function SampleProposal() {
           top: 18px;
           right: 18px;
           background: var(--gold);
-          color: var(--charcoal);
+          color: #1C1B19;
           font-size: 10px;
           letter-spacing: 0.1em;
           text-transform: uppercase;
@@ -320,7 +340,7 @@ export default function SampleProposal() {
           border-radius: 8px;
           padding: 18px 18px 14px;
           margin-bottom: 14px;
-          background: #fff;
+          background: var(--card-bg);
         }
 
         .mini-card:last-child {
@@ -403,7 +423,7 @@ export default function SampleProposal() {
           width: 10px;
           height: 10px;
           border-radius: 50%;
-          background: white;
+          background: var(--card-bg);
           border: 2px solid var(--gold);
         }
 
