@@ -1,10 +1,10 @@
 import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { Search, Clock, Calendar, Tag } from 'lucide-react'
-import BlogNavigation from '../components/BlogNavigation'
-import Footer from '../components/Footer'
-import blogsData from '../assets/data/blogs.json'
-import SEOHead from '../components/SEOHead'
+import BlogNavigation from './components/BlogNavigation'
+import Footer from '../../shared/components/Footer'
+import blogsData from './data/blogs.json'
+import SEOHead from '../../shared/components/SEOHead'
 
 // Transform Google Drive file ID or shareable link → direct embed thumbnail
 function getThumbnailSrc(url) {

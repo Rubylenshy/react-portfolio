@@ -81,7 +81,7 @@ const Contact = () => {
                         href="https://github.com/Rubylenshy"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-8 py-4 border border-[var(--color-border)] text-primary rounded-sm font-mono text-xs uppercase font-bold tracking-widest hover:bg-[var(--color-surface)] transition-colors magnetic-btn"
+                        className="px-8 py-4 border border-[var(--color-border)] bg-[var(--color-surface)] backdrop-blur-sm text-primary rounded-sm font-mono text-xs uppercase font-bold tracking-widest hover:bg-[var(--color-surface-strong)] transition-colors magnetic-btn"
                     >
                         GitHub
                     </a>
@@ -128,7 +128,7 @@ const Contact = () => {
                                             : undefined
                                     }
                                     aria-label={item.label}
-                                    className="w-10 h-10 flex items-center justify-center rounded-full border border-[var(--color-border)] text-secondary hover:text-primary hover:border-[var(--color-border-strong)] transition-colors"
+                                    className="w-10 h-10 flex items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] backdrop-blur-sm text-secondary hover:text-primary hover:border-[var(--color-border-strong)] transition-colors"
                                 >
                                     <i className={item.icon}></i>
                                 </a>

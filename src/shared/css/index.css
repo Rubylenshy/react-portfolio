@@ -18,6 +18,7 @@ html[data-theme="dark"] {
   --color-text-muted:     #374151;
   --color-accent:         #ffffff;
   --color-accent-inverse: #000000;
+  --color-accent-tint:    #60a5fa;
   --gradient-text-from:   #ffffff;
   --gradient-text-to:     #666666;
 }
@@ -27,13 +28,14 @@ html[data-theme="light"] {
   --color-bg-secondary:   #f1f2f5;
   --color-surface:        rgba(0,0,0,0.04);
   --color-surface-strong: rgba(0,0,0,0.08);
-  --color-border:         #c6c8cb;
-  --color-border-strong:  rgba(0,0,0,0.35);
+  --color-border:         rgba(17,17,17,0.12);
+  --color-border-strong:  rgba(0,0,0,0.28);
   --color-text-primary:   #111111;
   --color-text-secondary: #4b5563;
   --color-text-muted:     #9ca3af;
   --color-accent:         #000000;
   --color-accent-inverse: #ffffff;
+  --color-accent-tint:    #2563eb;
   --gradient-text-from:   #111111;
   --gradient-text-to:     #555555;
 }
@@ -231,29 +233,48 @@ body {
 }
 
 .btn-wrapper .btn {
-  position: relative; 
-  display: flex; 
-  justify-content: center; 
+  position: relative;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  padding: 0.8rem 1.5rem; 
-  background-color: transparent; 
+  padding: 0.8rem 1.5rem;
+  background-color: var(--color-surface);
   border: 1px solid var(--grid-color);
   color: var(--color-text-secondary);
   font-family: "JetBrains Mono", monospace;
-  letter-spacing: -0.01em; 
+  letter-spacing: -0.01em;
   font-size: 0.875rem;
-  font-weight: 500; 
-  text-transform: uppercase; 
-  border-radius: 4px; 
+  font-weight: 500;
+  text-transform: uppercase;
+  border-radius: 4px;
   cursor: pointer;
-  transition: transform .2s ease-in-out, color .2s ease-in-out;
-  backdrop-filter: blur(4px);
+  transition: transform .2s ease-in-out, color .2s ease-in-out, background-color .2s ease-in-out;
+  backdrop-filter: blur(8px);
 }
 
 .btn-wrapper .btn:hover {
-  background-color: var(--color-surface);
+  background-color: var(--color-surface-strong);
   color: var(--color-text-primary);
   transform: scale(1.02);
+}
+
+/* Accent variant — used on the resume CTA to stand out from the monochrome buttons */
+.btn-wrapper.btn-accent {
+  --dot-color: var(--color-accent-tint);
+  --line-color: color-mix(in srgb, var(--color-accent-tint) 55%, var(--color-border-strong));
+  --grid-color: color-mix(in srgb, var(--color-accent-tint) 35%, var(--color-border));
+}
+
+.btn-wrapper.btn-accent .btn {
+  background-color: color-mix(in srgb, var(--color-accent-tint) 12%, var(--color-surface));
+  border-color: color-mix(in srgb, var(--color-accent-tint) 45%, var(--color-border));
+  color: color-mix(in srgb, var(--color-accent-tint) 70%, var(--color-text-primary));
+}
+
+.btn-wrapper.btn-accent .btn:hover {
+  background-color: color-mix(in srgb, var(--color-accent-tint) 20%, var(--color-surface-strong));
+  border-color: var(--color-accent-tint);
+  color: var(--color-text-primary);
 }
 
 .btn-wrapper .btn:active { 
@@ -434,13 +455,13 @@ html[data-theme="light"] #hero-bg {
 .glass-bubble {
   position: absolute;
   border-radius: 9999px;
-  background: radial-gradient(circle at 0% 0%, rgba(255,255,255,0.16), transparent 55%),
-              linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02));
-  border: 1px solid rgba(255,255,255,0.16);
+  background: radial-gradient(circle at 0% 0%, var(--color-surface-strong), transparent 55%),
+              linear-gradient(135deg, var(--color-surface-strong), var(--color-surface));
+  border: 1px solid var(--color-border-strong);
   backdrop-filter: blur(18px);
   box-shadow:
     0 12px 30px rgba(0,0,0,0.7),
-    inset 0 0 0 1px rgba(255,255,255,0.06);
+    inset 0 0 0 1px var(--color-border);
 }
 
 .glass-bubble::before {
@@ -451,6 +472,17 @@ html[data-theme="light"] #hero-bg {
   background: radial-gradient(circle at 10% 0%, rgba(255,255,255,0.35), transparent 55%);
   opacity: 0.6;
   pointer-events: none;
+}
+
+html[data-theme="light"] .glass-bubble {
+  box-shadow:
+    0 8px 20px rgba(17,17,17,0.14),
+    inset 0 0 0 1px var(--color-border);
+}
+
+html[data-theme="light"] .glass-bubble::before {
+  background: radial-gradient(circle at 10% 0%, rgba(255,255,255,0.55), transparent 55%);
+  opacity: 0.4;
 }
 
 /* Hero bubble positioning + colored glows */

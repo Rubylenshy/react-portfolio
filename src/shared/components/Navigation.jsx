@@ -110,7 +110,7 @@ const Navigation = () => {
                     className="btn-wrapper magnetic-btn !p-0 pointer-events-auto"
                 >
                     {/* Button Content */}
-                    <button className="!text-xs btn md:!text-sm !px-2 md:!px-4 hover:!bg-[var(--color-surface-strong)] transition-colors">
+                    <button className="!text-xs btn md:!text-sm !px-2 md:!px-4 transition-colors">
                         <i className="far fa-file-pdf mr-2"></i>
                         <span>View Resume</span>
                     </button>

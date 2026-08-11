@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import SEOHead from '../components/SEOHead'
+import SEOHead from '../../shared/components/SEOHead'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
@@ -8,10 +8,10 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { Share2, Copy, Check, Calendar, Clock, Tag } from 'lucide-react'
-import BlogNavigation from '../components/BlogNavigation'
-import Breadcrumb from '../components/Breadcrumb'
-import Footer from '../components/Footer'
-import blogsData from '../assets/data/blogs.json'
+import BlogNavigation from './components/BlogNavigation'
+import Breadcrumb from './components/Breadcrumb'
+import Footer from '../../shared/components/Footer'
+import blogsData from './data/blogs.json'
 
 /* ─── helpers ─── */
 function formatDate(dateStr) {

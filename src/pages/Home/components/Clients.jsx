@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import '../assets/css/clients.css'
+import '../css/clients.css'
 
 const Clients = () => {
   const scrollContainerRef = useRef(null)

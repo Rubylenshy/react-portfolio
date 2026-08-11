@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import projects from '../assets/data/projects.json'
-import Footer from '../components/Footer'
-import BackHomeButton from '../components/BackHomeButton'
-import SEOHead from '../components/SEOHead'
+import projects from '../../shared/data/projects.json'
+import Footer from '../../shared/components/Footer'
+import BackHomeButton from '../../shared/components/BackHomeButton'
+import SEOHead from '../../shared/components/SEOHead'
 
 const Projects = () => {
   const [searchParams, setSearchParams] = useSearchParams()

@@ -1,6 +1,6 @@
 import { Github, ArrowUpRight, FileText } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
-import projects from '../assets/data/projects.json'
+import projects from '../../../shared/data/projects.json'
 
 const badgeLabels = {
   react: 'React',
@@ -131,7 +131,7 @@ const Work = () => {
       <div className="mt-16 flex justify-center">
         <Link
           onClick={handleSeeAll}
-          className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-primary border border-[var(--color-border)] px-6 py-3 rounded-sm hover:bg-[var(--color-surface)] transition-colors magnetic-btn"
+          className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-primary border border-[var(--color-border)] bg-[var(--color-surface)] backdrop-blur-sm px-6 py-3 rounded-sm hover:bg-[var(--color-surface-strong)] transition-colors magnetic-btn"
         >
           See all projects
           <ArrowUpRight className="w-4 h-4" />

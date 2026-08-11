@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
-import Navigation from '../components/Navigation'
-import Hero from '../components/Hero'
-import About from '../components/About'
-import Clients from '../components/Clients'
-import Work from '../components/Work'
-import Stack from '../components/Stack'
-import Contact from '../components/Contact'
-import Footer from '../components/Footer'
-import SEOHead from '../components/SEOHead'
+import Navigation from '../../shared/components/Navigation'
+import Hero from './components/Hero'
+import About from './components/About'
+import Clients from './components/Clients'
+import Work from './components/Work'
+import Stack from './components/Stack'
+import Contact from './components/Contact'
+import Footer from '../../shared/components/Footer'
+import SEOHead from '../../shared/components/SEOHead'
 
 const homeSchema = {
   '@context': 'https://schema.org',
