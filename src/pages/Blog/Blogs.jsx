@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { Search, Clock, Calendar, Tag } from 'lucide-react'
-import BlogNavigation from './components/BlogNavigation'
+import Navigation from '../../shared/components/Navigation'
 import Footer from '../../shared/components/Footer'
 import blogsData from './data/blogs.json'
 import SEOHead from '../../shared/components/SEOHead'
@@ -109,9 +109,10 @@ const Blogs = () => {
         description="Long-form breakdowns of WordPress plugins, system design notes, and front-end deep dives by Reuben Oluwafemi."
         canonical="https://www.usereuben.com/blogs"
       />
-      <BlogNavigation />
+      <Navigation />
 
-      <main className="flex-1 max-w-3xl mx-auto w-full px-6 py-16">
+      <main className="flex-1 w-full px-6 pt-28 pb-16 md:pt-32 max-w-[1400px] mx-auto grid-frame">
+       <div className="max-w-3xl mx-auto w-full">
         {/* Header */}
         <header className="mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[10px] font-mono uppercase tracking-[0.25em] text-[var(--color-text-secondary)] mb-6">
@@ -154,6 +155,7 @@ const Blogs = () => {
             No posts match &quot;{query}&quot;
           </div>
         )}
+       </div>
       </main>
 
       <Footer />

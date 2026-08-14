@@ -8,7 +8,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { Share2, Copy, Check, Calendar, Clock, Tag } from 'lucide-react'
-import BlogNavigation from './components/BlogNavigation'
+import Navigation from '../../shared/components/Navigation'
 import Breadcrumb from './components/Breadcrumb'
 import Footer from '../../shared/components/Footer'
 import blogsData from './data/blogs.json'
@@ -244,7 +244,7 @@ const BlogPost = () => {
   if (!post) {
     return (
       <div className="blog-page min-h-screen flex flex-col">
-        <BlogNavigation />
+        <Navigation />
         <div className="flex-1 flex items-center justify-center text-[var(--color-text-secondary)] font-mono text-sm">
           Post not found.{' '}
           <Link to="/blogs" className="underline ml-1 hover:text-[var(--color-text-primary)]">
@@ -267,9 +267,10 @@ const BlogPost = () => {
           schema={articleSchema}
         />
       )}
-      <BlogNavigation />
+      <Navigation />
 
-      <main className="flex-1 max-w-6xl mx-auto w-full px-6 py-12">
+      <main className="flex-1 w-full px-6 pt-28 pb-12 md:pt-32 max-w-[1400px] mx-auto grid-frame">
+       <div className="max-w-6xl mx-auto w-full">
         {/* Breadcrumb */}
         <Breadcrumb postTitle={post.title} />
 
@@ -396,6 +397,7 @@ const BlogPost = () => {
           {/* TOC — sticky right column */}
           <TocSidebar headings={headings} />
         </div>
+       </div>
       </main>
 
       <Footer />

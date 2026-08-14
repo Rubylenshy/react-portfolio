@@ -1,13 +1,7 @@
-import { useRef, useEffect } from "react";
-import { gsap } from "gsap";
+import { Play } from "lucide-react";
 
 // ── Component ──────────────────────────────────────────────────────────────
 const Stack = () => {
-    const card1Ref = useRef(null);
-    const card2Ref = useRef(null);
-    const card3Ref = useRef(null);
-    const card4Ref = useRef(null);
-
     // Tools row 1 — using devicon colored classes
     const tools = [
         { label: "VS Code",           devicon: "devicon-vscode-plain colored" },
@@ -65,27 +59,6 @@ const Stack = () => {
         },
     ];
 
-    // Card 3D tilt effect
-    useEffect(() => {
-        const cards = [card1Ref.current, card2Ref.current, card3Ref.current, card4Ref.current];
-        const cleanups = [];
-
-        cards.forEach((card) => {
-            if (!card) return;
-            const onEnter = () => gsap.to(card, { backdropFilter: "blur(20px)", backgroundColor: "rgba(255,255,255,0.12)", borderColor: "rgba(255,255,255,0.25)", scale: 1.02, boxShadow: "0 8px 32px rgba(0,0,0,0.4)", duration: 0.4, ease: "power2.out" });
-            const onMove = (e) => {
-                const r = card.getBoundingClientRect();
-                gsap.to(card, { rotationX: ((e.clientY - r.top - r.height / 2) / (r.height / 2)) * -5, rotationY: ((e.clientX - r.left - r.width / 2) / (r.width / 2)) * 5, transformPerspective: 1000, duration: 0.3, ease: "power2.out" });
-            };
-            const onLeave = () => gsap.to(card, { backdropFilter: "blur(0px)", backgroundColor: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.1)", scale: 1, rotationX: 0, rotationY: 0, boxShadow: "0 0 0 1px rgba(255,255,255,0.04)", duration: 0.4, ease: "power2.out" });
-            card.addEventListener("mouseenter", onEnter);
-            card.addEventListener("mousemove", onMove);
-            card.addEventListener("mouseleave", onLeave);
-            cleanups.push(() => { card.removeEventListener("mouseenter", onEnter); card.removeEventListener("mousemove", onMove); card.removeEventListener("mouseleave", onLeave); });
-        });
-        return () => cleanups.forEach((c) => c());
-    }, []);
-
     const renderMarqueeItems = (items) =>
         [...items, ...items].map((item, idx) => (
             <span key={`${item.label}-${idx}`} className="mx-8 inline-flex items-center gap-2.5 shrink-0">
@@ -111,31 +84,47 @@ const Stack = () => {
                 </div>
             </section>
 
-            {/* ── Role Cards ── */}
-            <section className="py-12 bg-[var(--color-bg-secondary)]">
-                <div className="flex items-center lg:items-start justify-center mx-auto max-w-5xl px-6">
-                    <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {[card1Ref, card2Ref, card3Ref, card4Ref].map((ref, i) => (
+            {/* ── Role Grid ── */}
+            <section className="bg-[var(--color-bg-secondary)] max-w-[1400px] mx-auto grid-frame">
+                <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2">
+                    {roles.map((item, i) => {
+                        const isLastInRow = (i + 1) % 2 === 0;
+                        const isLastRow = i >= roles.length - (roles.length % 2 === 0 ? 2 : 1);
+                        return (
                             <div
-                                key={roles[i].role}
-                                ref={ref}
-                                className="stack-card p-8 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg cursor-pointer"
-                                style={{ transformStyle: "preserve-3d" }}
+                                key={item.role}
+                                className={`p-10 md:p-14 ${!isLastInRow ? "md:border-r" : ""} ${!isLastRow ? "border-b border-dashed" : ""} border-[var(--color-border)]`}
                             >
-                                <div className="w-10 h-10 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-full flex items-center justify-center mb-6 text-primary">
-                                    <i className={`${roles[i].icon} text-sm`} />
-                                </div>
-                                <h4 className="text-lg font-semibold text-primary mb-3">{roles[i].role}</h4>
-                                <p className="text-sm text-secondary leading-relaxed mb-4">{roles[i].description}</p>
-                                <div className="flex flex-wrap gap-2">
-                                    {roles[i].pills.map((pill, idx) => (
-                                        <span key={idx} className="px-4 py-1.5 rounded-full border border-[var(--color-border)] bg-[var(--color-surface-strong)] text-xs font-medium tracking-widest text-primary uppercase">
+                                <i className={`${item.icon} text-2xl text-primary mb-8 block`} />
+                                <h4 className="text-lg font-semibold text-primary mb-3">{item.role}</h4>
+                                <p className="text-sm text-secondary leading-relaxed mb-5">{item.description}</p>
+                                <div className="flex flex-wrap gap-x-3 gap-y-1.5">
+                                    {item.pills.map((pill) => (
+                                        <span key={pill} className="text-[11px] font-mono uppercase tracking-widest text-muted">
                                             {pill}
                                         </span>
                                     ))}
                                 </div>
                             </div>
-                        ))}
+                        );
+                    })}
+                </div>
+
+                {/* ── Showreel frame ── */}
+                <div className="max-w-5xl mx-auto px-10 md:px-14 py-16">
+                    <div className="relative">
+                        <span className="absolute -top-3 -left-3 w-6 h-6 border-t border-l border-[var(--color-border-strong)]" />
+                        <span className="absolute -top-3 -right-3 w-6 h-6 border-t border-r border-[var(--color-border-strong)]" />
+                        <span className="absolute -bottom-3 -left-3 w-6 h-6 border-b border-l border-[var(--color-border-strong)]" />
+                        <span className="absolute -bottom-3 -right-3 w-6 h-6 border-b border-r border-[var(--color-border-strong)]" />
+                        <div className="aspect-video w-full flex flex-col items-center justify-center gap-3 bg-[var(--color-bg)] border border-[var(--color-border)] rounded-sm">
+                            <span className="w-12 h-12 rounded-full border border-[var(--color-border-strong)] flex items-center justify-center text-secondary">
+                                <Play className="w-4 h-4 ml-0.5" />
+                            </span>
+                            <span className="font-mono text-[11px] uppercase tracking-widest text-muted">
+                                Showreel — Coming Soon
+                            </span>
+                        </div>
                     </div>
                 </div>
             </section>

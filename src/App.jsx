@@ -4,6 +4,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import Loader from './shared/components/Loader'
 import Cursor from './shared/components/Cursor'
 import Home from './pages/Home/Home'
+import About from './pages/About/About'
 import Projects from './pages/Projects/Projects'
 import Blogs from './pages/Blog/Blogs'
 import BlogPost from './pages/Blog/BlogPost'
@@ -28,6 +29,7 @@ function App() {
         <Cursor />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:slug" element={<BlogPost />} />

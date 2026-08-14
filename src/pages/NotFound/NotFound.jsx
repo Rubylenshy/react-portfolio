@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom'
+import Navigation from '../../shared/components/Navigation'
 import Footer from '../../shared/components/Footer'
 
 const NotFound = () => {
   return (
     <>
+      <Navigation />
+
       <main
-        className="min-h-[85vh] bg-[var(--color-bg)] text-primary px-6 pt-16 pb-20 md:pt-20 md:pb-24 flex flex-col items-center justify-center"
+        className="min-h-[85vh] bg-[var(--color-bg)] text-primary px-6 pt-28 pb-20 md:pt-32 md:pb-24 flex flex-col items-center justify-center max-w-[1400px] mx-auto grid-frame"
         data-scroll-animate
       >
         <div className="max-w-xl mx-auto w-full text-center">

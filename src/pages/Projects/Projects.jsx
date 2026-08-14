@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import projects from '../../shared/data/projects.json'
+import Navigation from '../../shared/components/Navigation'
 import Footer from '../../shared/components/Footer'
-import BackHomeButton from '../../shared/components/BackHomeButton'
 import SEOHead from '../../shared/components/SEOHead'
 
 const Projects = () => {
@@ -80,13 +80,14 @@ const Projects = () => {
         </div>
       )}
 
+      <Navigation />
+
       <main
-        className="min-h-screen bg-[var(--color-bg)] text-primary px-6 pt-16 pb-20 md:pt-20 md:pb-24"
+        className="min-h-screen bg-[var(--color-bg)] text-primary px-6 pt-28 pb-20 md:pt-32 md:pb-24 max-w-[1400px] mx-auto grid-frame"
         data-scroll-animate
       >
         <div className="max-w-6xl mx-auto w-full">
-          <div className="flex items-center justify-between mb-10">
-            <BackHomeButton />
+          <div className="flex items-center justify-end mb-10">
             <div className="text-xs font-mono uppercase tracking-[0.2em] text-muted">
               All Projects
             </div>

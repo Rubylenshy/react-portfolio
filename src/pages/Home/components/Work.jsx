@@ -36,7 +36,7 @@ const Work = () => {
   }
 
   return (
-    <section id="work" className="px-6 py-24 md:py-32 max-w-[1400px] mx-auto bg-[var(--color-bg)]">
+    <section id="work" className="px-6 py-24 md:py-32 max-w-[1400px] mx-auto bg-[var(--color-bg)] grid-frame">
       <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-[var(--color-border)] pb-6">
         <h2 className="text-4xl md:text-7xl font-semibold tracking-tighter uppercase text-primary">
           Selected<br />

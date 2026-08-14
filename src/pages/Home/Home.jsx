@@ -1,11 +1,12 @@
 import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import Navigation from '../../shared/components/Navigation'
 import Hero from './components/Hero'
-import About from './components/About'
+import AboutIntro from '../../shared/components/AboutIntro'
 import Clients from './components/Clients'
 import Work from './components/Work'
 import Stack from './components/Stack'
-import Contact from './components/Contact'
+import Contact from '../../shared/components/Contact'
 import Footer from '../../shared/components/Footer'
 import SEOHead from '../../shared/components/SEOHead'
 
@@ -42,6 +43,23 @@ const homeSchema = {
 }
 
 const Home = () => {
+  const location = useLocation()
+
+  useEffect(() => {
+    if (!location.hash) return
+    const id = location.hash.slice(1)
+    const timer = setTimeout(() => {
+      const el = document.getElementById(id)
+      if (!el) return
+      if (window.lenis) {
+        window.lenis.scrollTo(el, { offset: -80 })
+      } else {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }, 300)
+    return () => clearTimeout(timer)
+  }, [location.hash])
+
   useEffect(() => {
     if (window.__homeVisited) {
       const fadeEls = document.querySelectorAll('.hero-fade-in')
@@ -69,7 +87,7 @@ const Home = () => {
       />
       <Navigation />
       <Hero />
-      <About />
+      <AboutIntro />
       {/* <Clients /> */}
       <Work />
       <Stack />

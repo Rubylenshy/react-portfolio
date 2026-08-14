@@ -58,7 +58,7 @@ const Footer = () => {
   const Trigger = TRIGGER_META[active]?.icon ?? Moon;
 
   return (
-    <footer className="py-6 px-8 border-t border-[var(--color-border)] mb-12 md:mb-0">
+    <footer className="w-full py-6 px-8 border-t border-[var(--color-border)] mb-12 md:mb-0 max-w-[1400px] mx-auto grid-frame">
       <div className="flex flex-col md:flex-row justify-center md:justify-between items-center gap-4 max-w-6xl mx-auto">
         <p className="font-mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-widest text-center md:text-left">
           © MMXXVI - Reuben Oluwafemi. Engineered with Precision.

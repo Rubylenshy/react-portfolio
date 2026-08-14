@@ -51,7 +51,7 @@ const Contact = () => {
     return (
         <section
             id="contact"
-            className="px-6 pt-24 pb-12 md:py-40 md:py-20 bg-[var(--color-bg)] relative overflow-hidden"
+            className="px-6 pt-24 pb-12 md:py-40 md:py-20 bg-[var(--color-bg)] relative overflow-hidden max-w-[1400px] mx-auto grid-frame"
         >
             {/* Abstract Decoration */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03),transparent_70%)] pointer-events-none"></div>

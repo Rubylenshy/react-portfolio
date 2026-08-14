@@ -1,17 +1,17 @@
 const GlassyBubbles = () => {
   const bubbles = [
     {
-      label: 'Designs',
+      label: 'Frontend Dev',
       floatClass: 'glass-bubble-float-1 hero-bubble hero-bubble-designs',
     },
     {
-      label: 'Codes',
+      label: 'Designer',
       floatClass: 'glass-bubble-float-2 hero-bubble hero-bubble-codes',
     },
     {
-      label: 'WordPress',
+      label: 'CMS Plugin Dev',
       floatClass: 'glass-bubble-float-3 hero-bubble hero-bubble-wp',
-    },
+    }
   ]
 
   return (
