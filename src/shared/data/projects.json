@@ -142,28 +142,6 @@
     "direction": "left"
   },
   {
-    "title": "The Marque Hub",
-    "subtitle": "Talent Agency Platform",
-    "type": "frontend",
-    "description": "A refined modeling agency platform designed to connect world-class models with clients. Features a high-fashion minimalist aesthetic to highlight talent portfolios.",
-    "mockup": "https://lh3.googleusercontent.com/u/0/d/17Aw5NzK_e_QhnHMXDm0D4kprAS333hSv",
-    "bullet_points": [
-      "Talent portfolio showcase",
-      "Model application forms",
-      "Responsive minimal design",
-      "Blog and news section",
-      "Client contact integration"
-    ],
-    "stack_icons": [
-      "html",
-      "css",
-      "javascript"
-    ],
-    "live_link": "https://rubylenshy.github.io/the-marquee-hub-landing-page/",
-    "code_link": "https://github.com/Rubylenshy/the-marquee-hub-landing-page",
-    "direction": "right"
-  },
-  {
     "title": "Datey AI",
     "subtitle": "Content Freshness Manager Plugin",
     "type": "plugin",
@@ -209,52 +187,6 @@
     ],
     "live_link": "https://plugli.com",
     "code_link": "#",
-    "direction": "left"
-  },
-  {
-    "title": "Sushi Restaurant",
-    "subtitle": "Landing Page",
-    "type": "frontend",
-    "description": "An immersive, dark-themed landing page for a sushi restaurant that emphasizes visual storytelling. Designed to guide customers seamlessly from visual discovery to ordering.",
-    "mockup": "https://lh3.googleusercontent.com/u/0/d/1UVaod1UOfXFy8wxLrDyR7dxITxsAFvDs",
-    "bullet_points": [
-      "Immersive dark mode aesthetic",
-      "Interactive menu sections",
-      "Scroll-triggered animations",
-      "Responsive mobile navigation",
-      "Visual-first layout"
-    ],
-    "stack_icons": [
-      "html",
-      "css",
-      "javascript",
-      "sass"
-    ],
-    "live_link": "https://rubylenshy.github.io/sushi-restaurant/",
-    "code_link": "https://github.com/Rubylenshy/sushi-restaurant",
-    "direction": "right"
-  },
-  {
-    "title": "DevJobs Board",
-    "subtitle": "Job Filtering System",
-    "type": "frontend",
-    "description": "A dynamic job listing board that filters positions based on tech stacks and seniority. Users can select multiple tags to narrow down the JSON-sourced data.",
-    "mockup": "https://lh3.googleusercontent.com/u/0/d/133-kbkT589_yRFGsAIZ-dQilz0uxlRsn",
-    "bullet_points": [
-      "Dynamic data rendering",
-      "Multi-tag filtering logic",
-      "Add/Remove filter tags",
-      "Responsive list layout",
-      "State management"
-    ],
-    "stack_icons": [
-      "html",
-      "css",
-      "javascript",
-      "json"
-    ],
-    "live_link": "http://static-job-listings-pink.vercel.app/",
-    "code_link": "https://github.com/Rubylenshy/static-job-listings",
     "direction": "left"
   }
 ]

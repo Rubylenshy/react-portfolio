@@ -9,6 +9,7 @@ import Projects from './pages/Projects/Projects'
 import Blogs from './pages/Blog/Blogs'
 import BlogPost from './pages/Blog/BlogPost'
 import SampleProposal from './pages/SampleProposal/SampleProposal'
+import TaskBoard from './pages/TaskBoard/TaskBoard'
 import NotFound from './pages/NotFound/NotFound'
 import { ThemeProvider } from './shared/context/ThemeContext'
 import { useLenis } from './shared/hooks/useLenis'
@@ -34,6 +35,7 @@ function App() {
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:slug" element={<BlogPost />} />
           <Route path="/proposal" element={<SampleProposal />} />
+          <Route path="/protected-task-board" element={<TaskBoard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

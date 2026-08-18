@@ -28,10 +28,10 @@ const BlogCard = ({ post }) => {
   return (
     <Link
       to={`/blogs/${post.slug}`}
-      className="group blog-card flex flex-col sm:flex-row gap-5 p-5 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] transition-all duration-300"
+      className="group blog-card flex flex-col h-full rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] transition-all duration-300 overflow-hidden"
     >
       {/* Thumbnail */}
-      <div className="sm:w-44 sm:flex-shrink-0 h-44 sm:h-32 rounded-xl overflow-hidden bg-[var(--color-bg-secondary)] relative">
+      <div className="w-full h-48 overflow-hidden bg-[var(--color-bg-secondary)] relative">
         {thumb ? (
           <img
             src={thumb}
@@ -48,7 +48,7 @@ const BlogCard = ({ post }) => {
       </div>
 
       {/* Content */}
-      <div className="flex-1 flex flex-col justify-between gap-3 min-w-0">
+      <div className="flex-1 flex flex-col gap-3 p-5 min-w-0">
         {/* Tags */}
         <div className="flex flex-wrap gap-1.5">
           {post.tags.slice(0, 3).map(tag => (
@@ -73,7 +73,7 @@ const BlogCard = ({ post }) => {
         </p>
 
         {/* Meta */}
-        <div className="flex items-center gap-4 text-[11px] font-mono text-[var(--color-text-muted)] mt-auto">
+        <div className="flex items-center gap-4 text-[11px] font-mono text-[var(--color-text-muted)] mt-auto pt-2">
           <span className="flex items-center gap-1">
             <Calendar className="w-3 h-3" />
             {formatDate(post.date)}
@@ -111,8 +111,7 @@ const Blogs = () => {
       />
       <Navigation />
 
-      <main className="flex-1 w-full px-6 pt-28 pb-16 md:pt-32 max-w-[1400px] mx-auto grid-frame">
-       <div className="max-w-3xl mx-auto w-full">
+      <main className="w-full mx-auto max-w-[1400px] grid-frame w-full px-6 pt-28 pb-16 md:pt-32">
         {/* Header */}
         <header className="mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[10px] font-mono uppercase tracking-[0.25em] text-[var(--color-text-secondary)] mb-6">
@@ -143,9 +142,9 @@ const Blogs = () => {
 
         {/* TODO: FILTER_BAR — add tag filters + pagination here when post count reaches 8+ */}
 
-        {/* List */}
+        {/* Grid */}
         {filtered.length > 0 ? (
-          <div className="flex flex-col gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map(post => (
               <BlogCard key={post.slug} post={post} />
             ))}
@@ -155,7 +154,6 @@ const Blogs = () => {
             No posts match &quot;{query}&quot;
           </div>
         )}
-       </div>
       </main>
 
       <Footer />
