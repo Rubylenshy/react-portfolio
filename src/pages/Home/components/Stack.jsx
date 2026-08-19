@@ -1,4 +1,4 @@
-import { Play } from "lucide-react";
+import Showreel from "../../../shared/components/Showreel";
 
 // ── Component ──────────────────────────────────────────────────────────────
 const Stack = () => {
@@ -109,25 +109,9 @@ const Stack = () => {
                         );
                     })}
                 </div>
-
-                {/* ── Showreel frame ── */}
-                <div className="max-w-5xl mx-auto px-10 md:px-14 py-16">
-                    <div className="relative">
-                        <span className="absolute -top-3 -left-3 w-6 h-6 border-t border-l border-[var(--color-border-strong)]" />
-                        <span className="absolute -top-3 -right-3 w-6 h-6 border-t border-r border-[var(--color-border-strong)]" />
-                        <span className="absolute -bottom-3 -left-3 w-6 h-6 border-b border-l border-[var(--color-border-strong)]" />
-                        <span className="absolute -bottom-3 -right-3 w-6 h-6 border-b border-r border-[var(--color-border-strong)]" />
-                        <div className="aspect-video w-full flex flex-col items-center justify-center gap-3 bg-[var(--color-bg)] border border-[var(--color-border)] rounded-sm">
-                            <span className="w-12 h-12 rounded-full border border-[var(--color-border-strong)] flex items-center justify-center text-secondary">
-                                <Play className="w-4 h-4 ml-0.5" />
-                            </span>
-                            <span className="font-mono text-[11px] uppercase tracking-widest text-muted">
-                                Showreel — Coming Soon
-                            </span>
-                        </div>
-                    </div>
-                </div>
             </section>
+
+            <Showreel src="/videos/usereuben_showcase.mp4" />
         </>
     );
 };

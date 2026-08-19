@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import Loader from './shared/components/Loader'
 import Cursor from './shared/components/Cursor'
@@ -17,6 +17,20 @@ import { useCursor } from './shared/hooks/useCursor'
 import { useMagneticButtons } from './shared/hooks/useMagneticButtons'
 import { useAnimations } from './shared/hooks/useAnimations'
 
+function ScrollToTop() {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { immediate: true })
+    } else {
+      window.scrollTo(0, 0)
+    }
+  }, [pathname])
+
+  return null
+}
+
 function App() {
   useLenis()
   useCursor()
@@ -26,6 +40,7 @@ function App() {
   return (
     <Router>
       <div className="overflow-x-hidden w-full selection:bg-white/20 selection:text-white">
+        <ScrollToTop />
         <Loader />
         <Cursor />
         <Routes>

@@ -42,6 +42,25 @@ const Contact = () => {
         },
     ];
 
+    const goTos = [
+        {
+            label: "Apostle Segun Obadje",
+            href: "https://www.youtube.com/@ApostleSegunObadje",
+        },
+        {
+            label: "Netflix",
+            href: "https://www.netflix.com",
+        },
+        {
+            label: "Claude Code for Real Engineers",
+            href: "https://www.aihero.dev/cohorts/claude-code-for-real-engineers-2026-04",
+        },
+        {
+            label: "AI Skills for Engineers",
+            href: "https://www.aihero.dev/skills",
+        },
+    ];
+
     const scrollToTop = () => {
         if (window.lenis) {
             window.lenis.scrollTo(0);
@@ -101,12 +120,22 @@ const Contact = () => {
                     </div>
                     <div>
                         <h4 className="font-mono text-[10px] uppercase text-muted mb-4">
-                            Focus
+                            Few Go-Tos
                         </h4>
-                        <p className="text-sm font-medium text-primary">
-                            Backend Development
-                        </p>
-                        <p className="text-sm text-secondary">Design Systems</p>
+                        <ul className="space-y-1.5">
+                            {goTos.map((item) => (
+                                <li key={item.href}>
+                                    <a
+                                        href={item.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-sm font-medium text-primary hover:text-muted transition-colors underline decoration-[var(--color-border)] underline-offset-4 hover:decoration-current"
+                                    >
+                                        {item.label}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                     <div>
                         <h4 className="font-mono text-[10px] uppercase text-muted mb-4">

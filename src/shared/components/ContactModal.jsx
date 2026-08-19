@@ -21,6 +21,19 @@ const ContactModal = ({ isOpen, onClose }) => {
     }
   }, [isOpen, onClose])
 
+  useEffect(() => {
+    if (!isOpen) {
+      setStatus('idle')
+      setErrorMessage('')
+    }
+  }, [isOpen])
+
+  useEffect(() => {
+    if (status !== 'success') return
+    const timer = setTimeout(() => onClose(), 3000)
+    return () => clearTimeout(timer)
+  }, [status, onClose])
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
@@ -64,85 +77,98 @@ const ContactModal = ({ isOpen, onClose }) => {
           <i className="fa-solid fa-times text-lg" />
         </button>
         <div className="w-full rounded-sm border border-[var(--color-border)] bg-[var(--color-bg-secondary)] shadow-2xl modal-zoom-in overflow-auto mb-[10vh]">
-          <form onSubmit={handleSubmit} className="p-6 md:p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <label className="block">
-                  <span className="block font-mono text-[10px] text-left uppercase tracking-widest text-muted mb-2">Your name</span>
-                  <input
-                    type="text"
-                    name="from_name"
-                    placeholder="Jane Doe"
-                    className="w-full px-4 py-3 rounded-md bg-[var(--color-surface)] border border-[var(--color-border)] text-primary placeholder-[var(--color-text-muted)] font-mono text-sm focus:outline-none focus:border-[var(--color-border-strong)] transition-colors"
-                    required
-                  />
-                </label>
-                <label className="block">
-                  <span className="block font-mono text-[10px] text-left uppercase tracking-widest text-muted mb-2">Company</span>
-                  <input
-                    type="text"
-                    name="company"
-                    placeholder="Acme Inc."
-                    className="w-full px-4 py-3 rounded-md bg-[var(--color-surface)] border border-[var(--color-border)] text-primary placeholder-[var(--color-text-muted)] font-mono text-sm focus:outline-none focus:border-[var(--color-border-strong)] transition-colors"
-                  />
-                </label>
+          {status === 'success' ? (
+            <div className="flex flex-col items-center justify-center text-center gap-4 p-6 md:p-8 py-16">
+              <div className="flex items-center justify-center w-16 h-16 rounded-full bg-green-400/10 border border-green-400/30">
+                <i className="fa-solid fa-thumbs-up text-3xl text-green-400" />
               </div>
-              <div className="space-y-4">
-                <label className="block">
-                  <span className="block font-mono text-[10px] text-left uppercase tracking-widest text-muted mb-2">Email</span>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="jane@company.com"
-                    className="w-full px-4 py-3 rounded-md bg-[var(--color-surface)] border border-[var(--color-border)] text-primary placeholder-[var(--color-text-muted)] font-mono text-sm focus:outline-none focus:border-[var(--color-border-strong)] transition-colors"
-                    required
-                  />
-                </label>
-                <label className="block">
-                  <span className="block font-mono text-[10px] text-left uppercase tracking-widest text-muted mb-2">Project type</span>
-                  <input
-                    type="text"
-                    name="project_type"
-                    placeholder="New product build"
-                    className="w-full px-4 py-3 rounded-md bg-[var(--color-surface)] border border-[var(--color-border)] text-primary placeholder-[var(--color-text-muted)] font-mono text-sm focus:outline-none focus:border-[var(--color-border-strong)] transition-colors"
-                  />
-                </label>
-              </div>
+              <p className="font-mono text-sm uppercase tracking-widest text-green-400">Request sent</p>
+              <p className="font-mono text-sm text-muted max-w-sm">Thanks for reaching out — we’ll get back to you soon. This window will close automatically.</p>
             </div>
-            <label className="block mt-4">
-              <span className="block font-mono text-[10px] text-left uppercase tracking-widest text-muted mb-2">What are you building?</span>
-              <textarea
-                name="message"
-                placeholder="A few sentences about your goals, timeline, and success metrics."
-                rows={4}
-                className="w-full px-4 py-3 rounded-md bg-[var(--color-surface)] border border-[var(--color-border)] text-primary placeholder-[var(--color-text-muted)] font-mono text-sm focus:outline-none focus:border-[var(--color-border-strong)] transition-colors resize-y min-h-[100px]"
-              />
-            </label>
+          ) : (
+            <form onSubmit={handleSubmit} className="p-6 md:p-8">
+              <fieldset disabled={status === 'sending'} className="contents">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <label className="block">
+                      <span className="block font-mono text-[10px] text-left uppercase tracking-widest text-muted mb-2">Your name <span className="text-red-400">*</span></span>
+                      <input
+                        type="text"
+                        name="from_name"
+                        placeholder="Jane Doe"
+                        className="w-full px-4 py-3 rounded-md bg-[var(--color-surface)] border border-[var(--color-border)] text-primary placeholder-[var(--color-text-muted)] font-mono text-sm focus:outline-none focus:border-[var(--color-border-strong)] transition-colors disabled:opacity-60"
+                        required
+                      />
+                    </label>
+                    <label className="block">
+                      <span className="block font-mono text-[10px] text-left uppercase tracking-widest text-muted mb-2">Company</span>
+                      <input
+                        type="text"
+                        name="company"
+                        placeholder="Acme Inc."
+                        className="w-full px-4 py-3 rounded-md bg-[var(--color-surface)] border border-[var(--color-border)] text-primary placeholder-[var(--color-text-muted)] font-mono text-sm focus:outline-none focus:border-[var(--color-border-strong)] transition-colors disabled:opacity-60"
+                      />
+                    </label>
+                  </div>
+                  <div className="space-y-4">
+                    <label className="block">
+                      <span className="block font-mono text-[10px] text-left uppercase tracking-widest text-muted mb-2">Email <span className="text-red-400">*</span></span>
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="jane@company.com"
+                        className="w-full px-4 py-3 rounded-md bg-[var(--color-surface)] border border-[var(--color-border)] text-primary placeholder-[var(--color-text-muted)] font-mono text-sm focus:outline-none focus:border-[var(--color-border-strong)] transition-colors disabled:opacity-60"
+                        required
+                      />
+                    </label>
+                    <label className="block">
+                      <span className="block font-mono text-[10px] text-left uppercase tracking-widest text-muted mb-2">Project type</span>
+                      <input
+                        type="text"
+                        name="project_type"
+                        placeholder="New product build"
+                        className="w-full px-4 py-3 rounded-md bg-[var(--color-surface)] border border-[var(--color-border)] text-primary placeholder-[var(--color-text-muted)] font-mono text-sm focus:outline-none focus:border-[var(--color-border-strong)] transition-colors disabled:opacity-60"
+                      />
+                    </label>
+                  </div>
+                </div>
+                <label className="block mt-4">
+                  <span className="block font-mono text-[10px] text-left uppercase tracking-widest text-muted mb-2">What are you building? <span className="text-red-400">*</span></span>
+                  <textarea
+                    name="message"
+                    placeholder="A few sentences about your goals, timeline, and success metrics."
+                    rows={4}
+                    className="w-full px-4 py-3 rounded-md bg-[var(--color-surface)] border border-[var(--color-border)] text-primary placeholder-[var(--color-text-muted)] font-mono text-sm focus:outline-none focus:border-[var(--color-border-strong)] transition-colors resize-y min-h-[100px] disabled:opacity-60"
+                    required
+                  />
+                </label>
 
-            {status === 'success' && (
-              <p className="mt-4 font-mono text-sm text-green-400">Request sent. We’ll get back to you soon.</p>
-            )}
-            {status === 'error' && (
-              <p className="mt-4 font-mono text-sm text-red-400">{errorMessage}</p>
-            )}
-
-            <div className="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <button
-                type="submit"
-                disabled={status === 'sending'}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md bg-[var(--color-accent)] text-[var(--color-accent-inverse)] font-mono text-xs uppercase font-bold tracking-widest hover:opacity-90 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
-              >
-                {status === 'sending' ? (
-                  'Sending…'
-                ) : (
-                  <>
-                    <i className="fa-solid fa-paper-plane text-sm" />
-                    Send request
-                  </>
+                {status === 'error' && (
+                  <p className="mt-4 font-mono text-sm text-red-400">{errorMessage}</p>
                 )}
-              </button>
-            </div>
-          </form>
+
+                <div className="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <button
+                    type="submit"
+                    disabled={status === 'sending'}
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md bg-[var(--color-accent)] text-[var(--color-accent-inverse)] font-mono text-xs uppercase font-bold tracking-widest hover:opacity-90 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
+                  >
+                    {status === 'sending' ? (
+                      <>
+                        <i className="fa-solid fa-circle-notch fa-spin text-sm" />
+                        Sending…
+                      </>
+                    ) : (
+                      <>
+                        <i className="fa-solid fa-paper-plane text-sm" />
+                        Send request
+                      </>
+                    )}
+                  </button>
+                </div>
+              </fieldset>
+            </form>
+          )}
         </div>
       </div>
     </div>

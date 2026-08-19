@@ -2,7 +2,7 @@ const STATS = [
     { value: '4+', label: 'Years Experience' },
     { value: '8+', label: 'WordPress plugins delivered' },
     { value: '10+', label: 'Live Projects' },
-    { value: '98.9%', label: 'Delivery Success Rate' },
+    { value: '6+', label: 'Happy Clients' },
 ]
 
 const AboutIntro = () => {
@@ -26,13 +26,21 @@ const AboutIntro = () => {
             <div className="max-w-5xl mx-auto px-6 pb-16 md:pb-20 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
                 <div className="magnetic-btn overflow-hidden rounded-sm border border-[var(--color-border)]">
                     <img
-                        src="/images/profile.jpeg"
+                        src="/images/headshot.jfif"
                         alt="Reuben Oluwafemi"
                         className="w-full h-full object-cover"
                     />
                 </div>
 
                 <div className="flex flex-col justify-center h-full">
+                    <span className="block text-xs font-mono uppercase tracking-[0.2em] text-secondary mb-4">
+                        Frontend & WordPress Engineer
+                    </span>
+                    <h3 className="text-4xl md:text-5xl font-bold leading-tight mb-8">
+                        <span className="text-primary">Engineering</span>
+                        <br />
+                        <span className="text-secondary">for real users</span>
+                    </h3>
                     <p className="text-sm md:text-base text-secondary leading-7 md:leading-8 font-light mb-8">
                         I'm a{' '}
                         <span className="highlight-cyan">frontend-focused engineer</span>{' '}

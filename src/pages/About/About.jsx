@@ -3,7 +3,7 @@ import Footer from '../../shared/components/Footer'
 import Contact from '../../shared/components/Contact'
 import AboutIntro from '../../shared/components/AboutIntro'
 import SEOHead from '../../shared/components/SEOHead'
-import ProjectCollage from './components/ProjectCollage'
+import Showreel from '../../shared/components/Showreel'
 import SkillsChart from './components/SkillsChart'
 import ExperienceTimeline from './components/ExperienceTimeline'
 
@@ -18,7 +18,7 @@ const About = () => {
             <Navigation />
             <div className="pt-24 md:pt-28">
                 <AboutIntro />
-                <ProjectCollage />
+                <Showreel src="/videos/usereuben_showcase.mp4" />
                 <SkillsChart />
                 <ExperienceTimeline />
                 <Contact />

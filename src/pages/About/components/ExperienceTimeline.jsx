@@ -8,7 +8,7 @@ const ROLES = [
     },
     {
         company: 'Plugli LLC',
-        title: 'Frontend Web Developer',
+        title: 'CMS Plugin Developer',
         dates: 'August 2023 — April 2026',
         description:
             'Refactored custom plugins with new frameworks, leading to a 30% reduction in save/load times and a 20% increase in runtime processes. Created SEO-enhancing add-ons driving revenue growth.',
