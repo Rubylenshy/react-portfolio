@@ -1,19 +1,35 @@
 import { useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
-import Loader from './components/Loader'
-import Cursor from './components/Cursor'
-import Home from './pages/Home'
-import Projects from './pages/Projects'
-import Blogs from './pages/Blogs'
-import BlogPost from './pages/BlogPost'
-import SampleProposal from './pages/SampleProposal'
-import NotFound from './pages/NotFound'
-import { ThemeProvider } from './context/ThemeContext'
-import { useLenis } from './hooks/useLenis'
-import { useCursor } from './hooks/useCursor'
-import { useMagneticButtons } from './hooks/useMagneticButtons'
-import { useAnimations } from './hooks/useAnimations'
+import Loader from './shared/components/Loader'
+import Cursor from './shared/components/Cursor'
+import Home from './pages/Home/Home'
+import About from './pages/About/About'
+import Projects from './pages/Projects/Projects'
+import Blogs from './pages/Blog/Blogs'
+import BlogPost from './pages/Blog/BlogPost'
+import SampleProposal from './pages/SampleProposal/SampleProposal'
+import TaskBoard from './pages/TaskBoard/TaskBoard'
+import NotFound from './pages/NotFound/NotFound'
+import { ThemeProvider } from './shared/context/ThemeContext'
+import { useLenis } from './shared/hooks/useLenis'
+import { useCursor } from './shared/hooks/useCursor'
+import { useMagneticButtons } from './shared/hooks/useMagneticButtons'
+import { useAnimations } from './shared/hooks/useAnimations'
+
+function ScrollToTop() {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { immediate: true })
+    } else {
+      window.scrollTo(0, 0)
+    }
+  }, [pathname])
+
+  return null
+}
 
 function App() {
   useLenis()
@@ -24,14 +40,17 @@ function App() {
   return (
     <Router>
       <div className="overflow-x-hidden w-full selection:bg-white/20 selection:text-white">
+        <ScrollToTop />
         <Loader />
         <Cursor />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:slug" element={<BlogPost />} />
           <Route path="/proposal" element={<SampleProposal />} />
+          <Route path="/protected-task-board" element={<TaskBoard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
