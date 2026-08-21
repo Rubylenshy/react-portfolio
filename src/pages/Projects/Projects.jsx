@@ -323,6 +323,12 @@ const Projects = () => {
         </div>
       </main>
 
+      <section className="max-w-[1400px] mx-auto px-6 py-16 border-t border-[var(--color-border)] text-center grid-frame">
+        <p className="w-full text-lg md:text-2xl text-secondary max-w-2xl mx-auto">
+          I'm naturally curious about how things work — a codebase, a game mechanic, a football formation. That curiosity is what drives the plugins and web apps above, each built to move a real number.
+        </p>
+      </section>
+
       <Footer />
     </>
   )

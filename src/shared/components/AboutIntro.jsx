@@ -1,3 +1,5 @@
+import ShadowHeading from './ShadowHeading'
+
 const STATS = [
     { value: '4+', label: 'Years Experience' },
     { value: '8+', label: 'WordPress plugins delivered' },
@@ -36,11 +38,15 @@ const AboutIntro = () => {
                     <span className="block text-xs font-mono uppercase tracking-[0.2em] text-secondary mb-4">
                         Frontend & WordPress Engineer
                     </span>
-                    <h3 className="text-4xl md:text-5xl font-bold leading-tight mb-8">
+                    <ShadowHeading
+                        as="h3"
+                        offset={2}
+                        className="text-4xl md:text-5xl font-bold leading-tight mb-8"
+                    >
                         <span className="text-primary">Engineering</span>
                         <br />
                         <span className="text-secondary">for real users</span>
-                    </h3>
+                    </ShadowHeading>
                     <p className="text-sm md:text-base text-secondary leading-7 md:leading-8 font-light mb-8">
                         I'm a{' '}
                         <span className="highlight-cyan">frontend-focused engineer</span>{' '}

@@ -5,6 +5,7 @@ import Navigation from '../../shared/components/Navigation'
 import Footer from '../../shared/components/Footer'
 import blogsData from './data/blogs.json'
 import SEOHead from '../../shared/components/SEOHead'
+import ShadowHeading from '../../shared/components/ShadowHeading'
 
 // Transform Google Drive file ID or shareable link → direct embed thumbnail
 function getThumbnailSrc(url) {
@@ -118,9 +119,13 @@ const Blogs = () => {
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             Dev Logs
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tighter text-[var(--color-text-primary)] mb-4">
+          <ShadowHeading
+            as="h1"
+            offset={3}
+            className="text-4xl md:text-5xl font-bold tracking-tighter text-[var(--color-text-primary)] mb-4"
+          >
             The Blog.
-          </h1>
+          </ShadowHeading>
           <p className="text-base text-[var(--color-text-secondary)] leading-relaxed max-w-lg">
             Long-form breakdowns of WordPress plugins, system design notes,
             and front-end deep dives.
@@ -155,6 +160,12 @@ const Blogs = () => {
           </div>
         )}
       </main>
+
+      <section className="max-w-[1400px] w-full mx-auto px-6 py-16 border-t border-[var(--color-border)] text-center grid-frame">
+        <p className="w-full text-lg md:text-2xl text-secondary max-w-2xl mx-auto">
+          AI is changing what work looks like. I care about helping people adapt to that without disrupting how they learn. I'm Reuben — let's connect.
+        </p>
+      </section>
 
       <Footer />
     </div>

@@ -1,5 +1,6 @@
 
 import GlassyBubbles from './GlassyBubbles'
+import ShadowHeading from '../../../shared/components/ShadowHeading'
 
 const Hero = () => {
   const scrollToSection = (e, sectionId) => {
@@ -33,14 +34,18 @@ const Hero = () => {
         </div>
 
         <div className="relative inline-block">
-          <h1 className="text-5xl md:text-8xl lg:text-9xl font-semibold tracking-tighter text-primary uppercase leading-[0.9] flex flex-col items-center mix-blend-overlay relative z-10">
+          <ShadowHeading
+            as="h1"
+            offset={3}
+            className="text-5xl md:text-8xl lg:text-9xl font-semibold tracking-tighter text-primary uppercase leading-[0.9] flex flex-col items-center mix-blend-overlay relative z-10"
+          >
             <div className="overflow-hidden">
               <span className="hero-char">Reuben</span>
             </div>
             <div className="overflow-hidden">
               <span className="hero-char">Oluwafemi</span>
             </div>
-          </h1>
+          </ShadowHeading>
 
           {/* Floating glassy labels around the hero text */}
           <GlassyBubbles />

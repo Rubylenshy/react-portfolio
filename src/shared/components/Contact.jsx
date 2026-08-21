@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import ContactModal from './ContactModal'
+import ShadowHeading from './ShadowHeading'
 
 const Contact = () => {
     const [showRequestModal, setShowRequestModal] = useState(false)
@@ -80,11 +81,15 @@ const Contact = () => {
                     Ready to Collaborate?
                 </p>
 
-                <h2 className="text-4xl md:text-7xl lg:text-8xl font-semibold tracking-tighter uppercase text-primary mb-12">
+                <ShadowHeading
+                    as="h2"
+                    offset={6}
+                    className="text-4xl md:text-7xl lg:text-8xl font-semibold tracking-tighter uppercase text-primary mb-12"
+                >
                     Let's Build
                     <br />
                     Something <span className="text-muted">Iconic</span>
-                </h2>
+                </ShadowHeading>
 
                 <div className="flex flex-col md:flex-row items-center justify-center gap-6">
                     <button

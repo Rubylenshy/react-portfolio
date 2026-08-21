@@ -1,6 +1,7 @@
 import { Github, ArrowUpRight, FileText } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import projects from '../../../shared/data/projects.json'
+import ShadowHeading from '../../../shared/components/ShadowHeading'
 
 const badgeLabels = {
   react: 'React',
@@ -38,10 +39,10 @@ const Work = () => {
   return (
     <section id="work" className="px-6 py-24 md:py-32 max-w-[1400px] mx-auto bg-[var(--color-bg)] grid-frame">
       <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-[var(--color-border)] pb-6">
-        <h2 className="text-4xl md:text-7xl font-semibold tracking-tighter uppercase text-primary">
+        <ShadowHeading className="text-4xl md:text-7xl font-semibold tracking-tighter uppercase text-primary">
           Selected<br />
           Work
-        </h2>
+        </ShadowHeading>
         <div className="mt-4 md:mt-0 flex gap-2">
           <span className="w-3 h-3 rounded-full bg-[var(--color-accent)] animate-pulse"></span>
           <span className="font-mono text-xs text-secondary uppercase tracking-widest">

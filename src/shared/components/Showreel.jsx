@@ -8,8 +8,8 @@ const Showreel = ({ src }) => {
                 <span className="absolute -bottom-3 -left-3 w-6 h-6 border-b border-l border-[var(--color-border-strong)]" />
                 <span className="absolute -bottom-3 -right-3 w-6 h-6 border-b border-r border-[var(--color-border-strong)]" />
 
-                <div className="border border-[var(--color-border)] rounded-sm bg-[var(--color-bg)] p-4 md:p-6">
-                    <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-[var(--color-border-strong)] shadow-lg">
+                <div className="border border-[var(--color-border)] rounded-sm bg-[var(--color-bg)]">
+                    <div className="relative w-full aspect-video overflow-hidden border border-[var(--color-border-strong)] shadow-lg">
                         <video
                             src={src}
                             title="Showreel"

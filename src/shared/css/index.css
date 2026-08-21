@@ -19,6 +19,7 @@ html[data-theme="dark"] {
   --color-accent:         #ffffff;
   --color-accent-inverse: #000000;
   --color-accent-tint:    #60a5fa;
+  --color-accent-tint-light:    #60a5fa83;
   --gradient-text-from:   #ffffff;
   --gradient-text-to:     #666666;
 }

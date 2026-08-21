@@ -1,4 +1,5 @@
 import Showreel from "../../../shared/components/Showreel";
+import { PluginIcon, LayersIcon, ApiIcon, GaugeIcon } from "./StackIcons";
 
 // ── Component ──────────────────────────────────────────────────────────────
 const Stack = () => {
@@ -35,25 +36,25 @@ const Stack = () => {
     const roles = [
         {
             role: "Plugin Developer",
-            icon: "fa-solid fa-puzzle-piece",
+            icon: PluginIcon,
             description: "Custom WordPress plugins built for performance, security, and scalability.",
             pills: ["Custom WordPress Plugins", "WooCommerce Feat.", "SEO & Automation"],
         },
         {
             role: "Frontend Engineer",
-            icon: "fa-solid fa-layer-group",
+            icon: LayersIcon,
             description: "Translating designs into production-ready React interfaces with modern frontend techniques.",
             pills: ["Web App UI", "E-commerce", "AI-Driven UI"],
         },
         {
             role: "API Integration Specialist",
-            icon: "fa-solid fa-microchip",
+            icon: ApiIcon,
             description: "Seamless third-party integrations creating automated workflows and data flows.",
             pills: ["CRM & Marketing API", "App-to-App Automation", "HubSpot"],
         },
         {
             role: "Performance Optimizer",
-            icon: "fa-solid fa-gauge-high",
+            icon: GaugeIcon,
             description: "Code audits and refactoring targeting 90+ Lighthouse scores and Core Web Vitals.",
             pills: ["Core Web Vitals Fix", "Website Performance", "Site Optimization"],
         },
@@ -90,17 +91,21 @@ const Stack = () => {
                     {roles.map((item, i) => {
                         const isLastInRow = (i + 1) % 2 === 0;
                         const isLastRow = i >= roles.length - (roles.length % 2 === 0 ? 2 : 1);
+                        const Icon = item.icon;
                         return (
                             <div
                                 key={item.role}
                                 className={`p-10 md:p-14 ${!isLastInRow ? "md:border-r" : ""} ${!isLastRow ? "border-b border-dashed" : ""} border-[var(--color-border)]`}
                             >
-                                <i className={`${item.icon} text-2xl text-primary mb-8 block`} />
+                                <Icon className="w-11 h-11 text-primary mb-4" />
                                 <h4 className="text-lg font-semibold text-primary mb-3">{item.role}</h4>
                                 <p className="text-sm text-secondary leading-relaxed mb-5">{item.description}</p>
-                                <div className="flex flex-wrap gap-x-3 gap-y-1.5">
+                                <div className="flex flex-wrap gap-2">
                                     {item.pills.map((pill) => (
-                                        <span key={pill} className="text-[11px] font-mono uppercase tracking-widest text-muted">
+                                        <span
+                                            key={pill}
+                                            className="text-[11px] font-mono uppercase tracking-widest text-muted px-3 py-1 rounded-full border border-[var(--color-border)]"
+                                        >
                                             {pill}
                                         </span>
                                     ))}
