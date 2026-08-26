@@ -5,11 +5,39 @@ import confetti from 'canvas-confetti'
 const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
 const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+const DRAFT_KEY = 'birthdayWishDraft'
+
+const loadDraft = () => {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY)
+    return raw ? JSON.parse(raw) : { fromName: '', message: '' }
+  } catch {
+    return { fromName: '', message: '' }
+  }
+}
 
 const WishesModal = ({ isOpen, onClose }) => {
   const [status, setStatus] = useState('idle') // idle | sending | success | error
   const [errorMessage, setErrorMessage] = useState('')
+  const [fromName, setFromName] = useState('')
+  const [message, setMessage] = useState('')
   const successIconRef = useRef(null)
+
+  useEffect(() => {
+    if (!isOpen) return
+    const draft = loadDraft()
+    setFromName(draft.fromName)
+    setMessage(draft.message)
+  }, [isOpen])
+
+  useEffect(() => {
+    if (!isOpen || status === 'success') return
+    try {
+      localStorage.setItem(DRAFT_KEY, JSON.stringify({ fromName, message }))
+    } catch {
+      // localStorage unavailable (private mode, quota, etc.) — drafts just won't persist
+    }
+  }, [fromName, message, isOpen, status])
 
   useEffect(() => {
     if (!isOpen) return
@@ -70,6 +98,13 @@ const WishesModal = ({ isOpen, onClose }) => {
       await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, { publicKey: PUBLIC_KEY })
       setStatus('success')
       e.target.reset()
+      setFromName('')
+      setMessage('')
+      try {
+        localStorage.removeItem(DRAFT_KEY)
+      } catch {
+        // localStorage unavailable — nothing to clean up
+      }
     } catch (err) {
       setStatus('error')
       setErrorMessage(err?.text || err?.message || 'Something went wrong.')
@@ -121,6 +156,8 @@ const WishesModal = ({ isOpen, onClose }) => {
                     type="text"
                     name="from_name"
                     placeholder="Anonymous"
+                    value={fromName}
+                    onChange={(e) => setFromName(e.target.value)}
                     className="w-full px-4 py-3 rounded-md bg-[var(--color-surface)] border border-[var(--color-border)] text-primary placeholder-[var(--color-text-muted)] font-mono text-sm focus:outline-none focus:border-[var(--color-border-strong)] transition-colors disabled:opacity-60"
                   />
                 </label>
@@ -130,6 +167,8 @@ const WishesModal = ({ isOpen, onClose }) => {
                     name="message"
                     placeholder="Happy birthday! Hope your day is..."
                     rows={4}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                     className="w-full px-4 py-3 rounded-md bg-[var(--color-surface)] border border-[var(--color-border)] text-primary placeholder-[var(--color-text-muted)] font-mono text-sm focus:outline-none focus:border-[var(--color-border-strong)] transition-colors resize-y min-h-[100px] disabled:opacity-60"
                     required
                   />

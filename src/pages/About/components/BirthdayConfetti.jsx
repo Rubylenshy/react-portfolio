@@ -3,8 +3,8 @@ import confetti from 'canvas-confetti'
 
 const BIRTHDAY_MONTH = 7 // August (0-indexed)
 const BIRTHDAY_DAY = 27
-const DURATION_MS = 10000
-const BURST_INTERVAL_MS = 250
+const DURATION_MS = 15000
+const BURST_INTERVAL_MS = 300
 
 export const isBirthdayToday = () => {
     const now = new Date()
