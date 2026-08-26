@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import emailjs from '@emailjs/browser'
+import confetti from 'canvas-confetti'
 
 const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
@@ -8,6 +9,7 @@ const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 const WishesModal = ({ isOpen, onClose }) => {
   const [status, setStatus] = useState('idle') // idle | sending | success | error
   const [errorMessage, setErrorMessage] = useState('')
+  const successIconRef = useRef(null)
 
   useEffect(() => {
     if (!isOpen) return
@@ -33,6 +35,21 @@ const WishesModal = ({ isOpen, onClose }) => {
     const timer = setTimeout(() => onClose(), 3000)
     return () => clearTimeout(timer)
   }, [status, onClose])
+
+  useEffect(() => {
+    if (status !== 'success' || !successIconRef.current) return
+    const rect = successIconRef.current.getBoundingClientRect()
+    confetti({
+      particleCount: 60,
+      spread: 100,
+      startVelocity: 35,
+      origin: {
+        x: (rect.left + rect.width / 2) / window.innerWidth,
+        y: (rect.top + rect.height / 2) / window.innerHeight,
+      },
+      zIndex: 10000,
+    })
+  }, [status])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -85,14 +102,18 @@ const WishesModal = ({ isOpen, onClose }) => {
         <div className="w-full rounded-sm border border-[var(--color-border)] bg-[var(--color-bg-secondary)] shadow-2xl modal-zoom-in overflow-auto mb-[10vh]">
           {status === 'success' ? (
             <div className="flex flex-col items-center justify-center text-center gap-4 p-6 md:p-8 py-16">
-              <div className="flex items-center justify-center w-16 h-16 rounded-full bg-green-400/10 border border-green-400/30">
-                <i className="fa-solid fa-gift text-3xl text-green-400" />
+              <div ref={successIconRef} className="flex items-center justify-center w-16 h-16 rounded-full bg-green-400/10 border border-green-400/30">
+                <i className="fa-solid fa-champagne-glasses text-3xl text-green-400" />
               </div>
               <p className="font-mono text-sm uppercase tracking-widest text-green-400">Wish sent</p>
-              <p className="font-mono text-sm text-muted max-w-sm">Thank you so much! This window will close automatically.</p>
+              <p className="font-mono text-sm text-muted max-w-sm">Thank you so much! You're the best!</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="p-6 md:p-8">
+              <div className="mb-6 text-center">
+                <p className="text-lg md:text-xl font-semibold text-primary">🎂 It's my birthday, drop a wish!</p>
+                <p className="font-mono text-xs text-muted mt-1">warning: may cause extreme happiness</p>
+              </div>
               <fieldset disabled={status === 'sending'} className="contents">
                 <label className="block">
                   <span className="block font-mono text-[10px] text-left uppercase tracking-widest text-muted mb-2">Your name</span>
