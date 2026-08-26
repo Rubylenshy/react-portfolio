@@ -7,10 +7,14 @@ import Showreel from '../../shared/components/Showreel'
 import ShadowHeading from '../../shared/components/ShadowHeading'
 import SkillsChart from './components/SkillsChart'
 import ExperienceTimeline from './components/ExperienceTimeline'
+import BirthdayConfetti from './components/BirthdayConfetti'
+import WishesFab from './components/WishesFab'
 
 const About = () => {
     return (
         <>
+            <BirthdayConfetti />
+            <WishesFab />
             <SEOHead
                 title="About"
                 description="Reuben Oluwafemi is a Design & Frontend Engineer specializing in WordPress plugin architecture and modern frontend engineering. Learn about his background, skills, and experience."

@@ -164,6 +164,19 @@ body {
   animation: marquee 60s linear infinite;
 }
 
+@keyframes wishes-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 var(--color-accent-tint, rgba(255, 255, 255, 0.4));
+  }
+  50% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+
+.animate-wishes-pulse {
+  animation: wishes-pulse 2s ease-out infinite;
+}
+
 @keyframes marquee {
   0% { 
     transform: translateX(0); 
