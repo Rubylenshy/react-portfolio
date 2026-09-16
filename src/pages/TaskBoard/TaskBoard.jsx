@@ -1,11 +1,15 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import Navigation from '../../shared/components/Navigation'
 import Footer from '../../shared/components/Footer'
 import SEOHead from '../../shared/components/SEOHead'
 import { useLocalStorageState } from '../../shared/hooks/useLocalStorageState'
+import { BTN_SECONDARY } from './kanbanConstants'
+import { TextField, SelectField } from './TaskBoardFields'
+import Kanban from './Kanban'
 
 const SESSION_UNLOCK_KEY = 'taskboard_unlocked'
+const SESSION_DURATION_MS = 24 * 60 * 60 * 1000
 const DATA_KEY = 'taskboard:eisenhower'
 const SELECTION_KEY = 'taskboard:selection'
 const DEFAULT_CATEGORY = 'General'
@@ -48,6 +52,16 @@ const nextCategoryColor = (prevColors) => {
 
 const todayISO = () => new Date().toISOString().slice(0, 10)
 
+const isSessionValid = () => {
+  if (typeof window === 'undefined') return false
+  const unlockedAt = Number(window.localStorage.getItem(SESSION_UNLOCK_KEY))
+  return Number.isFinite(unlockedAt) && unlockedAt > 0 && Date.now() - unlockedAt < SESSION_DURATION_MS
+}
+
+const clearSession = () => {
+  window.localStorage.removeItem(SESSION_UNLOCK_KEY)
+}
+
 const hashHex = async (text) => {
   const encoded = new TextEncoder().encode(text)
   const digest = await window.crypto.subtle.digest('SHA-256', encoded)
@@ -78,7 +92,7 @@ const PasswordGate = ({ onUnlock }) => {
     try {
       const enteredHash = await hashHex(password)
       if (enteredHash.toLowerCase() === expectedHash.toLowerCase()) {
-        window.sessionStorage.setItem(SESSION_UNLOCK_KEY, '1')
+        window.localStorage.setItem(SESSION_UNLOCK_KEY, String(Date.now()))
         onUnlock()
       } else {
         setError('Incorrect password.')
@@ -110,13 +124,13 @@ const PasswordGate = ({ onUnlock }) => {
           >
             Password
           </label>
-          <input
+          <TextField
             id="taskboard-password"
             type="password"
             autoFocus
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-sm border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2.5 text-sm text-primary outline-none focus:border-[var(--color-border-strong)] transition-colors"
+            className="py-2.5"
             placeholder="••••••••"
           />
           {error && (
@@ -220,11 +234,11 @@ const EisenhowerMatrix = ({ data, setData, category, date, categoryColors }) => 
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 min-w-0">
       {QUADRANTS.map((quadrant) => (
         <div
           key={quadrant.id}
-          className="rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] p-5"
+          className="min-w-0 rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] p-5"
         >
           <div className="flex items-baseline justify-between mb-4">
             <h3 className="text-xs font-mono uppercase tracking-widest text-primary">
@@ -242,48 +256,52 @@ const EisenhowerMatrix = ({ data, setData, category, date, categoryColors }) => 
             {day[quadrant.id].map((task) => (
               <li
                 key={task.id}
-                className="flex items-center gap-2 rounded-sm border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2"
+                className="min-w-0 rounded-sm border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2"
               >
-                <input
-                  type="checkbox"
-                  checked={!!task.done}
-                  onChange={() => toggleDone(quadrant.id, task.id, task._category)}
-                  aria-label={task.done ? 'Mark task not done' : 'Mark task done'}
-                  className="shrink-0 w-4 h-4 accent-[var(--color-accent)] cursor-pointer"
-                />
-                <span
-                  aria-hidden="true"
-                  title={task._category}
-                  className="shrink-0 w-2 h-2 rounded-full"
-                  style={{ backgroundColor: categoryColors?.[task._category] || GENERAL_COLOR }}
-                />
-                <span
-                  className={`flex-1 text-sm break-words ${
-                    task.done ? 'text-muted line-through' : 'text-secondary'
-                  }`}
-                >
-                  {task.text}
-                </span>
-                <select
-                  aria-label="Move to quadrant"
-                  value={quadrant.id}
-                  onChange={(e) => moveTask(quadrant.id, task.id, e.target.value, task._category)}
-                  className="text-[10px] font-mono uppercase tracking-wider bg-[var(--color-surface)] border border-[var(--color-border)] rounded-full px-2 py-1 text-muted focus:outline-none"
-                >
-                  {QUADRANTS.map((q) => (
-                    <option key={q.id} value={q.id}>
-                      {q.label}
-                    </option>
-                  ))}
-                </select>
-                <button
-                  type="button"
-                  onClick={() => deleteTask(quadrant.id, task.id, task._category)}
-                  aria-label="Delete task"
-                  className="shrink-0 rounded-full w-6 h-6 flex items-center justify-center border border-[var(--color-border)] text-muted hover:text-primary hover:border-[var(--color-border-strong)] transition-colors"
-                >
-                  ×
-                </button>
+                <div className="flex items-start gap-2 min-w-0">
+                  <input
+                    type="checkbox"
+                    checked={!!task.done}
+                    onChange={() => toggleDone(quadrant.id, task.id, task._category)}
+                    aria-label={task.done ? 'Mark task not done' : 'Mark task done'}
+                    className="shrink-0 mt-0.5 w-4 h-4 accent-[var(--color-accent)] cursor-pointer"
+                  />
+                  <span
+                    aria-hidden="true"
+                    title={task._category}
+                    className="shrink-0 mt-1.5 w-2 h-2 rounded-full"
+                    style={{ backgroundColor: categoryColors?.[task._category] || GENERAL_COLOR }}
+                  />
+                  <span
+                    className={`flex-1 min-w-0 text-sm break-words ${
+                      task.done ? 'text-muted line-through' : 'text-secondary'
+                    }`}
+                  >
+                    {task.text}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => deleteTask(quadrant.id, task.id, task._category)}
+                    aria-label="Delete task"
+                    className="shrink-0 rounded-full w-6 h-6 flex items-center justify-center border border-[var(--color-border)] text-muted hover:text-primary hover:border-[var(--color-border-strong)] transition-colors"
+                  >
+                    ×
+                  </button>
+                </div>
+                <div className="flex justify-end mt-2">
+                  <select
+                    aria-label="Move to quadrant"
+                    value={quadrant.id}
+                    onChange={(e) => moveTask(quadrant.id, task.id, e.target.value, task._category)}
+                    className="max-w-full text-[10px] font-mono uppercase tracking-wider bg-[var(--color-surface)] border border-[var(--color-border)] rounded-full px-2 py-1 text-muted focus:outline-none"
+                  >
+                    {QUADRANTS.map((q) => (
+                      <option key={q.id} value={q.id}>
+                        {q.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </li>
             ))}
           </ul>
@@ -295,17 +313,14 @@ const EisenhowerMatrix = ({ data, setData, category, date, categoryColors }) => 
             }}
             className="flex gap-2"
           >
-            <input
+            <TextField
               type="text"
               value={draft[quadrant.id]}
               onChange={(e) => setDraft((prev) => ({ ...prev, [quadrant.id]: e.target.value }))}
               placeholder="Add a task…"
-              className="flex-1 rounded-sm border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2 text-sm text-primary outline-none focus:border-[var(--color-border-strong)] transition-colors"
+              className="flex-1 min-w-0"
             />
-            <button
-              type="submit"
-              className="shrink-0 rounded-full bg-[var(--color-accent)] text-[var(--color-accent-inverse)] px-4 text-[11px] font-mono uppercase tracking-widest transition-opacity hover:opacity-90"
-            >
+            <button type="submit" className={`shrink-0 ${BTN_SECONDARY}`}>
               Add
             </button>
           </form>
@@ -314,23 +329,6 @@ const EisenhowerMatrix = ({ data, setData, category, date, categoryColors }) => 
     </div>
   )
 }
-
-/* ── Kanban placeholder ────────────────────────────────────────── */
-
-const KanbanPlaceholder = () => (
-  <div className="rounded-sm border border-dashed border-[var(--color-border-strong)] bg-[var(--color-surface)] px-8 py-20 text-center">
-    <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-muted mb-3">
-      Coming Soon
-    </p>
-    <h3 className="text-lg font-mono uppercase tracking-widest text-primary mb-2">
-      Kanban Board
-    </h3>
-    <p className="text-sm text-secondary max-w-md mx-auto">
-      An Azure Boards–style backlog / in-progress / done board is planned for
-      this space — swimlanes, work item types, and all.
-    </p>
-  </div>
-)
 
 /* ── Page content (post-unlock) ────────────────────────────────── */
 
@@ -423,52 +421,50 @@ const TaskBoardContent = () => {
           {activeTab === 'matrix' && (
             <>
               {/* Date + category controls */}
-              <div className="flex flex-col md:flex-row md:items-end gap-4 mb-8">
-                <div>
+              <div className="flex flex-col md:flex-row md:items-end gap-4 mb-8 min-w-0">
+                <div className="shrink-0">
                   <label className="block text-[10px] font-mono uppercase tracking-[0.2em] text-muted mb-2">
                     Date
                   </label>
-                  <input
+                  <TextField
                     type="date"
                     value={date}
                     onChange={(e) => selectDate(e.target.value)}
-                    className="rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-sm text-primary outline-none focus:border-[var(--color-border-strong)] transition-colors"
+                    tone="surface"
+                    className="!w-auto"
                   />
                 </div>
 
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <label className="block text-[10px] font-mono uppercase tracking-[0.2em] text-muted mb-2">
                     Category
                   </label>
-                  <div className="flex flex-wrap items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2 min-w-0">
                     <span
                       aria-hidden="true"
                       className="shrink-0 w-2.5 h-2.5 rounded-full"
                       style={{ backgroundColor: categoryColors[category] || GENERAL_COLOR }}
                     />
-                    <select
+                    <SelectField
                       value={category}
                       onChange={(e) => selectCategory(e.target.value)}
-                      className="rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-sm text-primary outline-none focus:border-[var(--color-border-strong)] transition-colors"
+                      className="w-auto min-w-[10rem]"
                     >
                       {categories.map((c) => (
                         <option key={c} value={c}>
                           {c}
                         </option>
                       ))}
-                    </select>
-                    <form onSubmit={addCategory} className="flex gap-2">
-                      <input
+                    </SelectField>
+                    <form onSubmit={addCategory} className="flex gap-2 shrink-0">
+                      <TextField
                         type="text"
                         value={newCategory}
                         onChange={(e) => setNewCategory(e.target.value)}
                         placeholder="New category…"
-                        className="rounded-sm border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2 text-sm text-primary outline-none focus:border-[var(--color-border-strong)] transition-colors w-40"
+                        className="!w-40"
                       />
-                      <button
-                        type="submit"
-                        className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 text-[11px] font-mono uppercase tracking-widest text-primary hover:border-[var(--color-border-strong)] transition-colors"
-                      >
+                      <button type="submit" className={`shrink-0 ${BTN_SECONDARY}`}>
                         Add
                       </button>
                     </form>
@@ -486,7 +482,7 @@ const TaskBoardContent = () => {
             </>
           )}
 
-          {activeTab === 'kanban' && <KanbanPlaceholder />}
+          {activeTab === 'kanban' && <Kanban />}
         </div>
       </main>
 
@@ -498,9 +494,29 @@ const TaskBoardContent = () => {
 /* ── Route entry: gate wraps content ───────────────────────────── */
 
 const TaskBoard = () => {
-  const [unlocked, setUnlocked] = useState(
-    () => typeof window !== 'undefined' && window.sessionStorage.getItem(SESSION_UNLOCK_KEY) === '1'
-  )
+  const [unlocked, setUnlocked] = useState(() => {
+    if (isSessionValid()) return true
+    clearSession()
+    return false
+  })
+
+  useEffect(() => {
+    if (!unlocked) return undefined
+
+    const checkExpiry = () => {
+      if (!isSessionValid()) {
+        clearSession()
+        setUnlocked(false)
+      }
+    }
+
+    const interval = setInterval(checkExpiry, 60 * 1000)
+    document.addEventListener('visibilitychange', checkExpiry)
+    return () => {
+      clearInterval(interval)
+      document.removeEventListener('visibilitychange', checkExpiry)
+    }
+  }, [unlocked])
 
   if (!unlocked) {
     return <PasswordGate onUnlock={() => setUnlocked(true)} />
