@@ -42,7 +42,7 @@ function Backdrop() {
   if (PLAIN_BACKDROP_ROUTES.includes(pathname)) return null
   return (
     <>
-      <ShockwaveField pitch={16} noiseAmp={0.25} />
+      <ShockwaveField pitch={5} noiseAmp={0.25} />
       <div className="grain" aria-hidden="true" />
     </>
   )
@@ -58,7 +58,7 @@ function App() {
     <Router>
       <a href="#main" className="skip-link">Skip to content</a>
       <Backdrop />
-      <div className="overflow-x-hidden w-full">
+      <div className="overflow-x-hidden w-[95%] mx-auto z-1">
         <ScrollToTop />
         <Loader />
         <Cursor />

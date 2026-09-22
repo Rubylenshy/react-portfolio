@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { FileText, ArrowRight } from 'lucide-react'
+import { FileText, ArrowUpRight } from 'lucide-react'
 import Pill from './Pill'
 
 const PAGE_LINKS = [
@@ -21,7 +21,6 @@ const linkClass = ({ isActive }) =>
 const Brand = ({ isHome }) => {
     const content = (
         <>
-            <span className="signal-dot" aria-hidden="true" />
             <span className="flex flex-col leading-tight">
                 <span className="font-sans text-sm font-semibold tracking-tight text-primary">
                     Reuben Oluwafemi
