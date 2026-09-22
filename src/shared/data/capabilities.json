@@ -1,0 +1,30 @@
+[
+  {
+    "id": "plugin",
+    "role": "Plugin Developer",
+    "icon": "plugin",
+    "description": "Custom WordPress plugins built for performance, security, and scalability.",
+    "pills": ["Custom WordPress Plugins", "WooCommerce Feat.", "SEO & Automation"]
+  },
+  {
+    "id": "frontend",
+    "role": "Frontend Engineer",
+    "icon": "layers",
+    "description": "Translating designs into production-ready React interfaces with modern frontend techniques.",
+    "pills": ["Web App UI", "E-commerce", "AI-Driven UI"]
+  },
+  {
+    "id": "api",
+    "role": "API Integration Specialist",
+    "icon": "api",
+    "description": "Seamless third-party integrations creating automated workflows and data flows.",
+    "pills": ["CRM & Marketing API", "App-to-App Automation", "HubSpot"]
+  },
+  {
+    "id": "performance",
+    "role": "Performance Optimizer",
+    "icon": "gauge",
+    "description": "Code audits and refactoring targeting 90+ Lighthouse scores and Core Web Vitals.",
+    "pills": ["Core Web Vitals Fix", "Website Performance", "Site Optimization"]
+  }
+]

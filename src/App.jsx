@@ -3,9 +3,12 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { HelmetProvider } from 'react-helmet-async'
 import Loader from './shared/components/Loader'
 import Cursor from './shared/components/Cursor'
+import ShockwaveField from './shared/components/ShockwaveField'
 import Home from './pages/Home/Home'
 import About from './pages/About/About'
 import Projects from './pages/Projects/Projects'
+import Services from './pages/Services/Services'
+import StartProject from './pages/StartProject/StartProject'
 import Blogs from './pages/Blog/Blogs'
 import BlogPost from './pages/Blog/BlogPost'
 import SampleProposal from './pages/SampleProposal/SampleProposal'
@@ -16,6 +19,9 @@ import { useLenis } from './shared/hooks/useLenis'
 import { useCursor } from './shared/hooks/useCursor'
 import { useMagneticButtons } from './shared/hooks/useMagneticButtons'
 import { useAnimations } from './shared/hooks/useAnimations'
+
+// Routes with their own scoped palette skip the shockwave/grain backdrop
+const PLAIN_BACKDROP_ROUTES = ['/proposal']
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -31,6 +37,17 @@ function ScrollToTop() {
   return null
 }
 
+function Backdrop() {
+  const { pathname } = useLocation()
+  if (PLAIN_BACKDROP_ROUTES.includes(pathname)) return null
+  return (
+    <>
+      <ShockwaveField pitch={16} noiseAmp={0.25} />
+      <div className="grain" aria-hidden="true" />
+    </>
+  )
+}
+
 function App() {
   useLenis()
   useCursor()
@@ -39,7 +56,9 @@ function App() {
 
   return (
     <Router>
-      <div className="overflow-x-hidden w-full selection:bg-white/20 selection:text-white">
+      <a href="#main" className="skip-link">Skip to content</a>
+      <Backdrop />
+      <div className="overflow-x-hidden w-full">
         <ScrollToTop />
         <Loader />
         <Cursor />
@@ -47,6 +66,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/start-a-project" element={<StartProject />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:slug" element={<BlogPost />} />
           <Route path="/proposal" element={<SampleProposal />} />

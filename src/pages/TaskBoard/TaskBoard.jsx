@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import Navigation from '../../shared/components/Navigation'
 import Footer from '../../shared/components/Footer'
+import Eyebrow from '../../shared/components/Eyebrow'
 import SEOHead from '../../shared/components/SEOHead'
 import { useLocalStorageState } from '../../shared/hooks/useLocalStorageState'
 import { BTN_SECONDARY } from './kanbanConstants'
@@ -106,50 +107,48 @@ const PasswordGate = ({ onUnlock }) => {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg)] text-primary flex items-center justify-center px-6">
-      <div className="w-full max-w-sm">
-        <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-muted mb-3 text-center">
+    <main id="main" className="min-h-screen text-primary flex items-center justify-center px-4 md:px-6 py-20">
+      <div className="w-full max-w-md">
+        <p className="eyebrow w-full justify-center mb-6">
+          <span className="signal-dot signal-dot-pulse" aria-hidden="true" />
           Protected
         </p>
-        <h1 className="text-xl font-mono uppercase tracking-widest text-center mb-8">
-          Task Board
+        <h1 className="text-center font-semibold tracking-display leading-[0.92] text-6xl md:text-7xl mb-10">
+          <span className="block text-primary">Task</span>
+          <span className="block display-ghost">Board</span>
         </h1>
-        <form
-          onSubmit={handleSubmit}
-          className="rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] p-6 backdrop-blur-md"
-        >
-          <label
-            htmlFor="taskboard-password"
-            className="block text-[10px] font-mono uppercase tracking-[0.2em] text-muted mb-2"
-          >
+        <form onSubmit={handleSubmit} className="card p-7 md:p-8">
+          <label htmlFor="taskboard-password" className="field-label">
             Password
           </label>
-          <TextField
+          <input
             id="taskboard-password"
             type="password"
             autoFocus
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="py-2.5"
             placeholder="••••••••"
+            aria-invalid={error ? 'true' : undefined}
+            aria-describedby={error ? 'taskboard-password-error' : undefined}
+            className="field"
           />
           {error && (
-            <p className="mt-3 text-xs text-red-400 font-mono">{error}</p>
+            <p id="taskboard-password-error" className="field-error" role="alert">{error}</p>
           )}
           <button
             type="submit"
             disabled={checking}
-            className="mt-5 w-full rounded-full bg-[var(--color-accent)] text-[var(--color-accent-inverse)] py-2.5 text-[11px] font-mono uppercase tracking-widest transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="pill pill-signal mt-8 w-full"
           >
             {checking ? 'Checking…' : 'Unlock'}
           </button>
         </form>
-        <p className="mt-4 text-[10px] font-mono text-muted text-center leading-relaxed">
+        <p className="mt-5 font-mono text-[11px] text-muted text-center leading-relaxed">
           This is a soft deterrent, not real security — everything here still
           ships in the client bundle.
         </p>
       </div>
-    </div>
+    </main>
   )
 }
 
@@ -235,28 +234,30 @@ const EisenhowerMatrix = ({ data, setData, category, date, categoryColors }) => 
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 min-w-0">
-      {QUADRANTS.map((quadrant) => (
-        <div
+      {QUADRANTS.map((quadrant, qi) => (
+        <section
           key={quadrant.id}
-          className="min-w-0 rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] p-5"
+          aria-labelledby={`quadrant-${quadrant.id}`}
+          className="card min-w-0 p-5 md:p-6 flex flex-col"
         >
-          <div className="flex items-baseline justify-between mb-4">
-            <h3 className="text-xs font-mono uppercase tracking-widest text-primary">
-              {quadrant.label}
-            </h3>
-            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted">
-              {quadrant.hint}
-            </span>
+          <div className="flex items-start justify-between gap-3 mb-5">
+            <div className="min-w-0">
+              <Eyebrow num={`0${qi + 1}`} label={quadrant.hint} />
+              <h3 id={`quadrant-${quadrant.id}`} className="mt-2 text-xl font-semibold tracking-tight text-primary">
+                {quadrant.label}
+              </h3>
+            </div>
+            <span className="shrink-0 font-mono text-[11px] text-muted">{day[quadrant.id].length}</span>
           </div>
 
-          <ul className="space-y-2 mb-4 min-h-[1.5rem]">
+          <ul className="space-y-2 mb-5 min-h-[1.5rem] flex-1">
             {day[quadrant.id].length === 0 && (
-              <li className="text-xs text-muted font-mono">No tasks yet.</li>
+              <li className="font-mono text-[11px] uppercase tracking-eyebrow text-muted">No tasks yet.</li>
             )}
             {day[quadrant.id].map((task) => (
               <li
                 key={task.id}
-                className="min-w-0 rounded-sm border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2"
+                className="min-w-0 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg)] px-3.5 py-3"
               >
                 <div className="flex items-start gap-2 min-w-0">
                   <input
@@ -264,7 +265,7 @@ const EisenhowerMatrix = ({ data, setData, category, date, categoryColors }) => 
                     checked={!!task.done}
                     onChange={() => toggleDone(quadrant.id, task.id, task._category)}
                     aria-label={task.done ? 'Mark task not done' : 'Mark task done'}
-                    className="shrink-0 mt-0.5 w-4 h-4 accent-[var(--color-accent)] cursor-pointer"
+                    className="shrink-0 mt-0.5 w-4 h-4 accent-[var(--color-signal-text)] cursor-pointer"
                   />
                   <span
                     aria-hidden="true"
@@ -283,7 +284,7 @@ const EisenhowerMatrix = ({ data, setData, category, date, categoryColors }) => 
                     type="button"
                     onClick={() => deleteTask(quadrant.id, task.id, task._category)}
                     aria-label="Delete task"
-                    className="shrink-0 rounded-full w-6 h-6 flex items-center justify-center border border-[var(--color-border)] text-muted hover:text-primary hover:border-[var(--color-border-strong)] transition-colors"
+                    className="shrink-0 rounded-full w-7 h-7 flex items-center justify-center border border-[var(--color-border-strong)] text-muted hover:text-primary hover:border-[var(--color-text-muted)] transition-colors"
                   >
                     ×
                   </button>
@@ -293,7 +294,7 @@ const EisenhowerMatrix = ({ data, setData, category, date, categoryColors }) => 
                     aria-label="Move to quadrant"
                     value={quadrant.id}
                     onChange={(e) => moveTask(quadrant.id, task.id, e.target.value, task._category)}
-                    className="max-w-full text-[10px] font-mono uppercase tracking-wider bg-[var(--color-surface)] border border-[var(--color-border)] rounded-full px-2 py-1 text-muted focus:outline-none"
+                    className="max-w-full font-mono text-[11px] uppercase tracking-wider bg-[var(--color-surface)] border border-[var(--color-border-strong)] rounded-full px-3 py-1 text-muted hover:text-primary cursor-pointer"
                   >
                     {QUADRANTS.map((q) => (
                       <option key={q.id} value={q.id}>
@@ -324,7 +325,7 @@ const EisenhowerMatrix = ({ data, setData, category, date, categoryColors }) => 
               Add
             </button>
           </form>
-        </div>
+        </section>
       ))}
     </div>
   )
@@ -390,14 +391,23 @@ const TaskBoardContent = () => {
       <Navigation />
 
       <main
-        className="min-h-screen bg-[var(--color-bg)] text-primary px-6 pt-28 pb-20 md:pt-32 md:pb-24 max-w-[1400px] mx-auto"
+        id="main"
+        className="min-h-screen text-primary px-4 md:px-10 pt-32 pb-20 md:pt-44 md:pb-28 max-w-[1400px] mx-auto grid-frame"
       >
-        <div className="max-w-6xl mx-auto w-full">
-          <div className="flex items-center justify-between mb-10 flex-wrap gap-4">
-            <h1 className="text-xl font-mono uppercase tracking-widest">Task Board</h1>
+        <div className="w-full">
+          <div className="flex items-end justify-between mb-12 md:mb-16 flex-wrap gap-6">
+            <div>
+              <p className="eyebrow">
+                <span className="signal-dot signal-dot-pulse" aria-hidden="true" />
+                Protected
+              </p>
+              <h1 className="mt-6 font-semibold tracking-display leading-[0.9] text-[clamp(52px,9vw,128px)]">
+                Task Board
+              </h1>
+            </div>
 
             {/* Tabs */}
-            <div className="inline-flex flex-wrap gap-2 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] px-2 py-1.5 backdrop-blur-md">
+            <div className="inline-flex flex-wrap gap-1 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] p-1" role="tablist" aria-label="Board type">
               {[
                 { id: 'matrix', label: 'Eisenhower Matrix' },
                 { id: 'kanban', label: 'Kanban Board' },
@@ -405,11 +415,11 @@ const TaskBoardContent = () => {
                 <button
                   key={tab.id}
                   type="button"
+                  role="tab"
+                  aria-selected={activeTab === tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`px-4 py-1.5 rounded-full text-[10px] font-mono uppercase tracking-[0.18em] transition-colors ${
-                    activeTab === tab.id
-                      ? 'bg-[var(--color-accent)] text-[var(--color-accent-inverse)]'
-                      : 'text-muted hover:text-primary'
+                  className={`pill pill-sm ${
+                    activeTab === tab.id ? 'pill-active' : 'text-muted hover:text-primary'
                   }`}
                 >
                   {tab.label}
@@ -421,9 +431,9 @@ const TaskBoardContent = () => {
           {activeTab === 'matrix' && (
             <>
               {/* Date + category controls */}
-              <div className="flex flex-col md:flex-row md:items-end gap-4 mb-8 min-w-0">
+              <div className="card p-5 md:p-6 flex flex-col md:flex-row md:items-end gap-5 mb-4 min-w-0">
                 <div className="shrink-0">
-                  <label className="block text-[10px] font-mono uppercase tracking-[0.2em] text-muted mb-2">
+                  <label className="block font-mono text-[11px] uppercase tracking-eyebrow text-muted mb-2">
                     Date
                   </label>
                   <TextField
@@ -436,7 +446,7 @@ const TaskBoardContent = () => {
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <label className="block text-[10px] font-mono uppercase tracking-[0.2em] text-muted mb-2">
+                  <label className="block font-mono text-[11px] uppercase tracking-eyebrow text-muted mb-2">
                     Category
                   </label>
                   <div className="flex flex-wrap items-center gap-2 min-w-0">

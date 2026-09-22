@@ -5,8 +5,8 @@ export const PluginIcon = ({ className }) => (
     <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
         <defs>
             <linearGradient id="plugin-grad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stopColor="#a855f7" />
-                <stop offset="1" stopColor="#3b82f6" />
+                <stop offset="0" style={{ stopColor: 'var(--color-signal)' }} />
+                <stop offset="1" style={{ stopColor: 'var(--color-signal-text)' }} />
             </linearGradient>
         </defs>
         <path
@@ -22,8 +22,8 @@ export const LayersIcon = ({ className }) => (
     <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
         <defs>
             <linearGradient id="layers-grad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stopColor="#2dd4bf" />
-                <stop offset="1" stopColor="#22c55e" />
+                <stop offset="0" style={{ stopColor: 'var(--color-signal)' }} />
+                <stop offset="1" style={{ stopColor: 'var(--color-signal-text)' }} />
             </linearGradient>
         </defs>
         <g transform="translate(5,5)">
@@ -41,8 +41,8 @@ export const ApiIcon = ({ className }) => (
     <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
         <defs>
             <linearGradient id="api-grad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stopColor="#38bdf8" />
-                <stop offset="1" stopColor="#6366f1" />
+                <stop offset="0" style={{ stopColor: 'var(--color-signal)' }} />
+                <stop offset="1" style={{ stopColor: 'var(--color-signal-text)' }} />
             </linearGradient>
         </defs>
         <g transform="translate(5,5)">
@@ -68,8 +68,8 @@ export const GaugeIcon = ({ className }) => (
     <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
         <defs>
             <linearGradient id="gauge-grad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stopColor="#fb923c" />
-                <stop offset="1" stopColor="#ef4444" />
+                <stop offset="0" style={{ stopColor: 'var(--color-signal)' }} />
+                <stop offset="1" style={{ stopColor: 'var(--color-signal-text)' }} />
             </linearGradient>
         </defs>
         <g transform="translate(5,5)">
@@ -82,3 +82,11 @@ export const GaugeIcon = ({ className }) => (
         <circle cx="32" cy="42" r="5" fill="currentColor" />
     </svg>
 );
+
+// Maps the `icon` key in shared/data/capabilities.json to its glyph
+export const CAPABILITY_ICONS = {
+    plugin: PluginIcon,
+    layers: LayersIcon,
+    api: ApiIcon,
+    gauge: GaugeIcon,
+};

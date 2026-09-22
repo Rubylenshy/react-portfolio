@@ -3,11 +3,12 @@
    button/card/dropdown classes, so every piece of the board reads as
    one visual system. */
 
+// Done uses the site's signal color (lime on dark, olive on light)
 export const STATUSES = [
-  { id: 'backlog', label: 'Backlog', hint: 'Not started', color: '#9ca3af' },
+  { id: 'backlog', label: 'Backlog', hint: 'Not started', color: '#8A8A8A' },
   { id: 'queue', label: 'To Do', hint: 'Queued', color: '#60a5fa' },
   { id: 'inprogress', label: 'In Progress', hint: 'Active', color: '#fb923c' },
-  { id: 'done', label: 'Done', hint: 'Shipped', color: '#4ade80' },
+  { id: 'done', label: 'Done', hint: 'Shipped', color: 'var(--color-signal-text)' },
 ]
 
 export const PRIORITIES = [
@@ -39,25 +40,21 @@ export const formatShortDate = (iso) => {
   return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
 }
 
-/* Shared classes — buttons, cards, dropdowns, inputs */
+/* Shared classes — built on the site's global .pill / .card component classes */
 
-export const BTN_PRIMARY =
-  'rounded-full bg-[var(--color-accent)] text-[var(--color-accent-inverse)] px-4 py-2 text-[11px] font-mono uppercase tracking-widest transition-opacity hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed'
+export const BTN_PRIMARY = 'pill pill-invert pill-sm'
 
-export const BTN_SECONDARY =
-  'rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2 text-[11px] font-mono uppercase tracking-widest text-primary hover:border-[var(--color-border-strong)] transition-colors'
+export const BTN_SECONDARY = 'pill pill-ghost pill-sm'
 
-export const BTN_GHOST =
-  'rounded-full px-4 py-2 text-[11px] font-mono uppercase tracking-widest text-muted hover:text-primary transition-colors'
+export const BTN_GHOST = 'pill pill-sm text-muted hover:text-primary'
 
-export const BTN_DANGER =
-  'rounded-full border border-red-400/30 bg-red-400/10 px-4 py-2 text-[11px] font-mono uppercase tracking-widest text-red-400 hover:bg-red-400/20 transition-colors'
+export const BTN_DANGER = 'pill pill-danger pill-sm'
 
-export const CARD_CLASS =
-  'rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface-strong)] transition-colors cursor-pointer'
+export const CARD_CLASS = 'card card-hover cursor-pointer'
 
+// Label text is mixed toward the primary text color so it keeps contrast in both themes
 export const badgeStyle = (color) => ({
-  color,
+  color: `color-mix(in srgb, ${color} 55%, var(--color-text-primary))`,
   borderColor: `color-mix(in srgb, ${color} 45%, var(--color-border))`,
   backgroundColor: `color-mix(in srgb, ${color} 14%, var(--color-surface))`,
 })

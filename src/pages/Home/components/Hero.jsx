@@ -1,94 +1,78 @@
+import Showreel from '../../../shared/components/Showreel'
 
-import GlassyBubbles from './GlassyBubbles'
-import ShadowHeading from '../../../shared/components/ShadowHeading'
+const ROLES = ['Frontend Dev', 'Designer', 'CMS Plugin Dev']
 
 const Hero = () => {
   const scrollToSection = (e, sectionId) => {
     e.preventDefault()
     const element = document.getElementById(sectionId)
-    if (element && window.lenis) {
-      window.lenis.scrollTo(element, { offset: -80 })
-    }
+    if (!element) return
+    if (window.lenis) window.lenis.scrollTo(element, { offset: -80 })
+    else element.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
   return (
-    <section className="relative min-h-[85vh] lg:min-h-screen flex flex-col justify-center items-center px-4 pt-12 md:pt-24 overflow-hidden max-w-[1400px] mx-auto grid-frame">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/2b8b3b39-e23c-43e6-be7b-500fa586c81f_1600w.jpg"
-          alt="Background"
-          className="w-full h-full object-cover scale-105"
-          id="hero-bg"
-        />
-        <div className="absolute inset-0 hero-overlay-gradient"></div>
-        <div className="absolute inset-0 hero-overlay-scrim"></div>
-      </div>
-
-      <div className="z-10 relative flex flex-col items-center text-center w-full max-w-5xl mx-auto">
-        <div className="mb-6 flex items-center gap-3 px-3 py-1.5 rounded-full bg-[var(--color-surface)] backdrop-blur-sm border border-[var(--color-border)] hero-fade-in opacity-0">
-          <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-          <span className="font-mono text-[10px] uppercase tracking-widest text-secondary">
+    <section
+      id="main"
+      data-hero
+      className="relative max-w-[1400px] mx-auto grid-frame px-4 md:px-10 pt-28 md:pt-40 pb-16 md:pb-24"
+    >
+      <div className="hero-fade-in opacity-0 flex justify-center md:justify-start mb-8 md:mb-10">
+        <span className="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)]">
+          <span className="signal-dot signal-dot-pulse" aria-hidden="true" />
+          <span className="font-mono text-[11px] uppercase tracking-eyebrow text-secondary">
             Available for Hire
           </span>
-        </div>
+        </span>
+      </div>
 
-        <div className="relative inline-block">
-          <ShadowHeading
-            as="h1"
-            offset={3}
-            className="text-5xl md:text-8xl lg:text-9xl font-semibold tracking-tighter text-primary uppercase leading-[0.9] flex flex-col items-center mix-blend-overlay relative z-10"
+      {/* Stacked display lockup — solid over ghost */}
+      <h1 className="text-center md:text-left font-semibold uppercase tracking-display leading-[0.92] text-[clamp(44px,13vw,196px)]">
+        <span className="block overflow-hidden">
+          <span className="hero-char text-primary">Reuben</span>
+        </span>
+        <span className="block overflow-hidden -mt-[0.04em]">
+          <span className="hero-char display-ghost">Oluwafemi</span>
+        </span>
+      </h1>
+
+      {/* Flanking micro-paragraphs */}
+      <div className="mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
+        <p className="hero-fade-in opacity-0 max-w-md text-center md:text-left mx-auto md:mx-0 text-[15px] md:text-base text-muted leading-relaxed">
+          Bridging the gap between{' '}
+          <span className="text-primary font-medium">engineering logic</span> and{' '}
+          <span className="text-primary font-medium">creative design</span>. Specializing in
+          high-performance WordPress Plugin architecture and top-value digital experiences.
+        </p>
+
+        <div className="hero-fade-in opacity-0 flex flex-col items-center md:items-end gap-5">
+          <ul className="flex md:flex-col flex-wrap justify-center md:items-end gap-x-4 gap-y-1.5">
+            {ROLES.map((role) => (
+              <li key={role} className="font-mono text-[11px] md:text-xs uppercase tracking-eyebrow text-secondary">
+                {role}
+              </li>
+            ))}
+          </ul>
+          <a
+            href="#work"
+            onClick={(e) => scrollToSection(e, 'work')}
+            className="pill pill-invert pill-arrow magnetic-btn"
           >
-            <div className="overflow-hidden">
-              <span className="hero-char">Reuben</span>
-            </div>
-            <div className="overflow-hidden">
-              <span className="hero-char">Oluwafemi</span>
-            </div>
-          </ShadowHeading>
-
-          {/* Floating glassy labels around the hero text */}
-          <GlassyBubbles />
-        </div>
-
-        <div className="mt-8 md:mt-12 max-w-xl mx-auto opacity-0 hero-fade-in px-6">
-          <p className="font-sans text-sm md:text-lg text-secondary leading-relaxed font-light">
-            Bridging the gap between{' '}
-            <span className="text-primary font-medium">engineering logic</span> and{' '}
-            <span className="text-primary font-medium">creative design</span>. Specializing in
-            high-performance WordPress Plugin architecture and top-value digital experiences.
-          </p>
-        </div>
-
-        {/* Custom Animated Button */}
-        <div className="mt-12 opacity-0 hero-fade-in btn-container">
-          <a href="#work" className="btn-wrapper magnetic-btn" onClick={(e) => scrollToSection(e, 'work')}>
-            {/* Lines */}
-            <div className="line horizontal top"></div>
-            <div className="line vertical right"></div>
-            <div className="line horizontal bottom"></div>
-            <div className="line vertical left"></div>
-
-            {/* Dots */}
-            <div className="dot top left"></div>
-            <div className="dot top right"></div>
-            <div className="dot bottom right"></div>
-            <div className="dot bottom left"></div>
-
-            {/* Button Content */}
-            <button className="btn">
-              <span>View Expertise</span>
-              <svg className="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M7 17L17 7"></path>
-                <path d="M7 7h10v10"></path>
-              </svg>
-            </button>
+            View Expertise
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+              <path d="M7 17L17 7"></path>
+              <path d="M7 7h10v10"></path>
+            </svg>
           </a>
         </div>
+      </div>
+
+      {/* Full-width rounded media panel */}
+      <div className="hero-fade-in opacity-0 mt-14 md:mt-20">
+        <Showreel src="/videos/usereuben_showcase.mp4" parallax />
       </div>
     </section>
   )
 }
 
 export default Hero
-

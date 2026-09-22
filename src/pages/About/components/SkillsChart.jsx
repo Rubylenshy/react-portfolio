@@ -1,4 +1,5 @@
 import { DoIcon, FluentIcon, ExpectIcon } from './SkillIcons'
+import Eyebrow from '../../../shared/components/Eyebrow'
 
 const COLUMNS = [
     {
@@ -30,38 +31,34 @@ const COLUMNS = [
     },
 ]
 
-const SkillsChart = () => {
+const SkillsChart = ({ num = '03' }) => {
     return (
-        <section className="max-w-[1400px] mx-auto grid-frame bg-[var(--color-bg)] border-t border-[var(--color-border)]">
-            <div className="max-w-6xl mx-auto px-6 md:px-14 py-16 md:py-24">
-                <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-muted mb-10 md:mb-14">
-                    My Skills
-                </p>
+        <section className="max-w-[1400px] mx-auto grid-frame px-4 md:px-10 py-20 md:py-32">
+            <Eyebrow num={num} label="My Skills" className="mb-12 md:mb-16" data-reveal />
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-10">
-                    {COLUMNS.map(({ icon: Icon, title, description, items }) => (
-                        <div key={title}>
-                            <Icon className="w-11 h-11 text-primary mb-6" />
-                            <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-primary mb-3">
-                                {title}
-                            </h3>
-                            <p className="text-sm text-secondary leading-relaxed mb-6">
-                                {description}
-                            </p>
-                            <ul className="space-y-2.5">
-                                {items.map((item) => (
-                                    <li
-                                        key={item}
-                                        className="flex items-baseline gap-2.5 text-sm font-semibold text-primary"
-                                    >
-                                        <span className="w-1 h-1 rounded-full bg-primary shrink-0 self-center" />
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4" data-reveal-group>
+                {COLUMNS.map(({ icon: Icon, title, description, items }) => (
+                    <article key={title} className="card card-hover p-7 md:p-8 flex flex-col">
+                        <Icon className="w-11 h-11 text-primary mb-8" />
+                        <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-primary mb-3">
+                            {title}
+                        </h3>
+                        <p className="text-sm text-muted leading-relaxed mb-8">
+                            {description}
+                        </p>
+                        <ul className="mt-auto space-y-3 pt-6 border-t border-[var(--color-border)]">
+                            {items.map((item) => (
+                                <li
+                                    key={item}
+                                    className="flex items-center gap-3 text-sm font-medium text-primary"
+                                >
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-signal-text)] shrink-0" aria-hidden="true" />
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </article>
+                ))}
             </div>
         </section>
     )
