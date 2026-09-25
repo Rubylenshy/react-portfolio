@@ -145,11 +145,14 @@ body {
    ============================================================ */
 .shockwave-field {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  /* Large viewport height: stays put (no gap, no resize) as mobile toolbars show/hide */
+  height: 100lvh;
   display: block;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
 }
 

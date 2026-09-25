@@ -58,7 +58,7 @@ function App() {
     <Router>
       <a href="#main" className="skip-link">Skip to content</a>
       <Backdrop />
-      <div className="overflow-x-hidden w-[95%] mx-auto z-1">
+      <div className="relative z-[2] overflow-x-hidden w-[95%] mx-auto">
         <ScrollToTop />
         <Loader />
         <Cursor />

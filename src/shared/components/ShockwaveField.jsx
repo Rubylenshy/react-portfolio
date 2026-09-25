@@ -46,7 +46,12 @@ void main() { gl_Position = vec4(aPos, 0.0, 1.0); }
 `
 
 const FRAG = `
+// Some mobile GPUs lack highp in fragment shaders; fall back rather than fail to compile
+#ifdef GL_FRAGMENT_PRECISION_HIGH
 precision highp float;
+#else
+precision mediump float;
+#endif
 
 uniform vec2 uRes;
 uniform float uPitch;
@@ -239,6 +244,13 @@ const ShockwaveField = ({ pitch = 16, noiseAmp = 0.25 }) => {
     gl.attachShader(program, compile(gl.VERTEX_SHADER, VERT))
     gl.attachShader(program, compile(gl.FRAGMENT_SHADER, FRAG))
     gl.linkProgram(program)
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      // Shader unsupported on this GPU: hide the canvas so the body background shows through
+      console.error(gl.getProgramInfoLog(program))
+      gl.deleteProgram(program)
+      canvas.style.display = 'none'
+      return
+    }
     gl.useProgram(program)
 
     const buffer = gl.createBuffer()
@@ -263,12 +275,20 @@ const ShockwaveField = ({ pitch = 16, noiseAmp = 0.25 }) => {
     gl.uniform1i(loc.uRing, 0)
     const ringData = new Uint8Array(ANGLE_SAMPLES * 4)
 
+    // Touch devices get a lower pixel ratio: the shader runs per device pixel and
+    // phone GPUs choke on a full 3x screen
+    const coarse = window.matchMedia('(pointer: coarse)').matches
     let dpr = 1
     const resize = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 2)
-      canvas.width = Math.round(window.innerWidth * dpr)
-      canvas.height = Math.round(window.innerHeight * dpr)
-      gl.viewport(0, 0, canvas.width, canvas.height)
+      dpr = Math.min(window.devicePixelRatio || 1, coarse ? 1.5 : 2)
+      // The canvas' own box, not innerWidth/innerHeight, which jump as mobile toolbars show/hide
+      const w = Math.round(canvas.clientWidth * dpr)
+      const h = Math.round(canvas.clientHeight * dpr)
+      // Resizing clears the buffer, so skip no-op resize events (fired constantly while scrolling on iOS)
+      if (w === canvas.width && h === canvas.height) return
+      canvas.width = w
+      canvas.height = h
+      gl.viewport(0, 0, w, h)
     }
     resize()
 
