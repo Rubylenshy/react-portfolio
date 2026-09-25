@@ -1,7 +1,7 @@
 import { Github, ArrowUpRight, FileText } from 'lucide-react'
-import { Link, useNavigate } from 'react-router-dom'
 import projects from '../../../shared/data/projects.json'
-import ShadowHeading from '../../../shared/components/ShadowHeading'
+import Eyebrow from '../../../shared/components/Eyebrow'
+import Pill from '../../../shared/components/Pill'
 
 const badgeLabels = {
   react: 'React',
@@ -17,130 +17,110 @@ const badgeLabels = {
   stripe: 'Stripe API',
 }
 
-const Work = () => {
-  const navigate = useNavigate()
+const getBadges = (stackIcons = []) =>
+  stackIcons.map((item) => badgeLabels[item] || item).slice(0, 3)
 
-  const getBadges = (stackIcons = []) =>
-    stackIcons.map((item) => badgeLabels[item] || item).slice(0, 4)
+const WorkCard = ({ project, featured }) => (
+  <article
+    className={`group card card-hover flex flex-col overflow-hidden p-2 ${featured ? 'md:col-span-2' : ''}`}
+  >
+    <div className={`media media-hover relative ${featured ? 'aspect-[16/9]' : 'aspect-[4/3]'} !rounded-[16px]`}>
+      <img
+        src={project.mockup}
+        alt={project.title}
+        loading="lazy"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      {featured && <span className="tag tag-signal absolute top-4 left-4">Featured</span>}
+    </div>
 
-  const handleSeeAll = (e) => {
-    e.preventDefault()
-    if (window.lenis) {
-      window.lenis.scrollTo(0, {
-        duration: 1.2,
-        easing: (t) => 1 - Math.pow(1 - t, 3)
-      })
-    } else {
-      window.scrollTo({ top: 0, behavior: 'auto' })
-    }
-    navigate('/projects')
-  }
+    <div className="flex flex-col flex-1 gap-3 px-4 pt-5 pb-4">
+      <p className="font-mono text-[11px] uppercase tracking-eyebrow text-muted">
+        {project.type} / {project.subtitle}
+      </p>
+      <h3 className="text-2xl md:text-3xl font-semibold tracking-display text-primary">
+        {project.title}
+      </h3>
+      <p className="text-[15px] text-muted leading-relaxed">{project.description}</p>
 
-  return (
-    <section id="work" className="px-6 py-24 md:py-32 max-w-[1400px] mx-auto bg-[var(--color-bg)] grid-frame">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-[var(--color-border)] pb-6">
-        <ShadowHeading className="text-4xl md:text-7xl font-semibold tracking-tighter uppercase text-primary">
-          Selected<br />
-          Work
-        </ShadowHeading>
-        <div className="mt-4 md:mt-0 flex gap-2">
-          <span className="w-3 h-3 rounded-full bg-[var(--color-accent)] animate-pulse"></span>
-          <span className="font-mono text-xs text-secondary uppercase tracking-widest">
-            Show, Don't Tell
-          </span>
+      <div className="mt-auto pt-5 border-t border-[var(--color-border)] flex flex-wrap items-center justify-between gap-3">
+        <ul className="flex flex-wrap gap-1.5" aria-label="Stack">
+          {getBadges(project.stack_icons).map((badge) => (
+            <li key={badge} className="tag">{badge}</li>
+          ))}
+        </ul>
+
+        <div className="flex items-center gap-2">
+          {project.code_link && project.code_link !== '#' && (
+            <a
+              href={project.code_link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`View Codebase — ${project.title}`}
+              title="View Codebase"
+              className="icon-btn magnetic-btn"
+            >
+              <Github className="w-4 h-4" />
+            </a>
+          )}
+          {project.live_link && (
+            <a
+              href={project.live_link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Live — ${project.title}`}
+              title="Live"
+              className="icon-btn magnetic-btn"
+            >
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
+          )}
+          {!project.live_link && project.case_study && (
+            <a
+              href={project.case_study}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pill pill-ghost pill-sm magnetic-btn"
+            >
+              Read Case Study <FileText className="w-3.5 h-3.5" aria-hidden="true" />
+            </a>
+          )}
         </div>
       </div>
+    </div>
+  </article>
+)
 
-      <div className="space-y-32">
-        {projects.slice(0, 3).map((project, idx) => {
-          const isRight = project.direction === 'right'
-          const badges = getBadges(project.stack_icons)
-
-          return (
-            <div
-              key={`${project.title}-${idx}`}
-              className="group project-card grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center"
-            >
-              <div
-                className={`lg:col-span-7 overflow-hidden rounded-sm bg-[var(--color-bg-secondary)] aspect-[16/10] relative cursor-pointer border border-[var(--color-border)] ${
-                  isRight ? 'order-1 lg:order-2' : ''
-                }`}
-              >
-                <div className="absolute inset-0 bg-black/40 z-10 project-overlay transition-opacity duration-500"></div>
-                <img
-                  src={project.mockup}
-                  alt={project.title}
-                  className="w-full h-full object-contain opacity-80 group-hover:opacity-100"
-                />
-              </div>
-
-              <div
-                className={`lg:col-span-5 flex flex-col gap-6 ${isRight ? 'order-2 lg:order-1' : ''}`}
-              >
-                <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-secondary flex-wrap">
-                  {badges.map((badge) => (
-                    <span key={badge} className="px-2 py-1 border border-[var(--color-border)] rounded bg-[var(--color-surface)]">
-                      {badge}
-                    </span>
-                  ))}
-                </div>
-
-                <h3 className="text-3xl md:text-5xl font-semibold tracking-tighter text-primary">
-                  {project.title}
-                </h3>
-
-                <p className="text-secondary text-base leading-relaxed font-light">
-                  {project.description}
-                </p>
-
-                <div className="flex items-center gap-5 mt-2 flex-wrap">
-                  {project.code_link && project.code_link !== '#' && (
-                    <a
-                      href={project.code_link}
-                      target="_blank"
-                      className="inline-flex items-center gap-2 p-1 text-xs border border-[var(--color-text-primary)] font-mono uppercase tracking-widest text-primary hover:text-secondary transition-colors magnetic-btn"
-                    >
-                      View Codebase <Github className="w-4 h-4" />
-                    </a>
-                  )}
-                  {project.live_link && (
-                    <a
-                      href={project.live_link}
-                      target="_blank"
-                      title="Live"
-                      className="inline-flex items-center gap-2 p-0.5 text-xs border border-[var(--color-text-primary)] font-mono uppercase tracking-widest text-primary hover:text-[var(--color-accent-inverse)] hover:bg-[var(--color-accent)] transition-colors magnetic-btn"
-                    >
-                      <ArrowUpRight className="w-4 h-4" />
-                    </a>
-                  )}
-                  {!project.live_link && project.case_study && (
-                    <a
-                      href={project.case_study}
-                      target="_blank"
-                      className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-primary hover:text-secondary transition-colors magnetic-btn"
-                    >
-                      Read Case Study <FileText className="w-4 h-4" />
-                    </a>
-                  )}
-                </div>
-              </div>
+const Work = () => {
+  return (
+    <section id="work" className="px-4 md:px-10 py-20 md:py-32 max-w-[1400px] mx-auto grid-frame">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+        {/* Sticky intro column */}
+        <div className="lg:col-span-4">
+          <div className="lg:sticky lg:top-32" data-reveal-group>
+            <Eyebrow num="02" label="Show, Don't Tell" />
+            <h2 className="mt-6 text-5xl md:text-6xl font-semibold tracking-display leading-[0.95] uppercase text-primary">
+              Selected
+              <br />
+              Work
+            </h2>
+            <div className="mt-10">
+              <Pill variant="ghost" to="/projects" arrow>
+                See all projects
+              </Pill>
             </div>
-          )
-        })}
-      </div>
+          </div>
+        </div>
 
-      <div className="mt-16 flex justify-center">
-        <Link
-          onClick={handleSeeAll}
-          className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-primary border border-[var(--color-border)] bg-[var(--color-surface)] backdrop-blur-sm px-6 py-3 rounded-sm hover:bg-[var(--color-surface-strong)] transition-colors magnetic-btn"
-        >
-          See all projects
-          <ArrowUpRight className="w-4 h-4" />
-        </Link>
+        {/* Case-study cards */}
+        <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4" data-reveal-group>
+          {projects.slice(0, 3).map((project, idx) => (
+            <WorkCard key={`${project.title}-${idx}`} project={project} featured={idx === 0} />
+          ))}
+        </div>
       </div>
     </section>
   )
 }
 
 export default Work
-

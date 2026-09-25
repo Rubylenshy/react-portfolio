@@ -4,11 +4,47 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const REVEAL_FROM = { opacity: 0, y: 24, filter: 'blur(8px)' }
+const REVEAL_TO = {
+  opacity: 1,
+  y: 0,
+  filter: 'blur(0px)',
+  duration: 0.6,
+  ease: 'expo.out',
+  stagger: 0.06,
+  clearProps: 'filter,transform,opacity',
+}
+
+const prefersReducedMotion = () =>
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
 export function useAnimations() {
   useEffect(() => {
+    const reduce = prefersReducedMotion()
+    let refreshTimer = null
+
+    const scheduleRefresh = () => {
+      clearTimeout(refreshTimer)
+      refreshTimer = setTimeout(() => {
+        // Drop triggers whose elements left the DOM on a route change
+        ScrollTrigger.getAll().forEach((t) => {
+          if (t.trigger && !t.trigger.isConnected) t.kill()
+        })
+        ScrollTrigger.refresh()
+      }, 150)
+    }
+
     // Use setTimeout to ensure DOM is ready
     const timeoutId = setTimeout(() => {
       const overlayEl = document.getElementById('loader-overlay')
+
+      if (reduce) {
+        // No loader, no intro, no reveals — just show everything
+        window.__loaderPlayed = true
+        if (overlayEl) overlayEl.style.display = 'none'
+        gsap.set('.hero-char, .hero-fade-in', { opacity: 1, y: 0 })
+        return
+      }
 
       // Play loader + hero intro only once per session
       if (overlayEl && !window.__loaderPlayed) {
@@ -18,113 +54,109 @@ export function useAnimations() {
 
         loaderTl
           .to(overlayEl, {
-            duration: 1.5,
-            ease: "power2.inOut",
-            onUpdate: function() {
+            duration: 1.2,
+            ease: 'power2.inOut',
+            onUpdate: function () {
               const prog = this.progress() * 150
               overlayEl.style.maskImage = `radial-gradient(circle, transparent ${prog}%, black ${prog}%)`
               overlayEl.style.webkitMaskImage = `radial-gradient(circle, transparent ${prog}%, black ${prog}%)`
-            }
+            },
           })
           .set(overlayEl, { display: 'none' })
-          .from(".hero-char", {
-            y: 100,
+          .from('.hero-char', {
+            yPercent: 100,
             opacity: 0,
             duration: 1,
-            stagger: 0.05,
-            ease: "power3.out"
-          }, "-=0.5")
-          .to(".hero-fade-in", {
+            stagger: 0.08,
+            ease: 'expo.out',
+          }, '-=0.5')
+          .to('.hero-fade-in', {
             opacity: 1,
             y: 0,
-            duration: 1,
-            stagger: 0.2,
-            ease: "power2.out"
-          }, "-=0.5")
+            duration: 0.8,
+            stagger: 0.12,
+            ease: 'expo.out',
+          }, '-=0.6')
       } else if (overlayEl && window.__loaderPlayed) {
         // Ensure overlay is hidden on non-initial routes
         overlayEl.style.display = 'none'
       }
 
-      // Scroll Animations - run for existing and future sections/pages
-      const animatedSections = new Set()
+      // ── Scroll reveals ──────────────────────────────────────────
+      // [data-reveal] reveals itself; [data-reveal-group] reveals its direct children
+      // with a 60ms stagger; unannotated sections fall back to h1/h2/h3/p.
+      const revealed = new WeakSet()
 
-      const animateSection = (section) => {
-        if (!section || animatedSections.has(section)) return
-        const elements = section.querySelectorAll("h1, h2, h3, p, .project-card, .group")
-        if (elements.length === 0) return
-
-        animatedSections.add(section)
-
-        gsap.from(elements, {
-          scrollTrigger: {
-            trigger: section,
-            start: "top 80%",
-            toggleActions: "play none none reverse"
-          },
-          y: 40,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: "power3.out"
+      const reveal = (targets, trigger) => {
+        const els = targets.filter((el) => !revealed.has(el))
+        if (!els.length) return
+        els.forEach((el) => revealed.add(el))
+        // Animate back to each element's own resting opacity (e.g. dimmed cards)
+        const resting = els.map((el) => getComputedStyle(el).opacity)
+        gsap.fromTo(els, REVEAL_FROM, {
+          ...REVEAL_TO,
+          opacity: (i) => resting[i],
+          scrollTrigger: { trigger, start: 'top 85%', once: true },
         })
       }
 
-      const initialSections = document.querySelectorAll(
-        "section:not(:first-child), main[data-scroll-animate]"
-      )
-      initialSections.forEach((section) => animateSection(section))
+      const scan = (root) => {
+        if (!(root instanceof Element)) return
 
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          mutation.addedNodes.forEach((node) => {
-            if (!(node instanceof HTMLElement)) return
+        const within = (sel) => [
+          ...(root.matches(sel) ? [root] : []),
+          ...root.querySelectorAll(sel),
+        ]
 
-            const tag = node.tagName.toLowerCase()
-
-            if (tag === 'section' || (tag === 'main' && node.hasAttribute('data-scroll-animate'))) {
-              animateSection(node)
-            }
-
-            node
-              .querySelectorAll?.('section, main[data-scroll-animate]')
-              .forEach((section) => animateSection(section))
+        within('[data-reveal]').forEach((el) => reveal([el], el))
+        within('[data-reveal-group]').forEach((group) =>
+          reveal([...group.children], group)
+        )
+        // Slow parallax for hero media
+        within('[data-parallax]').forEach((el) => {
+          if (revealed.has(el)) return
+          revealed.add(el)
+          gsap.to(el, {
+            yPercent: parseFloat(el.dataset.parallax) || 8,
+            ease: 'none',
+            scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true },
           })
         })
-      })
 
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true
-      })
-
-      // Parallax for Hero Background
-      const heroBg = document.getElementById('hero-bg')
-      if (heroBg) {
-        gsap.to(heroBg, {
-          scrollTrigger: {
-            trigger: "body",
-            start: "top top",
-            end: "bottom top",
-            scrub: true
-          },
-          y: 200,
-          scale: 1.1
+        within('section:not([data-hero]):not([data-no-reveal])').forEach((section) => {
+          if (section.querySelector('[data-reveal], [data-reveal-group]')) return
+          reveal([...section.querySelectorAll('h1, h2, h3, p')], section)
         })
       }
 
-      // Store observer for cleanup
+      scan(document.body)
+
+      const observer = new MutationObserver((mutations) => {
+        let added = false
+        mutations.forEach((mutation) => {
+          mutation.addedNodes.forEach((node) => {
+            if (node instanceof HTMLElement) {
+              scan(node)
+              added = true
+            }
+          })
+        })
+        if (added) scheduleRefresh()
+      })
+
+      observer.observe(document.body, { childList: true, subtree: true })
+
       window.__animationsObserver = observer
     }, 100)
 
     return () => {
       clearTimeout(timeoutId)
+      clearTimeout(refreshTimer)
       if (window.__animationsObserver) {
         window.__animationsObserver.disconnect()
         window.__animationsObserver = null
       }
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
     }
   }, [])
 }
-

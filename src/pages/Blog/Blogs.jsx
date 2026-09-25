@@ -1,11 +1,11 @@
 import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { Search, Clock, Calendar, Tag } from 'lucide-react'
+import { Search, PenLine, ArrowRight } from 'lucide-react'
 import Navigation from '../../shared/components/Navigation'
 import Footer from '../../shared/components/Footer'
+import Contact from '../../shared/components/Contact'
 import blogsData from './data/blogs.json'
 import SEOHead from '../../shared/components/SEOHead'
-import ShadowHeading from '../../shared/components/ShadowHeading'
 
 // Transform Google Drive file ID or shareable link → direct embed thumbnail
 function getThumbnailSrc(url) {
@@ -23,88 +23,92 @@ function formatDate(dateStr) {
   })
 }
 
-const BlogCard = ({ post }) => {
+const Thumb = ({ post, className = '' }) => {
   const thumb = getThumbnailSrc(post.thumbnail)
-
   return (
-    <Link
-      to={`/blogs/${post.slug}`}
-      className="group blog-card flex flex-col h-full rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] transition-all duration-300 overflow-hidden"
-    >
-      {/* Thumbnail */}
-      <div className="w-full h-48 overflow-hidden bg-[var(--color-bg-secondary)] relative">
-        {thumb ? (
-          <img
-            src={thumb}
-            alt={post.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            loading="lazy"
-          />
-        ) : (
-          /* Gradient fallback */
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[var(--color-surface)] to-[var(--color-bg-secondary)]">
-            <span className="font-mono text-2xl text-[var(--color-text-muted)] select-none">{'</>'}</span>
-          </div>
-        )}
-      </div>
-
-      {/* Content */}
-      <div className="flex-1 flex flex-col gap-3 p-5 min-w-0">
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1.5">
-          {post.tags.slice(0, 3).map(tag => (
-            <span
-              key={tag}
-              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] text-[10px] font-mono uppercase tracking-wider text-[var(--color-text-secondary)]"
-            >
-              <Tag className="w-2.5 h-2.5" />
-              {tag}
-            </span>
-          ))}
+    <div className={`media media-hover relative ${className}`}>
+      {thumb ? (
+        <img src={thumb} alt="" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+      ) : (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="font-mono text-2xl text-muted select-none" aria-hidden="true">{'</>'}</span>
         </div>
-
-        {/* Title */}
-        <h2 className="text-base md:text-lg font-semibold text-[var(--color-text-primary)] leading-snug group-hover:text-[var(--color-accent)] transition-colors duration-200 line-clamp-2">
-          {post.title}
-        </h2>
-
-        {/* Excerpt */}
-        <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed line-clamp-2">
-          {post.excerpt}
-        </p>
-
-        {/* Meta */}
-        <div className="flex items-center gap-4 text-[11px] font-mono text-[var(--color-text-muted)] mt-auto pt-2">
-          <span className="flex items-center gap-1">
-            <Calendar className="w-3 h-3" />
-            {formatDate(post.date)}
-          </span>
-          <span className="flex items-center gap-1">
-            <Clock className="w-3 h-3" />
-            {post.readingTime}
-          </span>
-        </div>
-      </div>
-    </Link>
+      )}
+    </div>
   )
 }
 
+const FeaturedPost = ({ post }) => (
+  <Link
+    to={`/blogs/${post.slug}`}
+    className="group card card-hover p-2 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center"
+  >
+    <div className="order-2 lg:order-1 flex flex-col gap-5 px-5 pb-6 lg:p-8">
+      <div className="flex flex-wrap items-center gap-3">
+        <span className="tag tag-signal">Featured</span>
+        <span className="font-mono text-[11px] uppercase tracking-eyebrow text-muted">{post.readingTime}</span>
+      </div>
+      <h2 className="text-3xl md:text-[36px] font-semibold tracking-display leading-[1.1] text-primary">
+        {post.title}
+      </h2>
+      <p className="text-[15px] md:text-base text-muted leading-relaxed">{post.excerpt}</p>
+      <p className="font-mono text-[11px] uppercase tracking-eyebrow text-muted">{formatDate(post.date)}</p>
+      <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-eyebrow text-primary group-hover:text-signal-text transition-colors">
+        Read Essay <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+      </span>
+    </div>
+    <Thumb post={post} className="order-1 lg:order-2 aspect-[16/10] !rounded-[16px]" />
+  </Link>
+)
+
+const BlogCard = ({ post }) => (
+  <Link to={`/blogs/${post.slug}`} className="group card card-hover p-2 flex flex-col h-full">
+    <Thumb post={post} className="aspect-[16/10] !rounded-[16px]" />
+    <div className="flex-1 flex flex-col gap-3 px-4 pt-5 pb-4 min-w-0">
+      <div className="flex items-center justify-between gap-3">
+        <span className="tag">{post.tags[0]}</span>
+        <span className="font-mono text-[11px] uppercase tracking-eyebrow text-muted">{post.readingTime}</span>
+      </div>
+      <h2 className="text-lg md:text-xl font-semibold tracking-tight text-primary leading-snug line-clamp-2">
+        {post.title}
+      </h2>
+      <p className="text-sm text-muted leading-relaxed line-clamp-2">{post.excerpt}</p>
+      <div className="mt-auto pt-4 flex items-center justify-between border-t border-[var(--color-border)]">
+        <span className="font-mono text-[11px] uppercase tracking-eyebrow text-muted">{formatDate(post.date)}</span>
+        <span className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-eyebrow text-primary group-hover:text-signal-text transition-colors">
+          Read <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+        </span>
+      </div>
+    </div>
+  </Link>
+)
+
+const ALL_TAGS = [...new Set(blogsData.flatMap((p) => p.tags))]
+
 const Blogs = () => {
   const [query, setQuery] = useState('')
+  const [activeTag, setActiveTag] = useState('all')
 
   const filtered = useMemo(() => {
-    if (!query.trim()) return blogsData
-    const q = query.toLowerCase()
-    return blogsData.filter(
-      p =>
+    const q = query.trim().toLowerCase()
+    return blogsData.filter((p) => {
+      if (activeTag !== 'all' && !p.tags.includes(activeTag)) return false
+      if (!q) return true
+      return (
         p.title.toLowerCase().includes(q) ||
         p.excerpt.toLowerCase().includes(q) ||
-        p.tags.some(t => t.toLowerCase().includes(q))
-    )
-  }, [query])
+        p.tags.some((t) => t.toLowerCase().includes(q))
+      )
+    })
+  }, [query, activeTag])
+
+  // Newest post is featured while browsing everything
+  const showFeatured = activeTag === 'all' && !query.trim() && filtered.length > 0
+  const [featured, ...rest] = filtered
+  const gridPosts = showFeatured ? rest : filtered
 
   return (
-    <div className="blog-page min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <SEOHead
         title="Dev Blog"
         description="Long-form breakdowns of WordPress plugins, system design notes, and front-end deep dives by Reuben Oluwafemi."
@@ -112,61 +116,99 @@ const Blogs = () => {
       />
       <Navigation />
 
-      <main className="w-full mx-auto max-w-[1400px] grid-frame w-full px-6 pt-28 pb-16 md:pt-32">
+      <main id="main" className="w-full mx-auto max-w-[1400px] grid-frame px-4 md:px-10 pt-32 md:pt-44 pb-16">
         {/* Header */}
-        <header className="mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[10px] font-mono uppercase tracking-[0.25em] text-[var(--color-text-secondary)] mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            Dev Logs
+        <header className="mb-14 md:mb-20 grid grid-cols-1 md:grid-cols-12 gap-8 items-end" data-reveal-group>
+          <div className="md:col-span-8">
+            <p className="eyebrow">
+              <span className="signal-dot signal-dot-pulse" aria-hidden="true" />
+              Dev Logs
+            </p>
+            <h1 className="mt-6 font-semibold tracking-display leading-[0.9] text-primary text-[clamp(56px,11vw,160px)]">
+              The Blog.
+            </h1>
           </div>
-          <ShadowHeading
-            as="h1"
-            offset={3}
-            className="text-4xl md:text-5xl font-bold tracking-tighter text-[var(--color-text-primary)] mb-4"
-          >
-            The Blog.
-          </ShadowHeading>
-          <p className="text-base text-[var(--color-text-secondary)] leading-relaxed max-w-lg">
+          <p className="md:col-span-4 text-base text-muted leading-relaxed">
             Long-form breakdowns of WordPress plugins, system design notes,
             and front-end deep dives.
           </p>
         </header>
 
-        {/* Search */}
-        <div className="relative mb-10">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
-          <input
-            id="blog-search"
-            type="text"
-            placeholder="Search posts, tags…"
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            className="w-full pl-11 pr-4 py-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] text-sm font-mono outline-none focus:border-[rgba(255,255,255,0.3)] transition-colors duration-200"
-          />
+        {showFeatured && (
+          <div className="mb-16 md:mb-20" data-reveal>
+            <FeaturedPost post={featured} />
+          </div>
+        )}
+
+        {/* Filter row + search */}
+        <div className="mb-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6" data-reveal>
+          <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by tag">
+            {['all', ...ALL_TAGS].map((tag) => {
+              const isActive = activeTag === tag
+              return (
+                <button
+                  key={tag}
+                  type="button"
+                  onClick={() => setActiveTag(tag)}
+                  aria-pressed={isActive}
+                  className={`pill pill-sm ${isActive ? 'pill-active' : 'pill-ghost'}`}
+                >
+                  {tag}
+                </button>
+              )
+            })}
+          </div>
+
+          <div className="relative w-full lg:max-w-xs">
+            <label htmlFor="blog-search" className="sr-only">Search posts</label>
+            <Search className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" aria-hidden="true" />
+            <input
+              id="blog-search"
+              type="search"
+              placeholder="Search posts, tags…"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="field !pl-7 font-mono !text-sm"
+            />
+          </div>
         </div>
 
-        {/* TODO: FILTER_BAR — add tag filters + pagination here when post count reaches 8+ */}
-
         {/* Grid */}
-        {filtered.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map(post => (
+        {gridPosts.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" data-reveal-group key={activeTag}>
+            {gridPosts.map((post) => (
               <BlogCard key={post.slug} post={post} />
             ))}
           </div>
-        ) : (
-          <div className="text-center py-20 text-[var(--color-text-muted)] font-mono text-sm">
-            No posts match &quot;{query}&quot;
+        ) : filtered.length === 0 ? (
+          <div className="card !border-dashed text-center py-20 text-muted font-mono text-sm">
+            No posts match &quot;{query || activeTag}&quot;
           </div>
-        )}
+        ) : null}
       </main>
 
-      <section className="max-w-[1400px] w-full mx-auto px-6 py-16 border-t border-[var(--color-border)] text-center grid-frame">
-        <p className="w-full text-lg md:text-2xl text-secondary max-w-2xl mx-auto">
-          AI is changing what work looks like. I care about helping people adapt to that without disrupting how they learn. I'm Reuben — let's connect.
-        </p>
+      {/* Editorial note */}
+      <section className="max-w-[1400px] w-full mx-auto px-4 md:px-10 py-20 md:py-28 text-center grid-frame">
+        <div data-reveal-group>
+          <span className="mx-auto w-11 h-11 rounded-full !flex items-center justify-center border border-[var(--color-border-strong)] text-signal-text">
+            <PenLine className="w-4 h-4" aria-hidden="true" />
+          </span>
+          <p className="mt-8 text-2xl md:text-4xl font-medium tracking-tight leading-snug text-primary max-w-4xl mx-auto">
+            AI is changing what work looks like. I care about helping people adapt to that without disrupting how they learn. I'm Reuben — let's connect.
+          </p>
+          <p className="mt-14 text-base text-muted">Does this thinking align with your needs?</p>
+          <div className="mt-5 flex flex-col sm:flex-row items-center justify-center gap-6">
+            <Link to="/start-a-project" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-eyebrow text-primary hover:text-signal-text transition-colors">
+              Start a Project <ArrowRight className="w-4 h-4" aria-hidden="true" />
+            </Link>
+            <Link to="/services" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-eyebrow text-primary hover:text-signal-text transition-colors">
+              Services <ArrowRight className="w-4 h-4" aria-hidden="true" />
+            </Link>
+          </div>
+        </div>
       </section>
 
+      <Contact num="01" />
       <Footer />
     </div>
   )

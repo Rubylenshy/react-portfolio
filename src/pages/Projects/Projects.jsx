@@ -1,16 +1,28 @@
 import { useState, useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { LayoutGrid, List as ListIcon } from 'lucide-react'
+import { LayoutGrid, List as ListIcon, X } from 'lucide-react'
 import projects from '../../shared/data/projects.json'
 import Navigation from '../../shared/components/Navigation'
 import Footer from '../../shared/components/Footer'
+import Contact from '../../shared/components/Contact'
 import SEOHead from '../../shared/components/SEOHead'
+import Eyebrow from '../../shared/components/Eyebrow'
+
+const FILTERS = [
+  { value: 'all', label: 'All' },
+  { value: 'frontend', label: 'Frontend' },
+  { value: 'design', label: 'Design' },
+  { value: 'plugin', label: 'Plugin' },
+]
+
+const PAGE_SIZE = 6
 
 const Projects = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const [expandedImage, setExpandedImage] = useState(null)
   const [view, setView] = useState('grid')
   const [activeIndex, setActiveIndex] = useState(null)
+  const [visible, setVisible] = useState(PAGE_SIZE)
   const detailRefs = useRef([])
   const typeFromUrl = searchParams.get('type') || 'all'
   const validTypes = ['frontend', 'design', 'plugin']
@@ -18,6 +30,7 @@ const Projects = () => {
 
   const handleFilterChange = (type) => {
     setActiveIndex(null)
+    setVisible(PAGE_SIZE)
     if (type === 'all') {
       searchParams.delete('type')
       setSearchParams(searchParams, { replace: true })
@@ -44,9 +57,9 @@ const Projects = () => {
   useEffect(() => {
     if (view !== 'detail' || activeIndex === null) return
     const node = detailRefs.current[activeIndex]
-    if (node) {
-      node.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
+    if (!node) return
+    if (window.lenis) window.lenis.scrollTo(node, { offset: -120 })
+    else node.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }, [view, activeIndex])
 
   useEffect(() => {
@@ -54,11 +67,20 @@ const Projects = () => {
     const onEscape = (e) => e.key === 'Escape' && setExpandedImage(null)
     document.addEventListener('keydown', onEscape)
     document.body.style.overflow = 'hidden'
+    window.lenis?.stop()
     return () => {
       document.removeEventListener('keydown', onEscape)
       document.body.style.overflow = ''
+      window.lenis?.start()
     }
   }, [expandedImage])
+
+  const viewButtonClass = (active) =>
+    `w-9 h-9 flex items-center justify-center rounded-full transition-colors ${
+      active
+        ? 'bg-[var(--color-accent)] text-[var(--color-accent-inverse)]'
+        : 'text-muted hover:text-primary hover:bg-[var(--color-surface-raised)]'
+    }`
 
   return (
     <>
@@ -73,13 +95,10 @@ const Projects = () => {
           role="dialog"
           aria-modal="true"
           aria-label="Expanded image"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 z-[60] flex items-center justify-center p-4"
           onClick={() => setExpandedImage(null)}
         >
-          <div
-            className="absolute inset-0 bg-black/60 backdrop-blur-md"
-            aria-hidden="true"
-          />
+          <div className="absolute inset-0 bg-[var(--color-scrim)] backdrop-blur-md" aria-hidden="true" />
           <div
             className="relative z-10 flex flex-col items-end gap-4 max-w-[90vw] max-h-[90vh]"
             onClick={(e) => e.stopPropagation()}
@@ -87,12 +106,13 @@ const Projects = () => {
             <button
               type="button"
               onClick={() => setExpandedImage(null)}
-              className="shrink-0 rounded-full w-10 h-10 flex items-center justify-center bg-[var(--color-surface)] hover:bg-[var(--color-surface-strong)] border border-[var(--color-border)] text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-border-strong)]"
+              className="icon-btn bg-[var(--color-surface)]"
               aria-label="Close"
+              autoFocus
             >
-              <i className="fa-solid fa-times text-lg" />
+              <X className="w-4 h-4" />
             </button>
-            <div className="overflow-auto rounded-sm border border-[var(--color-border)] bg-[var(--color-bg-secondary)] shadow-2xl modal-zoom-in">
+            <div className="media modal-zoom-in">
               <img
                 src={expandedImage.src}
                 alt={expandedImage.alt}
@@ -106,143 +126,154 @@ const Projects = () => {
       <Navigation />
 
       <main
-        className="min-h-screen bg-[var(--color-bg)] text-primary px-6 pt-28 pb-20 md:pt-32 md:pb-24 max-w-[1400px] mx-auto grid-frame"
-        data-scroll-animate
+        id="main"
+        className="text-primary px-4 md:px-10 pt-32 md:pt-44 pb-20 md:pb-28 max-w-[1400px] mx-auto grid-frame"
       >
-        <div className="max-w-6xl mx-auto w-full">
-          <div className="flex items-center justify-end mb-10">
-            <div className="text-xs font-mono uppercase tracking-[0.2em] text-muted">
-              All Projects
+        {/* Header */}
+        <header className="mb-12 md:mb-16 grid grid-cols-1 md:grid-cols-12 gap-8 items-end" data-reveal-group>
+          <div className="md:col-span-7">
+            <Eyebrow num="01" label="All Projects" />
+            <h1 className="mt-6 font-semibold tracking-display leading-[0.9] text-[clamp(56px,11vw,160px)]">
+              Projects
+            </h1>
+          </div>
+          <p className="md:col-span-5 text-base text-muted leading-relaxed md:text-right">
+            {filteredProjects.length} {filteredProjects.length === 1 ? 'build' : 'builds'} ·{' '}
+            {activeType === 'all' ? 'every discipline' : activeType}
+          </p>
+        </header>
+
+        {/* Filter bar */}
+        <div
+          className="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 rounded-[28px] md:rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] p-2 md:pl-6"
+          data-reveal
+        >
+          <p className="font-mono text-[11px] uppercase tracking-eyebrow text-muted px-3 pt-2 md:p-0">
+            Filter by Project Type
+          </p>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="flex flex-wrap gap-1.5" role="group" aria-label="Project type">
+              {FILTERS.map((filter) => {
+                const isActive = activeType === filter.value
+                return (
+                  <button
+                    key={filter.value}
+                    type="button"
+                    onClick={() => handleFilterChange(filter.value)}
+                    aria-pressed={isActive}
+                    className={`pill pill-sm ${isActive ? 'pill-active' : 'pill-ghost !border-transparent'}`}
+                  >
+                    {filter.label}
+                  </button>
+                )
+              })}
+            </div>
+
+            <div className="flex gap-1 rounded-full border border-[var(--color-border)] p-1">
+              <button
+                type="button"
+                onClick={() => handleViewChange('grid')}
+                aria-label="Grid view"
+                aria-pressed={view === 'grid'}
+                title="Grid view"
+                className={viewButtonClass(view === 'grid')}
+              >
+                <LayoutGrid className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => handleViewChange('detail')}
+                aria-label="List view"
+                aria-pressed={view === 'detail'}
+                title="List view"
+                className={viewButtonClass(view === 'detail')}
+              >
+                <ListIcon className="w-4 h-4" />
+              </button>
             </div>
           </div>
+        </div>
 
-          {/* Filter Row */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">
-            <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-muted">
-              Filter by Project Type
+        {filteredProjects.length === 0 ? (
+          <div className="card !border-dashed px-6 py-16 text-center">
+            <p className="font-mono text-[11px] uppercase tracking-eyebrow text-secondary mb-3">
+              No projects found for “{activeType}”
             </p>
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="inline-flex flex-wrap gap-2 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] px-2 py-1.5 backdrop-blur-md">
-                {[
-                  { value: 'all', label: 'All' },
-                  { value: 'frontend', label: 'Frontend' },
-                  { value: 'design', label: 'Design' },
-                  { value: 'plugin', label: 'Plugin' },
-                ].map((filter) => {
-                  const isActive = activeType === filter.value
-                  return (
-                    <button
-                      key={filter.value}
-                      type="button"
-                      onClick={() => handleFilterChange(filter.value)}
-                      className={`px-2 py-1 md:px-4 md:py-1.5 rounded-full text-[10px] font-mono uppercase tracking-[0.18em] transition-colors ${
-                        isActive
-                          ? 'bg-[var(--color-accent)] text-[var(--color-accent-inverse)]'
-                          : 'text-secondary hover:bg-[var(--color-surface-strong)]'
-                      }`}
-                    >
-                      {filter.label}
-                    </button>
-                  )
-                })}
-              </div>
-
-              <div className="inline-flex gap-1 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] px-1.5 py-1.5 backdrop-blur-md">
-                <button
-                  type="button"
-                  onClick={() => handleViewChange('grid')}
-                  aria-label="Grid view"
-                  aria-pressed={view === 'grid'}
-                  title="Grid view"
-                  className={`w-7 h-7 flex items-center justify-center rounded-full transition-colors ${
-                    view === 'grid'
-                      ? 'bg-[var(--color-accent)] text-[var(--color-accent-inverse)]'
-                      : 'text-secondary hover:bg-[var(--color-surface-strong)]'
-                  }`}
-                >
-                  <LayoutGrid className="w-3.5 h-3.5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleViewChange('detail')}
-                  aria-label="List view"
-                  aria-pressed={view === 'detail'}
-                  title="List view"
-                  className={`w-7 h-7 flex items-center justify-center rounded-full transition-colors ${
-                    view === 'detail'
-                      ? 'bg-[var(--color-accent)] text-[var(--color-accent-inverse)]'
-                      : 'text-secondary hover:bg-[var(--color-surface-strong)]'
-                  }`}
-                >
-                  <ListIcon className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </div>
+            <p className="text-sm text-muted max-w-md mx-auto">
+              This category doesn&apos;t have any case studies yet. Check back soon — new builds ship regularly.
+            </p>
           </div>
-
-          {filteredProjects.length === 0 ? (
-            <div className="mt-16 rounded-md border border-dashed border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-10 text-center">
-              <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-secondary mb-2">
-                No projects found for “{activeType}”
-              </p>
-              <p className="text-sm text-secondary max-w-md mx-auto">
-                This category doesn&apos;t have any case studies yet. Check back soon — new builds ship regularly.
-              </p>
-            </div>
-          ) : view === 'grid' ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {filteredProjects.map((project, idx) => (
+        ) : view === 'grid' ? (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" data-reveal-group key={activeType}>
+              {filteredProjects.slice(0, visible).map((project, idx) => (
                 <button
                   key={`${project.title}-${idx}`}
                   type="button"
                   onClick={() => handleCardClick(idx)}
-                  className="group relative aspect-[4/3] md:aspect-[16/11] overflow-hidden rounded-sm border border-[var(--color-border)] bg-[var(--color-bg-secondary)] text-left focus:outline-none focus:ring-2 focus:ring-[var(--color-border-strong)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg)]"
+                  className="group card card-hover p-2 flex flex-col text-left"
                 >
-                  <img
-                    src={project.mockup}
-                    alt={project.title}
-                    className="absolute inset-0 w-full h-full object-cover scale-100 group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/10 group-hover:from-black/90 transition-colors duration-500" />
-                  <div className="relative z-10 h-full flex flex-col justify-end p-6 md:p-7">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/70 mb-2">
-                      {project.subtitle}
-                    </p>
-                    <h3 className="text-2xl md:text-3xl font-semibold tracking-tighter text-white">
-                      {project.title}
-                    </h3>
-                    {project.type && (
-                      <span className="mt-3 inline-block w-fit px-3 py-1 border border-white/30 rounded-full bg-white/10 backdrop-blur-sm text-[9px] font-mono uppercase tracking-[0.2em] text-white/90">
-                        {project.type}
-                      </span>
+                  <span className="media media-hover relative block aspect-[4/3] w-full !rounded-[16px]">
+                    <img
+                      src={project.mockup}
+                      alt=""
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    {idx === 0 && activeType === 'all' && (
+                      <span className="tag tag-signal absolute top-4 left-4">Featured</span>
                     )}
-                    <p className="mt-4 text-sm text-white/80 font-light leading-relaxed max-h-0 opacity-0 group-hover:max-h-24 group-hover:opacity-100 overflow-hidden transition-all duration-500">
-                      {project.description}
-                    </p>
-                  </div>
+                  </span>
+                  <span className="flex flex-col flex-1 gap-2 px-4 pt-5 pb-4 w-full">
+                    <span className="font-mono text-[11px] uppercase tracking-eyebrow text-muted">
+                      {project.subtitle}
+                    </span>
+                    <span className="text-2xl font-semibold tracking-display text-primary">{project.title}</span>
+                    <span className="text-sm text-muted leading-relaxed line-clamp-2">{project.description}</span>
+                    <span className="mt-auto pt-5 flex flex-wrap items-center justify-between gap-2 border-t border-[var(--color-border)]">
+                      <span className="tag">{project.type}</span>
+                      <span className="font-mono text-[11px] uppercase tracking-eyebrow text-muted">
+                        {project.stack_icons?.slice(0, 3).join(' · ')}
+                      </span>
+                    </span>
+                  </span>
                 </button>
               ))}
             </div>
-          ) : (
-            <div className="space-y-24">
-              <button
-                type="button"
-                onClick={() => handleViewChange('grid')}
-                className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.18em] text-secondary hover:text-primary transition-colors"
-              >
-                <LayoutGrid className="w-3.5 h-3.5" /> Back to grid
-              </button>
-              {filteredProjects.map((project, idx) => (
-                <article
-                  key={`${project.title}-${idx}`}
-                  ref={(el) => (detailRefs.current[idx] = el)}
-                  className="flex flex-col gap-6 scroll-mt-28"
+
+            {visible < filteredProjects.length && (
+              <div className="mt-12 flex justify-center">
+                <button
+                  type="button"
+                  onClick={() => setVisible((v) => v + PAGE_SIZE)}
+                  className="pill pill-ghost magnetic-btn"
                 >
-                <div className="w-full overflow-hidden rounded-sm bg-[var(--color-bg-secondary)] border border-[var(--color-border)]">
+                  Load more · {filteredProjects.length - visible} left
+                </button>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="space-y-4">
+            <button
+              type="button"
+              onClick={() => handleViewChange('grid')}
+              className="pill pill-ghost pill-sm"
+            >
+              <LayoutGrid className="w-3.5 h-3.5" aria-hidden="true" /> Back to grid
+            </button>
+            {filteredProjects.map((project, idx) => (
+              <article
+                key={`${project.title}-${idx}`}
+                ref={(el) => (detailRefs.current[idx] = el)}
+                className="card p-2 md:p-3 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 scroll-mt-32"
+              >
+                <div className="lg:col-span-7">
                   <button
                     type="button"
                     onClick={() => setExpandedImage({ src: project.mockup, alt: project.title })}
-                    className="w-full h-auto block cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-[var(--color-border-strong)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg)] rounded-sm"
+                    aria-label={`Expand image — ${project.title}`}
+                    className="media media-hover block w-full cursor-zoom-in !rounded-[16px]"
                   >
                     <img
                       src={project.mockup}
@@ -252,87 +283,85 @@ const Projects = () => {
                   </button>
                 </div>
 
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-secondary flex-wrap">
-                    {project.type && (
-                      <span className="px-3 py-1 border border-[var(--color-border)] rounded-full bg-[var(--color-surface)] text-[9px] tracking-[0.2em] text-secondary">
-                        {project.type}
-                      </span>
-                    )}
+                <div className="lg:col-span-5 flex flex-col gap-5 px-4 pb-5 lg:py-5 lg:pr-6">
+                  <ul className="flex items-center gap-1.5 flex-wrap" aria-label="Tags">
+                    {project.type && <li className="tag tag-signal">{project.type}</li>}
                     {project.stack_icons?.map((badge) => (
-                      <span key={badge} className="px-2 py-1 border border-[var(--color-border)] rounded bg-[var(--color-surface)]">
-                        {badge}
-                      </span>
+                      <li key={badge} className="tag">{badge}</li>
                     ))}
-                  </div>
+                  </ul>
 
                   <div>
-                    <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted mb-2">
+                    <p className="font-mono text-[11px] uppercase tracking-eyebrow text-muted mb-2">
                       {project.subtitle}
                     </p>
-                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tighter text-primary">
+                    <h2 className="text-3xl md:text-4xl font-semibold tracking-display text-primary">
                       {project.title}
-                    </h1>
+                    </h2>
                   </div>
 
-                  <p className="text-secondary text-base leading-relaxed font-light">
+                  <p className="text-[15px] text-muted leading-relaxed">
                     {project.description}
                   </p>
 
                   {project.bullet_points && (
-                    <ul className="list-disc list-inside text-sm text-secondary space-y-1">
+                    <ul className="space-y-2">
                       {project.bullet_points.map((point, i) => (
-                        <li key={i}>{point}</li>
+                        <li key={i} className="flex gap-3 text-sm text-secondary">
+                          <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--color-signal-text)] shrink-0" aria-hidden="true" />
+                          {point}
+                        </li>
                       ))}
                     </ul>
                   )}
 
-                  <div className="flex items-center gap-5 mt-5 flex-wrap">
+                  <div className="mt-auto pt-2 flex items-center gap-2 flex-wrap">
                     {project.code_link && project.code_link !== '#' && (
                       <a
                         href={project.code_link}
                         target="_blank"
-                        className="inline-flex items-center gap-2 text-xs py-3 pr-2 font-mono uppercase tracking-widest text-primary hover:text-secondary transition-colors magnetic-btn"
+                        rel="noopener noreferrer"
+                        className="pill pill-ghost pill-sm magnetic-btn"
                       >
-                        View Codebase <i className="fa-brands fa-github text-[0.9rem]" />
+                        View Codebase <i className="fa-brands fa-github text-[0.9rem]" aria-hidden="true" />
                       </a>
                     )}
                     {project.live_link && (
                       <a
                         href={project.live_link}
                         target="_blank"
-                        className="inline-flex items-center gap-2 text-xs py-3 px-2 font-mono uppercase tracking-widest text-primary hover:text-secondary transition-colors magnetic-btn"
+                        rel="noopener noreferrer"
+                        className="pill pill-invert pill-sm magnetic-btn"
                       >
-                        View Live Demo <i className="fa-solid fa-arrow-up-right-from-square text-[0.85rem]" />
+                        View Live Demo <i className="fa-solid fa-arrow-up-right-from-square text-[0.8rem]" aria-hidden="true" />
                       </a>
                     )}
                     {project.case_study && (
                       <a
                         href={project.case_study}
-                        className="inline-flex items-center gap-2 text-xs py-3 px-2 font-mono uppercase tracking-widest text-primary hover:text-secondary transition-colors magnetic-btn"
+                        className="pill pill-ghost pill-sm magnetic-btn"
                       >
-                        Read Case Study <i className="fa-regular fa-file-lines text-[0.9rem]" />
+                        Read Case Study <i className="fa-regular fa-file-lines text-[0.9rem]" aria-hidden="true" />
                       </a>
                     )}
                   </div>
                 </div>
               </article>
             ))}
-            </div>
-          )}
-        </div>
+          </div>
+        )}
       </main>
 
-      <section className="max-w-[1400px] mx-auto px-6 py-16 border-t border-[var(--color-border)] text-center grid-frame">
-        <p className="w-full text-lg md:text-2xl text-secondary max-w-2xl mx-auto">
+      <section className="max-w-[1400px] mx-auto px-4 md:px-10 py-20 md:py-28 text-center grid-frame">
+        <p className="text-2xl md:text-4xl font-medium tracking-tight leading-snug text-primary max-w-4xl mx-auto">
           I'm naturally curious about how things work — a codebase, a game mechanic, a football formation. That curiosity is what drives the plugins and web apps above, each built to move a real number.
         </p>
       </section>
 
+      <Contact num="02" />
       <Footer />
     </>
   )
 }
 
 export default Projects
-

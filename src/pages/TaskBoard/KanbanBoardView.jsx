@@ -16,13 +16,13 @@ const KanbanBoardView = ({ cards, groups, onOpen, onMove, onDelete, onAddCard })
   }
 
   return (
-    <div className="flex gap-4 overflow-x-auto pb-3 -mx-1 px-1">
+    <div className="flex gap-4 overflow-x-auto pb-3 -mx-1 px-1" data-lenis-prevent>
       {STATUSES.map((status) => {
         const columnCards = cards.filter((c) => c.status === status.id)
         return (
           <div
             key={status.id}
-            className={`shrink-0 ${COLUMN_WIDTH} rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] p-4 flex flex-col`}
+            className={`card shrink-0 ${COLUMN_WIDTH} p-4 flex flex-col`}
           >
             <div className="flex items-baseline justify-between gap-2 mb-4 min-w-0">
               <div className="flex items-center gap-2 min-w-0">
@@ -31,19 +31,19 @@ const KanbanBoardView = ({ cards, groups, onOpen, onMove, onDelete, onAddCard })
                   className="w-2 h-2 rounded-full shrink-0"
                   style={{ backgroundColor: status.color }}
                 />
-                <h3 className="text-xs font-mono uppercase tracking-widest text-primary truncate">
+                <h3 className="text-base font-semibold tracking-tight text-primary truncate">
                   {status.label}
                 </h3>
-                <span className="text-[10px] font-mono text-muted shrink-0">{columnCards.length}</span>
+                <span className="font-mono text-[11px] text-muted shrink-0">{columnCards.length}</span>
               </div>
-              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted shrink-0">
+              <span className="font-mono text-[11px] uppercase tracking-eyebrow text-muted shrink-0">
                 {status.hint}
               </span>
             </div>
 
-            <ul className="space-y-2 mb-4 min-h-[1.5rem] flex-1 max-h-[60vh] overflow-y-auto pr-0.5">
+            <ul className="space-y-2 mb-4 min-h-[1.5rem] flex-1 max-h-[60vh] overflow-y-auto pr-0.5" data-lenis-prevent>
               {columnCards.length === 0 && (
-                <li className="text-xs text-muted font-mono">No items.</li>
+                <li className="font-mono text-[11px] uppercase tracking-eyebrow text-muted">No items.</li>
               )}
               {columnCards.map((card) => (
                 <KanbanCard

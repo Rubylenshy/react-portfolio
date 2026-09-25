@@ -1,3 +1,5 @@
+import Eyebrow from '../../../shared/components/Eyebrow'
+
 const ROLES = [
     {
         company: 'SeamlessTechnologies',
@@ -29,50 +31,47 @@ const ROLES = [
     },
 ]
 
-const ExperienceTimeline = () => {
+const ExperienceTimeline = ({ num = '04' }) => {
     return (
-        <section className="max-w-[1400px] mx-auto grid-frame bg-[var(--color-bg)] border-t border-[var(--color-border)]">
-            <div className="max-w-5xl mx-auto px-6 md:px-14 py-16 md:py-20">
-                <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-muted mb-2">
-                    Career Path
-                </p>
-                <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-primary mb-14 md:mb-20">
-                    Experience
-                </h2>
-
-                <div className="relative pl-10 md:pl-0">
-                    <div className="absolute top-0 bottom-0 left-[7px] md:left-1/2 md:-translate-x-1/2 w-px bg-[var(--color-accent-tint)] opacity-40" />
-
-                    <div className="flex flex-col gap-14 md:gap-16">
-                        {ROLES.map((role, i) => (
-                            <div
-                                key={role.company}
-                                className={`relative md:flex md:items-start md:gap-16 ${
-                                    i % 2 === 1 ? 'md:flex-row-reverse' : ''
-                                }`}
-                            >
-                                <span className="absolute top-1 left-[-34px] md:left-1/2 md:-translate-x-1/2 w-3.5 h-3.5 rounded-full border-2 border-[var(--color-accent-tint)] bg-[var(--color-bg)]" />
-
-                                <div className={`md:w-1/2 ${i % 2 === 1 ? 'md:text-left' : 'md:text-right'}`}>
-                                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-2">
-                                        {role.dates}
-                                    </p>
-                                    <h3 className="text-lg md:text-xl font-semibold text-primary mb-1">
-                                        {role.title} · {role.company}
-                                    </h3>
-                                    {role.note && (
-                                        <p className="text-xs text-muted mb-3">{role.note}</p>
-                                    )}
-                                    <p className="text-sm text-secondary leading-relaxed">
-                                        {role.description}
-                                    </p>
-                                </div>
-
-                                <div className="hidden md:block md:w-1/2" />
-                            </div>
-                        ))}
+        <section className="max-w-[1400px] mx-auto grid-frame px-4 md:px-10 py-20 md:py-32">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <div className="lg:col-span-4">
+                    <div className="lg:sticky lg:top-32" data-reveal-group>
+                        <Eyebrow num={num} label="Career Path" />
+                        <h2 className="mt-6 text-4xl md:text-6xl font-semibold tracking-display leading-[0.95] text-primary">
+                            Experience
+                        </h2>
                     </div>
                 </div>
+
+                <ol className="lg:col-span-8 relative flex flex-col gap-4" data-reveal-group>
+                    {ROLES.map((role, i) => (
+                        <li key={role.company} className="card card-hover p-7 md:p-8 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 md:gap-10">
+                            <div className="flex md:flex-col items-center md:items-start gap-3">
+                                <span
+                                    className={`w-2.5 h-2.5 rounded-full shrink-0 ${
+                                        i === 0 ? 'signal-dot signal-dot-pulse' : 'border border-[var(--color-signal-text)]'
+                                    }`}
+                                    aria-hidden="true"
+                                />
+                                <p className="font-mono text-[11px] uppercase tracking-eyebrow text-signal-text">
+                                    {role.dates}
+                                </p>
+                            </div>
+                            <div>
+                                <h3 className="text-lg md:text-xl font-semibold text-primary mb-1">
+                                    {role.title} · {role.company}
+                                </h3>
+                                {role.note && (
+                                    <p className="text-xs text-muted mb-3">{role.note}</p>
+                                )}
+                                <p className="text-[15px] text-muted leading-relaxed">
+                                    {role.description}
+                                </p>
+                            </div>
+                        </li>
+                    ))}
+                </ol>
             </div>
         </section>
     )

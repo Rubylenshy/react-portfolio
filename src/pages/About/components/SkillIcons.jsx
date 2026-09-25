@@ -5,8 +5,8 @@ export const DoIcon = ({ className }) => (
     <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
         <defs>
             <linearGradient id="do-grad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="#a855f7" />
-                <stop offset="1" stopColor="#f97316" />
+                <stop offset="0" style={{ stopColor: 'var(--color-signal)' }} />
+                <stop offset="1" style={{ stopColor: 'var(--color-signal-text)' }} />
             </linearGradient>
         </defs>
         <rect x="21" y="9" width="11" height="46" rx="5.5" fill="url(#do-grad)" />
@@ -24,8 +24,8 @@ export const DoIcon = ({ className }) => (
 export const FluentIcon = ({ className }) => (
     <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
         <g transform="translate(4,4)">
-            <path d="M12 15 L12 49 L38 32 Z" fill="#ec4899" />
-            <path d="M52 15 L52 49 L26 32 Z" fill="#ec4899" />
+            <path d="M12 15 L12 49 L38 32 Z" fill="var(--color-signal-text)" />
+            <path d="M52 15 L52 49 L26 32 Z" fill="var(--color-signal-text)" />
         </g>
         <path d="M10 13 L10 47 L36 30 Z" fill="currentColor" />
         <path d="M50 13 L50 47 L24 30 Z" fill="currentColor" />
@@ -36,8 +36,8 @@ export const ExpectIcon = ({ className }) => (
     <svg viewBox="0 0 64 64" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
         <defs>
             <linearGradient id="expect-grad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stopColor="#fb923c" />
-                <stop offset="1" stopColor="#facc15" />
+                <stop offset="0" style={{ stopColor: 'var(--color-signal)' }} />
+                <stop offset="1" style={{ stopColor: 'var(--color-signal-text)' }} />
             </linearGradient>
         </defs>
         <g transform="translate(5,5)">

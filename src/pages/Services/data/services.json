@@ -1,0 +1,95 @@
+{
+  "hero": {
+    "title": "Services",
+    "positioning": "I design and engineer the parts of a product that have to hold up under real traffic — custom WordPress plugins, production React interfaces, the integrations between them, and the performance work that keeps it all fast. Senior execution, one accountable engineer, no hand-offs."
+  },
+  "engagements": [
+    {
+      "num": "01",
+      "name": "Plugin Build",
+      "capability": "plugin",
+      "duration": "4–6 Weeks",
+      "description": "A custom WordPress or WooCommerce plugin designed around your workflow — architected for performance, secured by default, and documented so your team can own it.",
+      "includes": [
+        "Discovery & technical spec",
+        "Custom plugin architecture",
+        "Admin UI & settings screens",
+        "WooCommerce / SEO extensions",
+        "Security & performance review",
+        "Docs + handover session"
+      ],
+      "closing": "A plugin that feels native to your stack, not bolted on."
+    },
+    {
+      "num": "02",
+      "name": "Frontend Build",
+      "capability": "frontend",
+      "duration": "6–10 Weeks",
+      "featured": true,
+      "description": "Designs translated into a production-ready React or Next.js interface — component system first, screens second, with accessibility and Core Web Vitals treated as requirements.",
+      "includes": [
+        "Component system & design tokens",
+        "Responsive React / Next.js build",
+        "API & CMS wiring",
+        "Accessibility (WCAG AA) pass",
+        "Lighthouse 90+ performance budget",
+        "Launch support"
+      ],
+      "closing": "Built for scale, not for demos."
+    },
+    {
+      "num": "03",
+      "name": "Integrate & Optimize",
+      "capability": "performance",
+      "duration": "2–4 Weeks",
+      "description": "For products that already exist: connect the tools your business runs on and remove what's slowing the site down — audited, measured, and fixed.",
+      "includes": [
+        "Performance & code audit",
+        "Core Web Vitals fixes",
+        "CRM & marketing API integrations",
+        "App-to-app automation",
+        "Before / after metrics report"
+      ],
+      "closing": "Faster pages and fewer manual steps, measured."
+    }
+  ],
+  "operations": {
+    "expect": [
+      "Direct access to the engineer building your product",
+      "Weekly progress updates with working previews",
+      "Clean, documented, maintainable code",
+      "Decisions explained in plain language",
+      "Accessibility and performance built in from day one"
+    ],
+    "avoid": [
+      "Hand-offs to junior developers",
+      "Scope that grows without a conversation",
+      "Black-box code only one person understands",
+      "Plugins stacked on plugins to patch a problem",
+      "Launching without measuring the result"
+    ]
+  },
+  "scope": {
+    "statement": ["Most engagements run between ", "2 and 12 weeks", ", depending on scope and timeline."],
+    "caveat": "Fixed quote after a short brief · No hourly surprises"
+  },
+  "fit": {
+    "good": [
+      "You need a custom WordPress plugin or a serious extension to one",
+      "You have designs and need them built properly in React / Next.js",
+      "Your site is slow and it's costing you conversions",
+      "You value clean code that outlives the project"
+    ],
+    "notFit": [
+      "You need a cheap template install or theme tweak",
+      "You want the fastest possible delivery at any quality",
+      "There's no clear owner on your side to make decisions",
+      "The project is a large team-scale build with no room for senior focus"
+    ]
+  },
+  "steps": [
+    { "num": "01", "title": "Send a brief", "text": "A short form about your goals, budget and timeline." },
+    { "num": "02", "title": "Intro call", "text": "30 minutes to confirm fit and sharpen the scope." },
+    { "num": "03", "title": "Fixed proposal", "text": "A clear plan, timeline and quote within 48 hours." }
+  ]
+}

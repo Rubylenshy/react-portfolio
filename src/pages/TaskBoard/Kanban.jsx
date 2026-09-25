@@ -110,10 +110,10 @@ const Kanban = () => {
   return (
     <div className="min-w-0">
       {/* Daily remark */}
-      <div className="rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-3.5 mb-6 flex items-start gap-3">
-        <Sparkles className="w-4 h-4 shrink-0 mt-0.5 text-[var(--color-accent-tint)]" />
+      <div className="card px-5 py-4 mb-4 flex items-start gap-3">
+        <Sparkles className="w-4 h-4 shrink-0 mt-0.5 text-signal-text" aria-hidden="true" />
         <p className="min-w-0 text-sm text-secondary break-words">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mr-2">
+          <span className="font-mono text-[11px] uppercase tracking-eyebrow text-signal-text mr-2">
             {remark.label}
           </span>
           {remark.message}
@@ -121,15 +121,16 @@ const Kanban = () => {
       </div>
 
       {/* Toolbar */}
-      <div className="flex flex-col lg:flex-row lg:items-center gap-4 mb-6">
+      <div className="card p-3 md:p-4 flex flex-col lg:flex-row lg:items-center gap-4 mb-6">
         <div className="relative flex-1 min-w-0 max-w-sm">
-          <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
+          <Search className="w-3.5 h-3.5 absolute left-4 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
           <TextField
+            aria-label="Search work items"
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search work items…"
-            className="pl-9"
+            className="!pl-10"
           />
         </div>
 
@@ -141,11 +142,8 @@ const Kanban = () => {
                 key={name}
                 type="button"
                 onClick={() => toggleGroupFilter(name)}
-                className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-[10px] font-mono uppercase tracking-wider transition-colors ${
-                  active
-                    ? 'border-[var(--color-border-strong)] bg-[var(--color-surface-strong)] text-primary'
-                    : 'border-[var(--color-border)] text-muted hover:text-primary'
-                }`}
+                aria-pressed={active}
+                className={`pill pill-sm shrink-0 ${active ? 'pill-active' : 'pill-ghost'}`}
               >
                 <span
                   aria-hidden="true"
@@ -173,19 +171,20 @@ const Kanban = () => {
                 setSearch('')
                 setSelectedGroups([])
               }}
-              className="shrink-0 text-[10px] font-mono uppercase tracking-wider text-muted hover:text-primary transition-colors"
+              className="pill pill-sm shrink-0 text-muted hover:text-primary"
             >
               Clear filters
             </button>
           )}
         </div>
 
-        <div className="inline-flex shrink-0 gap-2 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] px-2 py-1.5 backdrop-blur-md self-start">
+        <div className="inline-flex shrink-0 gap-1 rounded-full border border-[var(--color-border)] p-1 self-start">
           <button
             type="button"
             onClick={() => setView('board')}
             aria-label="Board view"
-            className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+            aria-pressed={view === 'board'}
+            className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${
               view === 'board'
                 ? 'bg-[var(--color-accent)] text-[var(--color-accent-inverse)]'
                 : 'text-muted hover:text-primary'
@@ -197,7 +196,8 @@ const Kanban = () => {
             type="button"
             onClick={() => setView('list')}
             aria-label="List view"
-            className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+            aria-pressed={view === 'list'}
+            className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${
               view === 'list'
                 ? 'bg-[var(--color-accent)] text-[var(--color-accent-inverse)]'
                 : 'text-muted hover:text-primary'

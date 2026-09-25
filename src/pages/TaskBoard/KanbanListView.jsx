@@ -12,14 +12,14 @@ const KanbanListView = ({ cards, groups, onOpen }) => {
 
   if (sorted.length === 0) {
     return (
-      <div className="rounded-sm border border-dashed border-[var(--color-border-strong)] bg-[var(--color-surface)] px-8 py-16 text-center">
+      <div className="card !border-dashed !border-[var(--color-border-strong)] px-8 py-16 text-center">
         <p className="text-sm text-secondary">No work items match your filters.</p>
       </div>
     )
   }
 
   return (
-    <div className="rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] overflow-x-auto">
+    <div className="card overflow-x-auto" data-lenis-prevent>
       <table className="w-full min-w-[640px] table-fixed text-left border-collapse">
         <colgroup>
           <col className="w-[38%]" />
@@ -29,7 +29,7 @@ const KanbanListView = ({ cards, groups, onOpen }) => {
           <col className="w-[14%]" />
         </colgroup>
         <thead>
-          <tr className="border-b border-[var(--color-border)] text-[10px] font-mono uppercase tracking-[0.15em] text-muted">
+          <tr className="border-b border-[var(--color-border)] font-mono text-[11px] uppercase tracking-eyebrow text-muted">
             <th className="px-4 py-3 font-medium">Title</th>
             <th className="px-4 py-3 font-medium">Group</th>
             <th className="px-4 py-3 font-medium">Status</th>
@@ -45,9 +45,16 @@ const KanbanListView = ({ cards, groups, onOpen }) => {
               <tr
                 key={card.id}
                 onClick={() => onOpen(card.id)}
-                className="border-b border-[var(--color-border)] last:border-b-0 hover:bg-[var(--color-surface-strong)] transition-colors cursor-pointer"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    onOpen(card.id)
+                  }
+                }}
+                className="border-b border-[var(--color-border)] last:border-b-0 hover:bg-[var(--color-surface-raised)] focus-visible:bg-[var(--color-surface-raised)] transition-colors cursor-pointer"
               >
-                <td className="px-4 py-3 text-sm text-secondary truncate">{card.title}</td>
+                <td className="px-4 py-3.5 text-sm font-medium text-primary truncate">{card.title}</td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-1.5 min-w-0">
                     <span
@@ -55,14 +62,14 @@ const KanbanListView = ({ cards, groups, onOpen }) => {
                       className="shrink-0 w-2 h-2 rounded-full"
                       style={{ backgroundColor: groups[card.group] || GENERAL_COLOR }}
                     />
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-muted truncate">
+                    <span className="font-mono text-[11px] uppercase tracking-wider text-muted truncate">
                       {card.group || DEFAULT_GROUP}
                     </span>
                   </div>
                 </td>
                 <td className="px-4 py-3">
                   <span
-                    className="inline-flex max-w-full items-center gap-1.5 rounded-full border px-2 py-0.5 text-[9px] font-mono uppercase tracking-wider truncate"
+                    className="inline-flex max-w-full items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-wider truncate"
                     style={badgeStyle(status.color)}
                   >
                     {status.label}
@@ -70,13 +77,13 @@ const KanbanListView = ({ cards, groups, onOpen }) => {
                 </td>
                 <td className="px-4 py-3">
                   <span
-                    className="inline-flex max-w-full items-center gap-1.5 rounded-full border px-2 py-0.5 text-[9px] font-mono uppercase tracking-wider truncate"
+                    className="inline-flex max-w-full items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-wider truncate"
                     style={badgeStyle(priority.color)}
                   >
                     {priority.label}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-right text-[10px] font-mono uppercase tracking-wider text-muted truncate">
+                <td className="px-4 py-3 text-right font-mono text-[11px] uppercase tracking-wider text-muted truncate">
                   {formatShortDate(card.updatedAt)}
                 </td>
               </tr>

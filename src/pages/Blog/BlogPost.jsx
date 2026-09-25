@@ -6,12 +6,14 @@ import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import { Share2, Copy, Check, Calendar, Clock, Tag } from 'lucide-react'
+import { vscDarkPlus, oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { Share2, Check, Calendar, Clock } from 'lucide-react'
 import Navigation from '../../shared/components/Navigation'
 import Breadcrumb from './components/Breadcrumb'
 import Footer from '../../shared/components/Footer'
+import Contact from '../../shared/components/Contact'
 import blogsData from './data/blogs.json'
+import { useTheme } from '../../shared/context/ThemeContext'
 
 /* ─── helpers ─── */
 function formatDate(dateStr) {
@@ -75,9 +77,10 @@ const ShareButton = ({ title }) => {
     <button
       id="share-post-btn"
       onClick={handleShare}
-      className="flex items-center gap-2 px-4 py-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[rgba(255,255,255,0.25)] transition-all duration-200 text-xs font-mono"
+      type="button"
+      className="pill pill-ghost pill-sm"
     >
-      {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Share2 className="w-3.5 h-3.5" />}
+      {copied ? <Check className="w-3.5 h-3.5 text-signal-text" aria-hidden="true" /> : <Share2 className="w-3.5 h-3.5" aria-hidden="true" />}
       {copied ? 'Copied!' : 'Share'}
     </button>
   )
@@ -140,18 +143,20 @@ const TocSidebar = ({ headings }) => {
         overflowY: 'auto',
       }}
     >
-      <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--color-text-muted)] mb-4">
+      <p className="eyebrow mb-5">
         On this page
       </p>
-      <nav>
-        <ul className="space-y-2">
+      <nav aria-label="Table of contents">
+        <ul className="space-y-1 border-l border-[var(--color-border)]">
           {headings.map(h => (
-            <li key={h.id} style={{ paddingLeft: h.level === 3 ? '0.75rem' : '0' }}>
+            <li key={h.id}>
               <a
                 href={`#${h.id}`}
-                className={`block text-xs leading-relaxed transition-colors duration-200 ${activeId === h.id
-                    ? 'text-[var(--color-text-primary)] font-medium'
-                    : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'
+                aria-current={activeId === h.id ? 'location' : undefined}
+                style={{ paddingLeft: h.level === 3 ? '1.75rem' : '1rem' }}
+                className={`-ml-px block py-1 border-l text-[13px] leading-relaxed transition-colors duration-200 ${activeId === h.id
+                    ? 'border-[var(--color-signal-text)] text-signal-text font-medium'
+                    : 'border-transparent text-muted hover:text-primary'
                   }`}
               >
                 {h.text}
@@ -166,16 +171,17 @@ const TocSidebar = ({ headings }) => {
 
 /* ─── Markdown Code Block ─── */
 const CodeBlock = ({ node, inline, className, children, ...props }) => {
+  const { theme } = useTheme()
   const match = /language-(\w+)/.exec(className || '')
   if (!inline && match) {
     return (
       <SyntaxHighlighter
-        style={vscDarkPlus}
+        style={theme === 'light' ? oneLight : vscDarkPlus}
         language={match[1]}
         PreTag="div"
         customStyle={{
           margin: '1.5rem 0',
-          borderRadius: '0.75rem',
+          borderRadius: '16px',
           fontSize: '0.8125rem',
           lineHeight: '1.7',
           border: '1px solid var(--color-border)',
@@ -188,7 +194,7 @@ const CodeBlock = ({ node, inline, className, children, ...props }) => {
   }
   return (
     <code
-      className="px-1.5 py-0.5 rounded bg-[var(--color-surface)] border border-[var(--color-border)] text-[0.8em] font-mono text-emerald-300"
+      className="font-mono"
       {...props}
     >
       {children}
@@ -243,7 +249,7 @@ const BlogPost = () => {
 
   if (!post) {
     return (
-      <div className="blog-page min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col">
         <Navigation />
         <div className="flex-1 flex items-center justify-center text-[var(--color-text-secondary)] font-mono text-sm">
           Post not found.{' '}
@@ -256,7 +262,7 @@ const BlogPost = () => {
   }
 
   return (
-    <div className="blog-page min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col">
       {post && (
         <SEOHead
           title={post.title}
@@ -269,19 +275,19 @@ const BlogPost = () => {
       )}
       <Navigation />
 
-      <main className="flex-1 w-full px-6 pt-28 pb-12 md:pt-32 max-w-[1400px] mx-auto grid-frame">
+      <main id="main" className="flex-1 w-full px-4 md:px-10 pt-32 pb-16 md:pt-44 max-w-[1400px] mx-auto grid-frame">
        <div className="max-w-6xl mx-auto w-full">
         {/* Breadcrumb */}
         <Breadcrumb postTitle={post.title} />
 
         {/* Cover Image — full-width, after breadcrumb */}
         {thumb && (
-          <div className="w-full rounded-2xl overflow-hidden border border-[var(--color-border)] mb-10" style={{ maxHeight: '420px' }}>
+          <div className="media w-full mb-12" style={{ maxHeight: '460px' }}>
             <img
               src={thumb}
               alt={post.title}
               className="w-full h-full object-cover"
-              style={{ maxHeight: '420px', width: '100%' }}
+              style={{ maxHeight: '460px', width: '100%' }}
             />
           </div>
         )}
@@ -290,23 +296,19 @@ const BlogPost = () => {
         <header className="mb-12">
           <div className="flex-1 min-w-0">
             {/* Tags */}
-            <div className="flex flex-wrap gap-1.5 mb-4">
+            <div className="flex flex-wrap gap-1.5 mb-6">
               {post.tags.map(tag => (
-                <span
-                  key={tag}
-                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] text-[10px] font-mono uppercase tracking-wider text-[var(--color-text-secondary)]"
-                >
-                  <Tag className="w-2.5 h-2.5" />
+                <span key={tag} className="tag">
                   {tag}
                 </span>
               ))}
             </div>
 
-            <h1 className="text-2xl md:text-4xl font-bold text-[var(--color-text-primary)] leading-tight tracking-tight mb-4">
+            <h1 className="text-4xl md:text-6xl font-semibold text-primary leading-[1.02] tracking-display mb-6 max-w-4xl">
               {post.title}
             </h1>
 
-            <p className="text-base text-[var(--color-text-secondary)] leading-relaxed mb-6 max-w-xl">
+            <p className="text-base md:text-lg text-muted leading-relaxed mb-8 max-w-2xl">
               {post.excerpt}
             </p>
 
@@ -318,12 +320,12 @@ const BlogPost = () => {
                   {post.author}
                 </span>
               </div>
-              <span className="text-[var(--color-border)]">·</span>
-              <span className="flex items-center gap-1 text-xs font-mono text-[var(--color-text-muted)]">
+              <span className="text-muted" aria-hidden="true">·</span>
+              <span className="flex items-center gap-1 font-mono text-[11px] uppercase tracking-eyebrow text-muted">
                 <Calendar className="w-3.5 h-3.5" />
                 {formatDate(post.date)}
               </span>
-              <span className="flex items-center gap-1 text-xs font-mono text-[var(--color-text-muted)]">
+              <span className="flex items-center gap-1 font-mono text-[11px] uppercase tracking-eyebrow text-muted">
                 <Clock className="w-3.5 h-3.5" />
                 {post.readingTime}
               </span>
@@ -366,16 +368,7 @@ const BlogPost = () => {
 
                     if (!isBlockCode) {
                       return (
-                        <code
-                          style={{
-                            color: '#9c27b0',
-                            backgroundColor: 'rgba(128, 128, 128, 0.15)',
-                            padding: '0.2em 0.4em',
-                            borderRadius: '4px',
-                            fontWeight: '500'
-                          }}
-                          {...rest}
-                        >
+                        <code {...rest}>
                           {children}
                         </code>
                       );
@@ -400,6 +393,7 @@ const BlogPost = () => {
        </div>
       </main>
 
+      <Contact num="01" />
       <Footer />
     </div>
   )
