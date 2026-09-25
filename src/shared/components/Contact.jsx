@@ -7,7 +7,7 @@ const Contact = ({ num = '04' }) => {
     return (
         <section
             id="contact"
-            className="px-4 md:px-6 py-20 md:py-32 max-w-[1400px] mx-auto grid-frame"
+            className="px-4 md:px-6 py-20 md:py-32 max-w-[1400px] mx-auto"
         >
             <div
                 className="card relative overflow-hidden px-6 py-16 md:px-16 md:py-24 text-center bg-[var(--color-surface)]"
