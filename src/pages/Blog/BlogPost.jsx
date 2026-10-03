@@ -362,6 +362,13 @@ const BlogPost = () => {
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]]}
                 components={{
+                  table({ node, ...rest }) {
+                    return (
+                      <div className="table-scroll" tabIndex={0} role="region" aria-label="Scrollable table">
+                        <table {...rest} />
+                      </div>
+                    );
+                  },
                   code(props) {
                     const { children, className, node, ...rest } = props;
                     const isBlockCode = /language-(\w+)/.exec(className || '');
