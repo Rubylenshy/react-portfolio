@@ -1,5 +1,27 @@
 [
   {
+    "slug": "wp-enqueue-script-explained",
+    "title": "wp_enqueue_script, Explained: Every Parameter, and Why Your Footer Script Breaks the Page",
+    "excerpt": "Every parameter of wp_enqueue_script, and why an undeclared dependency makes your axios interceptor fail on every request.",
+    "date": "2026-10-02",
+    "author": "Reuben Oluwafemi",
+    "authorAvatar": "",
+    "tags": ["wordpress", "php", "javascript", "plugins", "debugging"],
+    "thumbnail": "1wdm7nJoySmdwrPkfngBjqVnDY0ZndKmQ",
+    "readingTime": "8 min read"
+  },
+  {
+    "slug": "wp-ajax-vs-wp-ajax-nopriv",
+    "title": "wp_ajax vs wp_ajax_nopriv: Who Gets In, and What Can Go Wrong",
+    "excerpt": "The hook prefix decides who can reach your WordPress AJAX handler. Only your own checks decide who can use it.",
+    "date": "2026-10-02",
+    "author": "Reuben Oluwafemi",
+    "authorAvatar": "",
+    "tags": ["wordpress", "php", "security", "ajax", "plugins"],
+    "thumbnail": "1NMCIHva5G4hNzT9tRPg77neno7wHpNYG",
+    "readingTime": "7 min read"
+  },
+  {
     "slug": "github-actions-variable-interpolation",
     "title": "${{ }} vs ${ } in GitHub Actions: The Variable Interpolation Trap",
     "excerpt": "One runs before the shell ever starts, the other runs inside it — here's why that difference broke your workflow and how to use each correctly.",
@@ -7,7 +29,7 @@
     "author": "Reuben Oluwafemi",
     "authorAvatar": "",
     "tags": ["github-actions", "ci-cd", "devops", "bash", "debugging"],
-    "thumbnail": "",
+    "thumbnail": "1mRd2ud8RCH7aNrHETEQ2gWZvQf2P0V_T",
     "readingTime": "3 min read"
   },
   {
@@ -18,7 +40,7 @@
     "author": "Reuben Oluwafemi",
     "authorAvatar": "",
     "tags": ["devops", "ci-cd", "debugging", "github-actions"],
-    "thumbnail": "1JZ_q5lrIm5ZbztH6iyYGTdcfuUSOMnsP",
+    "thumbnail": "16JF_ZA6dQ-tSpqZBr54IfqnZ124D-CYS",
     "readingTime": "6 min read"
   }
 ]

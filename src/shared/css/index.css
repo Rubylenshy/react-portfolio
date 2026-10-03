@@ -797,12 +797,21 @@ select.field option {
 .prose-blog li { margin-bottom: 0.4rem; }
 .prose-blog li::marker { color: var(--color-signal-text); }
 
+.prose-blog .table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  overscroll-behavior-x: contain;
+}
+
 .prose-blog table {
   width: 100%;
+  min-width: 36rem;
   border-collapse: collapse;
-  margin: 1.5rem 0;
   font-size: 0.875rem;
 }
+
+.prose-blog th { white-space: nowrap; }
 
 .prose-blog th,
 .prose-blog td {
