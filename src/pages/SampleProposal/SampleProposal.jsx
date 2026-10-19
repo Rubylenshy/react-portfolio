@@ -1,8 +1,10 @@
 import React from "react";
+import SEOHead from "../../shared/components/SEOHead";
 
 export default function SampleProposal() {
   return (
     <>
+      <SEOHead title="Sample Proposal" noindex />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 

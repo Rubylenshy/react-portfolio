@@ -250,6 +250,7 @@ const BlogPost = () => {
   if (!post) {
     return (
       <div className="min-h-screen flex flex-col">
+        <SEOHead title="Post not found" noindex />
         <Navigation />
         <div className="flex-1 flex items-center justify-center text-[var(--color-text-secondary)] font-mono text-sm">
           Post not found.{' '}

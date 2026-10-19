@@ -17,10 +17,21 @@ const homeSchema = {
       '@type': 'Person',
       '@id': 'https://www.usereuben.com/#person',
       name: 'Reuben Oluwafemi',
+      alternateName: 'Reuben Tomoloju',
       url: 'https://www.usereuben.com/',
+      image: 'https://www.usereuben.com/images/headshot.jfif',
       jobTitle: 'Design & Plugin Engineer',
       description:
         'Frontend & WordPress plugin engineer specializing in custom UI and innovative solutions.',
+      knowsAbout: [
+        'WordPress plugin development',
+        'WooCommerce',
+        'React',
+        'Frontend engineering',
+        'REST API integration',
+        'Web performance optimization',
+        'Core Web Vitals',
+      ],
       email: 'reztomoloju@gmail.com',
       sameAs: [
         'https://twitter.com/tomoloj_',

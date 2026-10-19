@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Helmet } from 'react-helmet-async'
 import Navigation from '../../shared/components/Navigation'
 import Footer from '../../shared/components/Footer'
 import Eyebrow from '../../shared/components/Eyebrow'
@@ -381,13 +380,6 @@ const TaskBoardContent = () => {
 
   return (
     <>
-      <Helmet>
-        <meta name="robots" content="noindex, nofollow" />
-      </Helmet>
-      <SEOHead
-        title="Task Board"
-        description="Private task board — Eisenhower matrix and Kanban board."
-      />
       <Navigation />
 
       <main
@@ -528,11 +520,17 @@ const TaskBoard = () => {
     }
   }, [unlocked])
 
-  if (!unlocked) {
-    return <PasswordGate onUnlock={() => setUnlocked(true)} />
-  }
-
-  return <TaskBoardContent />
+  // SEOHead sits above both states so the password gate (all a crawler ever sees) is noindexed too
+  return (
+    <>
+      <SEOHead
+        title="Task Board"
+        description="Private task board — Eisenhower matrix and Kanban board."
+        noindex
+      />
+      {unlocked ? <TaskBoardContent /> : <PasswordGate onUnlock={() => setUnlocked(true)} />}
+    </>
+  )
 }
 
 export default TaskBoard

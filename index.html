@@ -4,7 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Reuben Oluwafemi — Design &amp; Plugin Engineer</title>
-    <meta name="description" content="Reuben Oluwafemi is a Design &amp; Frontend Engineer specializing in crafting intuitive user interfaces and developing innovative WordPress plugins." />
+    <!-- Defaults for crawlers that don't run JS. data-rh lets react-helmet-async (SEOHead)
+         replace them per page instead of appending duplicates. No canonical here on purpose:
+         a static one would point every route at the homepage. -->
+    <meta name="description" content="Reuben Oluwafemi is a Design &amp; Frontend Engineer specializing in crafting intuitive user interfaces and developing innovative WordPress plugins." data-rh="true" />
+    <meta property="og:site_name" content="Reuben Oluwafemi" data-rh="true" />
+    <meta property="og:title" content="Reuben Oluwafemi — Design &amp; Plugin Engineer" data-rh="true" />
+    <meta property="og:description" content="Reuben Oluwafemi is a Design &amp; Frontend Engineer specializing in crafting intuitive user interfaces and developing innovative WordPress plugins." data-rh="true" />
+    <meta property="og:image" content="https://www.usereuben.com/og-cover.png" data-rh="true" />
+    <meta property="og:type" content="website" data-rh="true" />
+    <meta name="twitter:card" content="summary_large_image" data-rh="true" />
+    <meta name="twitter:site" content="@tomoloj_" data-rh="true" />
     <meta name="theme-color" content="#0A0A0A" />
     <!-- Apply the saved theme before first paint to avoid a flash of the wrong theme -->
     <script>
@@ -20,7 +30,6 @@
         } catch (e) {}
       })();
     </script>
-    <link rel="canonical" href="https://www.usereuben.com/" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />

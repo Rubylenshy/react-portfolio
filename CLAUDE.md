@@ -157,7 +157,9 @@ Two artifacts must be kept in sync when adding a post (see `.claude/skills/add-b
 
 - `src/shared/components/SEOHead.jsx` is the reusable `<Helmet>` wrapper — sets title, meta description, canonical link, Open Graph tags, Twitter Card, and an optional JSON-LD `schema` prop. `SITE_URL` (`https://www.usereuben.com`) and `SITE_NAME` constants live here. Use this component on every page rather than hand-rolling `<Helmet>` calls.
 - `public/robots.txt`, `public/sitemap.xml`, `public/llms.txt` are static files, explicitly rewritten in `vercel.json` ahead of the SPA fallback rewrite.
-- **Known gap:** `sitemap.xml` only lists 3 static URLs (`/`, `/blogs`, `/projects`) — it does not include `/about`, `/services`, `/start-a-project` or individual blog post URLs. Keep this in mind if asked to add/fix sitemap coverage.
+- `SEOHead` takes a `noindex` prop; it's used on TaskBoard, SampleProposal, NotFound and the BlogPost not-found state.
+- `index.html` deliberately has **no** canonical (a static one would point every route at `/`). Its default description/OG tags carry `data-rh="true"` so Helmet replaces them per page instead of duplicating them.
+- `sitemap.xml` is maintained by hand: when adding a blog post or route, add its URL with a `<lastmod>`. Also add new posts/projects to `public/llms.txt`.
 
 ## Conventions
 

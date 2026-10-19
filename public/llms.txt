@@ -1,24 +1,44 @@
 # Reuben Oluwafemi
 
-> Design & Plugin Engineer specializing in React frontend development and custom WordPress plugins.
+> Design & Plugin Engineer building custom WordPress plugins and production React interfaces, plus the API integrations and performance work around them. Also known as Reuben Tomoloju.
 
 ## About
 
-Reuben Oluwafemi is a frontend and plugin engineer. He builds intuitive, performant user interfaces using React and creates custom WordPress plugins for real-world productivity problems. He combines design aesthetics with deep technical expertise to deliver seamless digital experiences.
+Reuben Oluwafemi (also published as Reuben Tomoloju on WordPress.org, LinkedIn and GitHub) is a frontend and WordPress plugin engineer. He designs and engineers the parts of a product that have to hold up under real traffic: custom WordPress and WooCommerce plugins, React interfaces, the integrations between them, and the performance work that keeps it all fast. Clients work directly with him, with no hand-offs.
 
-## Specializations
+- [About](https://www.usereuben.com/about): background, skills and experience
+- [Projects](https://www.usereuben.com/projects): plugin and frontend work
+- [Services](https://www.usereuben.com/services): engagement models, process and fit
+- [Start a project](https://www.usereuben.com/start-a-project): project brief form, replies within 48 hours
 
-- React & modern frontend (Vite, Tailwind CSS, GSAP animations)
-- Custom WordPress plugin development
-- UI/UX design implementation
-- Design systems and component libraries
+## Services
+
+- **Plugin Build** (4–6 weeks): a custom WordPress or WooCommerce plugin designed around the client's workflow, secured by default and documented for handover.
+- **Frontend Build** (6–10 weeks): designs turned into a production React or Next.js interface, with WCAG AA accessibility and a Lighthouse 90+ performance budget.
+- **Integrate & Optimize** (2–4 weeks): performance and code audits, Core Web Vitals fixes, CRM and marketing API integrations, app-to-app automation.
+
+Most engagements run 2 to 12 weeks, depending on scope.
 
 ## Projects
 
-- **Shortly** — A URL shortener with analytics built in React
-- **Linksy** — Link management tool
-- **Agile System** — Project management and team collaboration system
-- **Upthy Pro** — Advanced WordPress Pinterest automation plugin
+WordPress plugins:
+- [Linksy](https://linksyai.com): AI internal linking plugin using keyword extraction and NLP
+- [Linksy Search & Replace](https://linksyai.com): database utility to search and update URLs, anchors and titles across a site
+- [Datey AI](https://plugli.com): content freshness manager that finds outdated years and terms in posts
+- [AltTexty](https://plugli.com): AI bulk alt-text generator for image accessibility
+
+Frontend:
+- [Shortly](https://url-shortener-zeta-ebon.vercel.app/): URL shortener built in React on the Shrtcode API
+- [Agile System](https://agile-system.vercel.app/): Kanban-style project management dashboard
+- [Nestlify](https://nestlify-react-app.vercel.app/): SaaS marketing site
+- [usereuben.com](https://www.usereuben.com/): this portfolio (React, Vite, GSAP, WebGL)
+
+## Blog
+
+- [wp_enqueue_script, Explained: Every Parameter, and Why Your Footer Script Breaks the Page](https://www.usereuben.com/blogs/wp-enqueue-script-explained) ([markdown](https://www.usereuben.com/blogs/wp-enqueue-script-explained.md))
+- [wp_ajax vs wp_ajax_nopriv: Who Gets In, and What Can Go Wrong](https://www.usereuben.com/blogs/wp-ajax-vs-wp-ajax-nopriv) ([markdown](https://www.usereuben.com/blogs/wp-ajax-vs-wp-ajax-nopriv.md))
+- [${{ }} vs ${ } in GitHub Actions: The Variable Interpolation Trap](https://www.usereuben.com/blogs/github-actions-variable-interpolation) ([markdown](https://www.usereuben.com/blogs/github-actions-variable-interpolation.md))
+- [The CI/CD Syntax Error That Just Cost You 3 Hours of Debugging](https://www.usereuben.com/blogs/ci-cd-syntax-error) ([markdown](https://www.usereuben.com/blogs/ci-cd-syntax-error.md))
 
 ## Contact
 
