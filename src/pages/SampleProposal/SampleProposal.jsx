@@ -5,7 +5,8 @@ export default function SampleProposal() {
   return (
     <>
       <SEOHead title="Sample Proposal" noindex />
-      <style>{`
+      {/* dangerouslySetInnerHTML: a text child would be HTML-escaped by the build-time prerender */}
+      <style dangerouslySetInnerHTML={{ __html: `
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
         :root {
@@ -469,7 +470,7 @@ export default function SampleProposal() {
             gap: 24px;
           }
         }
-      `}</style>
+      ` }} />
 
       <div className="proposal-wrapper">
         {/* COVER */}

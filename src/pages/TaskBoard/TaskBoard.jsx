@@ -59,6 +59,7 @@ const isSessionValid = () => {
 }
 
 const clearSession = () => {
+  if (typeof window === 'undefined') return
   window.localStorage.removeItem(SESSION_UNLOCK_KEY)
 }
 

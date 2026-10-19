@@ -14,6 +14,7 @@ import Footer from '../../shared/components/Footer'
 import Contact from '../../shared/components/Contact'
 import blogsData from './data/blogs.json'
 import { useTheme } from '../../shared/context/ThemeContext'
+import { usePrerenderData } from '../../shared/context/PrerenderContext'
 
 /* ─── helpers ─── */
 function formatDate(dateStr) {
@@ -205,7 +206,8 @@ const CodeBlock = ({ node, inline, className, children, ...props }) => {
 /* ─── Main BlogPost Page ─── */
 const BlogPost = () => {
   const { slug } = useParams()
-  const [markdown, setMarkdown] = useState(null)
+  const { blogMarkdown } = usePrerenderData()
+  const [markdown, setMarkdown] = useState(() => blogMarkdown?.[slug] ?? null)
   const [error, setError] = useState(false)
 
   const post = blogsData.find(p => p.slug === slug)
@@ -214,6 +216,12 @@ const BlogPost = () => {
 
   useEffect(() => {
     if (!post) return
+    // Prerendered pages ship their markdown inline; only fetch for client-side navigation
+    const preloaded = blogMarkdown?.[slug]
+    if (preloaded) {
+      setMarkdown(preloaded)
+      return
+    }
     fetch(`/blogs/${slug}.md`)
       .then(r => {
         if (!r.ok) throw new Error('Not found')

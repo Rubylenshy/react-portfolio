@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import Loader from './shared/components/Loader'
 import Cursor from './shared/components/Cursor'
@@ -15,6 +15,7 @@ import SampleProposal from './pages/SampleProposal/SampleProposal'
 import TaskBoard from './pages/TaskBoard/TaskBoard'
 import NotFound from './pages/NotFound/NotFound'
 import { ThemeProvider } from './shared/context/ThemeContext'
+import { PrerenderProvider } from './shared/context/PrerenderContext'
 import { useLenis } from './shared/hooks/useLenis'
 import { useCursor } from './shared/hooks/useCursor'
 import { useMagneticButtons } from './shared/hooks/useMagneticButtons'
@@ -55,7 +56,7 @@ function App() {
   useAnimations()
 
   return (
-    <Router>
+    <>
       <a href="#main" className="skip-link">Skip to content</a>
       <Backdrop />
       <div className="relative z-[2] overflow-x-hidden w-[95%] mx-auto bg-[var(--color-bg)] transition-colors duration-300">
@@ -75,16 +76,20 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
-    </Router>
+    </>
   )
 }
 
-export default function Root() {
+export default function Root({ router: Router = BrowserRouter, location, helmetContext, prerenderData }) {
   return (
-    <HelmetProvider>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
+    <HelmetProvider context={helmetContext}>
+      <PrerenderProvider data={prerenderData}>
+        <ThemeProvider>
+          <Router location={location}>
+            <App />
+          </Router>
+        </ThemeProvider>
+      </PrerenderProvider>
     </HelmetProvider>
   )
 }

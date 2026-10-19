@@ -22,7 +22,7 @@ Personal portfolio site for Reuben Oluwafemi (usereuben.com) — a React SPA wit
 
 ```
 npm run dev       # start Vite dev server
-npm run build     # production build
+npm run build     # client build + SSR build (dist-ssr/) + prerender of every route into dist/
 npm run preview   # preview the production build locally
 ```
 
@@ -34,7 +34,9 @@ src/
                         renders the skip link, the Backdrop (ShockwaveField + grain, skipped on
                         /proposal), Loader and Cursor; invokes the
                         global hooks (useLenis, useCursor, useMagneticButtons, useAnimations) once.
-  main.jsx             ReactDOM root, imports global CSS.
+  main.jsx             ReactDOM root (createRoot, replaces the prerendered HTML), imports global CSS,
+                        passes embedded #__PRERENDER_DATA__ to App.
+  entry-server.jsx     Build-time only: renders a route to a string with StaticRouter + Helmet context.
   pages/<Page>/        One folder per route: <Page>.jsx plus page-only components/, data/, css/.
     Home/              Home.jsx; components/ Hero, Work, Stack.
     About/             About.jsx; components/ SkillsChart, ExperienceTimeline, SkillIcons,
@@ -51,7 +53,8 @@ src/
                         Eyebrow ("01 — LABEL" marker), Pill (every button),
                         CapabilityIcons (+ CAPABILITY_ICONS lookup).
     context/
-      ThemeContext.jsx Only context. Mode 'light' | 'dark' | 'system' persisted to
+      PrerenderContext.jsx Data baked in at build time (blog markdown by slug); empty in dev.
+      ThemeContext.jsx Mode 'light' | 'dark' | 'system' persisted to
                         localStorage (default 'dark'); exposes { theme, mode, toggleTheme };
                         sets data-theme on <html> and updates meta theme-color. An inline
                         script in index.html applies the saved theme before first paint.
@@ -138,6 +141,13 @@ display type, and a single acid-lime signal color used sparingly.
 
 ## Key patterns
 
+- **Prerendering (SEO).** `npm run build` renders every route to static HTML (`scripts/prerender.mjs`)
+  so crawlers get real content: `dist/<route>.html`, `dist/blogs/<slug>.html` (one per `blogs.json` entry,
+  with its markdown embedded) and `dist/404.html`. New routes must be added to `STATIC_ROUTES` there.
+  Consequences for components: **render bodies must not touch `window`/`document`/`localStorage`**
+  (do it in effects or guard with `typeof window`); put inline CSS in
+  `<style dangerouslySetInnerHTML>` (a text child gets HTML-escaped); the client uses `createRoot`, not
+  hydration, so theme/motion-dependent markup can't cause mismatches.
 - **Routing** is declared centrally in `src/App.jsx`: `/`, `/about`, `/projects`, `/services`, `/start-a-project`, `/blogs`, `/blogs/:slug`, `/proposal`, `/protected-task-board`, and a `*` catch-all → `NotFound`.
 - **Global hooks run once**, in `App.jsx`, not per-page. The loader timeline in `useAnimations` plays the hero intro only on the very first load (`window.__loaderPlayed`); `Home.jsx` plays a short intro itself on any later arrival at Home. Be careful touching this — it's stateful across route navigations, not component mounts.
 - **Components** — one default-exported `.jsx` per component, PascalCase filename. Page-only components live in `src/pages/<Page>/components/`; anything used by more than one page lives in `src/shared/components/`. Styling is Tailwind utilities plus the global component classes (see Design system).
@@ -151,7 +161,7 @@ Two artifacts must be kept in sync when adding a post (see `.claude/skills/add-b
 1. **`public/blogs/<slug>.md`** — pure Markdown, no frontmatter. Convention: single `#` title, a `>` blockquote lede, `##`/`###` sections (auto-extracted into a sticky table of contents), fenced code blocks with language tags, a closing `## Takeaway` section, italic CTA footer.
 2. **`src/pages/Blog/data/blogs.json`** — array of metadata, **prepend new entries (newest first)**: `{ slug, title, excerpt, date, author, authorAvatar, tags[], thumbnail, readingTime }`. `thumbnail` is a **Google Drive file ID**, not a URL — it's converted to a `lh3.googleusercontent.com` URL at render time by `getThumbnailSrc()` in `src/pages/Blog/BlogPost.jsx` and `Blogs.jsx`.
 
-`src/pages/Blog/BlogPost.jsx` renders posts: reads `slug` from the route, looks up metadata in `blogs.json`, `fetch()`s the matching `.md` from `/blogs/<slug>.md`, and renders it with `ReactMarkdown` (code blocks via `react-syntax-highlighter` — vscDarkPlus in dark, oneLight in light). It also builds `Article` JSON-LD for SEO and drives an `IntersectionObserver`-based active-heading TOC. `src/pages/Blog/Blogs.jsx` is the listing page: newest post as a featured card (while no tag/search filter is active), a tag filter row built from `tags`, and search.
+`src/pages/Blog/BlogPost.jsx` renders posts: reads `slug` from the route, looks up metadata in `blogs.json`, uses the prerendered markdown if present, otherwise `fetch()`es the matching `.md` from `/blogs/<slug>.md` (client-side navigation), and renders it with `ReactMarkdown` (code blocks via `react-syntax-highlighter` — vscDarkPlus in dark, oneLight in light). It also builds `Article` JSON-LD for SEO and drives an `IntersectionObserver`-based active-heading TOC. `src/pages/Blog/Blogs.jsx` is the listing page: newest post as a featured card (while no tag/search filter is active), a tag filter row built from `tags`, and search.
 
 ## SEO
 
@@ -171,4 +181,4 @@ Two artifacts must be kept in sync when adding a post (see `.claude/skills/add-b
 
 ## Deploy
 
-Hosted on **Vercel**. `vercel.json` handles SPA rewrites (all routes → `index.html`, except `robots.txt`/`sitemap.xml`/`llms.txt` which are served directly) and sets long-lived cache headers (`max-age=31536000, immutable`) for `/assets/*` and `*.webp`. Required env vars for the start-a-project form are the three `VITE_EMAILJS_*` keys.
+Hosted on **Vercel**. There is no SPA catch-all rewrite: `vercel.json` uses `cleanUrls` (`/about` → `about.html`) and `trailingSlash: false`, unknown paths get `404.html` with a real 404 status, `/blogs/*.md` is sent with `X-Robots-Tag: noindex`, and it sets long-lived cache headers (`max-age=31536000, immutable`) for `/assets/*` and `*.webp`. Required env vars for the start-a-project form are the three `VITE_EMAILJS_*` keys.
