@@ -1,7 +1,7 @@
 {
   "hero": {
     "title": "Services",
-    "positioning": "I design and engineer the parts of a product that have to hold up under real traffic — custom WordPress plugins, production React interfaces, the integrations between them, and the performance work that keeps it all fast. Senior execution, one accountable engineer, no hand-offs."
+    "positioning": "I design and engineer the parts of a product that have to hold up under real traffic — custom WordPress plugins, production React and Vue.js interfaces, the integrations between them, and the performance work that keeps it all fast. Senior execution, one accountable engineer, no hand-offs."
   },
   "engagements": [
     {
@@ -26,10 +26,10 @@
       "capability": "frontend",
       "duration": "6–10 Weeks",
       "featured": true,
-      "description": "Designs translated into a production-ready React or Next.js interface — component system first, screens second, with accessibility and Core Web Vitals treated as requirements.",
+      "description": "Designs translated into a production-ready React, Vue.js or Next.js interface — component system first, screens second, with accessibility and Core Web Vitals treated as requirements.",
       "includes": [
         "Component system & design tokens",
-        "Responsive React / Next.js build",
+        "Responsive React / Vue.js / Next.js build",
         "API & CMS wiring",
         "Accessibility (WCAG AA) pass",
         "Lighthouse 90+ performance budget",
@@ -76,7 +76,7 @@
   "fit": {
     "good": [
       "You need a custom WordPress plugin or a serious extension to one",
-      "You have designs and need them built properly in React / Next.js",
+      "You have designs and need them built properly in React, Vue.js or Next.js",
       "Your site is slow and it's costing you conversions",
       "You value clean code that outlives the project"
     ],

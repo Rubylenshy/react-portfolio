@@ -1,0 +1,28 @@
+{
+  "@type": "Person",
+  "@id": "https://www.usereuben.com/#person",
+  "name": "Reuben Oluwafemi",
+  "alternateName": "Reuben Tomoloju",
+  "url": "https://www.usereuben.com/",
+  "image": "https://www.usereuben.com/images/headshot-960.webp",
+  "jobTitle": "WordPress Plugin & Frontend Developer",
+  "description": "WordPress plugin and frontend developer building custom plugins and React and Vue.js interfaces.",
+  "knowsAbout": [
+    "WordPress plugin development",
+    "WooCommerce",
+    "React",
+    "Vue.js",
+    "Frontend engineering",
+    "REST API integration",
+    "Web performance optimization",
+    "Core Web Vitals"
+  ],
+  "email": "reztomoloju@gmail.com",
+  "sameAs": [
+    "https://twitter.com/tomoloj_",
+    "https://www.instagram.com/reuben.ig_",
+    "https://github.com/Rubylenshy",
+    "https://www.linkedin.com/in/reuben-tomoloju/",
+    "https://profiles.wordpress.org/reztomoloju/"
+  ]
+}

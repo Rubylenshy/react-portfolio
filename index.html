@@ -3,15 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reuben Oluwafemi — Design &amp; Plugin Engineer</title>
+    <title>WordPress Plugin &amp; Frontend Developer — Reuben Oluwafemi</title>
     <!-- Defaults for crawlers that don't run JS. data-rh lets react-helmet-async (SEOHead)
          replace them per page instead of appending duplicates. No canonical here on purpose:
          a static one would point every route at the homepage. -->
-    <meta name="description" content="Reuben Oluwafemi is a Design &amp; Frontend Engineer specializing in crafting intuitive user interfaces and developing innovative WordPress plugins." data-rh="true" />
+    <meta name="description" content="Reuben Oluwafemi is a WordPress Plugin &amp; Frontend Developer building custom WordPress plugins and intuitive React and Vue.js interfaces." data-rh="true" />
     <meta property="og:site_name" content="Reuben Oluwafemi" data-rh="true" />
-    <meta property="og:title" content="Reuben Oluwafemi — Design &amp; Plugin Engineer" data-rh="true" />
-    <meta property="og:description" content="Reuben Oluwafemi is a Design &amp; Frontend Engineer specializing in crafting intuitive user interfaces and developing innovative WordPress plugins." data-rh="true" />
-    <meta property="og:image" content="https://www.usereuben.com/og-cover.png" data-rh="true" />
+    <meta property="og:title" content="WordPress Plugin &amp; Frontend Developer — Reuben Oluwafemi" data-rh="true" />
+    <meta property="og:description" content="Reuben Oluwafemi is a WordPress Plugin &amp; Frontend Developer building custom WordPress plugins and intuitive React and Vue.js interfaces." data-rh="true" />
+    <meta property="og:image" content="https://www.usereuben.com/og-cover.jpg" data-rh="true" />
     <meta property="og:type" content="website" data-rh="true" />
     <meta name="twitter:card" content="summary_large_image" data-rh="true" />
     <meta name="twitter:site" content="@tomoloj_" data-rh="true" />
@@ -35,9 +35,14 @@
     <noscript><style>.loader-overlay { display: none !important; } .hero-fade-in { opacity: 1 !important; }</style></noscript>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="/favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Devicon — colored tech & tool logos -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <!-- Icon fonts (Font Awesome; Devicon for tech logos) are only used below the fold, so they
+         load without blocking first paint (media=print swap), with a noscript fallback. -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/devicon.min.css" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@2.17.0/devicon.min.css" />
+    </noscript>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">

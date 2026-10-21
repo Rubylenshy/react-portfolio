@@ -34,6 +34,10 @@ const Hero = () => {
         <span className="block overflow-hidden -mt-[0.04em]">
           <span className="hero-char display-ghost">Oluwafemi</span>
         </span>
+        {/* Role line is part of the H1 so the page's main heading names the service, not just the person */}
+        <span className="hero-fade-in opacity-0 block mt-5 md:mt-7 font-mono font-medium normal-case text-[13px] md:text-base leading-normal tracking-eyebrow text-secondary">
+          <span className="sr-only">, </span>WordPress Plugin &amp; Frontend Developer
+        </span>
       </h1>
 
       {/* Flanking micro-paragraphs */}
@@ -69,7 +73,7 @@ const Hero = () => {
 
       {/* Full-width rounded media panel */}
       <div className="hero-fade-in opacity-0 mt-14 md:mt-20">
-        <Showreel src="/videos/usereuben_showcase.mp4" parallax />
+        <Showreel src="/videos/usereuben_showcase.mp4" poster="/videos/usereuben_showcase-poster.webp" parallax />
       </div>
     </section>
   )

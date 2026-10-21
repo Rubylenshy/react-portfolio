@@ -4,7 +4,7 @@ import { Play, Pause } from 'lucide-react'
 // Full-width rounded media panel with a looping showreel. The lime "View Showreel"
 // pill opens it fullscreen with sound; the round button toggles playback.
 // Autoplay is skipped under prefers-reduced-motion.
-const Showreel = ({ src, className = '', parallax = false }) => {
+const Showreel = ({ src, poster, className = '', parallax = false }) => {
     const videoRef = useRef(null)
     const [playing, setPlaying] = useState(false)
 
@@ -55,6 +55,7 @@ const Showreel = ({ src, className = '', parallax = false }) => {
                 <video
                     ref={videoRef}
                     src={src}
+                    poster={poster}
                     title="Showreel"
                     muted
                     loop

@@ -148,6 +148,10 @@ display type, and a single acid-lime signal color used sparingly.
   (do it in effects or guard with `typeof window`); put inline CSS in
   `<style dangerouslySetInnerHTML>` (a text child gets HTML-escaped); the client uses `createRoot`, not
   hydration, so theme/motion-dependent markup can't cause mismatches.
+- **Pages are code-split.** Each route in `ROUTES` (`src/App.jsx`) is a `lazyPage(() => import(...))`
+  (`src/shared/lib/lazyPage.jsx`). `main.jsx` preloads the current route's chunk before `createRoot` so the
+  prerendered HTML is never swapped for an empty Suspense fallback, then preloads the rest when idle; the
+  prerender preloads all of them. Add new routes to `ROUTES` (and `STATIC_ROUTES` in `prerender.mjs`).
 - **Routing** is declared centrally in `src/App.jsx`: `/`, `/about`, `/projects`, `/services`, `/start-a-project`, `/blogs`, `/blogs/:slug`, `/proposal`, `/protected-task-board`, and a `*` catch-all → `NotFound`.
 - **Global hooks run once**, in `App.jsx`, not per-page. The loader timeline in `useAnimations` plays the hero intro only on the very first load (`window.__loaderPlayed`); `Home.jsx` plays a short intro itself on any later arrival at Home. Be careful touching this — it's stateful across route navigations, not component mounts.
 - **Components** — one default-exported `.jsx` per component, PascalCase filename. Page-only components live in `src/pages/<Page>/components/`; anything used by more than one page lives in `src/shared/components/`. Styling is Tailwind utilities plus the global component classes (see Design system).
@@ -159,7 +163,9 @@ display type, and a single acid-lime signal color used sparingly.
 Two artifacts must be kept in sync when adding a post (see `.claude/skills/add-blog-post/` if present — it automates this):
 
 1. **`public/blogs/<slug>.md`** — pure Markdown, no frontmatter. Convention: single `#` title, a `>` blockquote lede, `##`/`###` sections (auto-extracted into a sticky table of contents), fenced code blocks with language tags, a closing `## Takeaway` section, italic CTA footer.
-2. **`src/pages/Blog/data/blogs.json`** — array of metadata, **prepend new entries (newest first)**: `{ slug, title, excerpt, date, author, authorAvatar, tags[], thumbnail, readingTime }`. `thumbnail` is a **Google Drive file ID**, not a URL — it's converted to a `lh3.googleusercontent.com` URL at render time by `getThumbnailSrc()` in `src/pages/Blog/BlogPost.jsx` and `Blogs.jsx`.
+2. **`src/pages/Blog/data/blogs.json`** — array of metadata, **prepend new entries (newest first)**: `{ slug, title, seoTitle, excerpt, date, author, authorAvatar, tags[], thumbnail, readingTime }`. `seoTitle` is
+   optional: a ≤60-character `<title>` (posts skip the " — Reuben Oluwafemi" suffix); optional `updated` feeds `dateModified`.
+   Posts' `# Title` line is not rendered (the header shows the H1). `thumbnail` is a **Google Drive file ID**, not a URL — it's converted to a `lh3.googleusercontent.com` URL at render time by `getThumbnailSrc()` in `src/pages/Blog/BlogPost.jsx` and `Blogs.jsx`.
 
 `src/pages/Blog/BlogPost.jsx` renders posts: reads `slug` from the route, looks up metadata in `blogs.json`, uses the prerendered markdown if present, otherwise `fetch()`es the matching `.md` from `/blogs/<slug>.md` (client-side navigation), and renders it with `ReactMarkdown` (code blocks via `react-syntax-highlighter` — vscDarkPlus in dark, oneLight in light). It also builds `Article` JSON-LD for SEO and drives an `IntersectionObserver`-based active-heading TOC. `src/pages/Blog/Blogs.jsx` is the listing page: newest post as a featured card (while no tag/search filter is active), a tag filter row built from `tags`, and search.
 
@@ -167,7 +173,9 @@ Two artifacts must be kept in sync when adding a post (see `.claude/skills/add-b
 
 - `src/shared/components/SEOHead.jsx` is the reusable `<Helmet>` wrapper — sets title, meta description, canonical link, Open Graph tags, Twitter Card, and an optional JSON-LD `schema` prop. `SITE_URL` (`https://www.usereuben.com`) and `SITE_NAME` constants live here. Use this component on every page rather than hand-rolling `<Helmet>` calls.
 - `public/robots.txt`, `public/sitemap.xml`, `public/llms.txt` are static files, explicitly rewritten in `vercel.json` ahead of the SPA fallback rewrite.
-- `SEOHead` takes a `noindex` prop; it's used on TaskBoard, SampleProposal, NotFound and the BlogPost not-found state.
+- The Person entity (`@id …/#person`, incl. `alternateName: Reuben Tomoloju`) lives in `src/shared/data/person.json`
+  and is reused by Home (`@graph`), About (`ProfilePage`) and BlogPost (`BlogPosting` author + `BreadcrumbList`).
+- `SEOHead` takes `titleSuffix` (default true) and a `noindex` prop; it's used on TaskBoard, SampleProposal, NotFound and the BlogPost not-found state.
 - `index.html` deliberately has **no** canonical (a static one would point every route at `/`). Its default description/OG tags carry `data-rh="true"` so Helmet replaces them per page instead of duplicating them.
 - `sitemap.xml` is maintained by hand: when adding a blog post or route, add its URL with a `<lastmod>`. Also add new posts/projects to `public/llms.txt`.
 

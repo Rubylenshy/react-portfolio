@@ -3,9 +3,10 @@
 // touch window/document.
 import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom/server'
-import Root from './App.jsx'
+import Root, { preloadAllRoutes } from './App.jsx'
 
-export function render(url, prerenderData = {}) {
+export async function render(url, prerenderData = {}) {
+  await preloadAllRoutes()
   const helmetContext = {}
   const html = renderToString(
     <Root router={StaticRouter} location={url} helmetContext={helmetContext} prerenderData={prerenderData} />,

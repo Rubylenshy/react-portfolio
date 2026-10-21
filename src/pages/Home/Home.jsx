@@ -9,45 +9,19 @@ import Stack from './components/Stack'
 import Contact from '../../shared/components/Contact'
 import Footer from '../../shared/components/Footer'
 import SEOHead from '../../shared/components/SEOHead'
+import person from '../../shared/data/person.json'
 
 const homeSchema = {
   '@context': 'https://schema.org',
   '@graph': [
-    {
-      '@type': 'Person',
-      '@id': 'https://www.usereuben.com/#person',
-      name: 'Reuben Oluwafemi',
-      alternateName: 'Reuben Tomoloju',
-      url: 'https://www.usereuben.com/',
-      image: 'https://www.usereuben.com/images/headshot.jfif',
-      jobTitle: 'Design & Plugin Engineer',
-      description:
-        'Frontend & WordPress plugin engineer specializing in custom UI and innovative solutions.',
-      knowsAbout: [
-        'WordPress plugin development',
-        'WooCommerce',
-        'React',
-        'Frontend engineering',
-        'REST API integration',
-        'Web performance optimization',
-        'Core Web Vitals',
-      ],
-      email: 'reztomoloju@gmail.com',
-      sameAs: [
-        'https://twitter.com/tomoloj_',
-        'https://www.instagram.com/reuben.ig_',
-        'https://github.com/Rubylenshy',
-        'https://www.linkedin.com/in/reuben-tomoloju/',
-        'https://profiles.wordpress.org/reztomoloju/',
-      ],
-    },
+    person,
     {
       '@type': 'WebSite',
       '@id': 'https://www.usereuben.com/#website',
-      name: 'Reuben Oluwafemi — Design & Plugin Engineer',
+      name: 'Reuben Oluwafemi — WordPress Plugin & Frontend Developer',
       url: 'https://www.usereuben.com/',
       description:
-        'Portfolio of Reuben Oluwafemi, Design & Plugin Engineer.',
+        'Portfolio of Reuben Oluwafemi, WordPress Plugin & Frontend Developer.',
       author: { '@id': 'https://www.usereuben.com/#person' },
     },
   ],
@@ -90,8 +64,8 @@ const Home = () => {
   return (
     <>
       <SEOHead
-        title="Design & Plugin Engineer"
-        description="Reuben Oluwafemi is a Design & Frontend Engineer crafting intuitive user interfaces and building custom WordPress plugins. Available for freelance projects."
+        title="WordPress Plugin & Frontend Developer"
+        description="Reuben Oluwafemi is a WordPress Plugin & Frontend Developer building custom plugins and fast React and Vue.js interfaces. Available for freelance work."
         canonical="https://www.usereuben.com/"
         schema={homeSchema}
       />

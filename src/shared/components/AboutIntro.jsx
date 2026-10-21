@@ -26,7 +26,13 @@ const AboutIntro = ({ num = '01' }) => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
                 <div className="lg:col-span-5 media media-hover aspect-[4/5]" data-reveal>
                     <img
-                        src="/images/headshot.jfif"
+                        src="/images/headshot-960.webp"
+                        srcSet="/images/headshot-640.webp 640w, /images/headshot-960.webp 960w"
+                        sizes="(min-width: 1024px) 40vw, 90vw"
+                        width="960"
+                        height="1431"
+                        loading="lazy"
+                        decoding="async"
                         alt="Reuben Oluwafemi"
                         className="w-full h-full object-cover"
                     />
@@ -34,7 +40,7 @@ const AboutIntro = ({ num = '01' }) => {
 
                 <div className="lg:col-span-7 flex flex-col" data-reveal-group>
                     <span className="block font-mono text-[11px] uppercase tracking-eyebrow text-muted mb-5">
-                        Frontend & WordPress Engineer
+                        WordPress Plugin & Frontend Developer
                     </span>
                     <h2 className="text-4xl md:text-6xl font-semibold tracking-display leading-[0.95] mb-8">
                         <span className="text-primary">Engineering</span>

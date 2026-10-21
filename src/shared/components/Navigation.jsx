@@ -25,8 +25,10 @@ const Brand = ({ isHome }) => {
                 <span className="font-sans text-sm font-semibold tracking-tight text-primary">
                     Reuben Oluwafemi
                 </span>
-                <span className="font-mono text-[11px] uppercase tracking-eyebrow text-muted hidden sm:block">
-                    Engineer & Designer
+                {/* Full role from lg up; shorter below so the tablet nav stays on one line */}
+                <span className="font-mono text-[11px] uppercase tracking-eyebrow text-muted hidden sm:block whitespace-nowrap">
+                    <span className="hidden lg:inline">WordPress Plugin & Frontend Developer</span>
+                    <span className="lg:hidden">Plugin & Frontend Dev</span>
                 </span>
             </span>
         </>

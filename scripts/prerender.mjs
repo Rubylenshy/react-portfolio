@@ -40,8 +40,8 @@ const baseTemplate = template
 // JSON inside <script> must not be able to close the tag
 const safeJson = (data) => JSON.stringify(data).replace(/</g, '\\u003c')
 
-function renderPage(url, prerenderData) {
-  const { html, head } = render(url, prerenderData)
+async function renderPage(url, prerenderData) {
+  const { html, head } = await render(url, prerenderData)
   if (!html.includes('<h1')) throw new Error(`Prerender of ${url} produced no <h1> — page content missing?`)
   const dataScript = prerenderData
     ? `<script id="__PRERENDER_DATA__" type="application/json">${safeJson(prerenderData)}</script>\n  `
@@ -60,13 +60,13 @@ function write(file, contents) {
 
 const fileFor = (url) => (url === '/' ? 'index.html' : `${url.slice(1)}.html`)
 
-for (const url of STATIC_ROUTES) write(fileFor(url), renderPage(url))
+for (const url of STATIC_ROUTES) write(fileFor(url), await renderPage(url))
 
 for (const { slug } of posts) {
   const markdown = fs.readFileSync(path.join(root, 'public/blogs', `${slug}.md`), 'utf8')
   const url = `/blogs/${slug}`
-  write(fileFor(url), renderPage(url, { blogMarkdown: { [slug]: markdown } }))
+  write(fileFor(url), await renderPage(url, { blogMarkdown: { [slug]: markdown } }))
 }
 
 // Any unmatched path renders NotFound (noindex); Vercel serves this with a 404 status
-write('404.html', renderPage('/__not-found__'))
+write('404.html', await renderPage('/__not-found__'))

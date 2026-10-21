@@ -59,7 +59,7 @@ const Services = () => {
     <>
       <SEOHead
         title="Services"
-        description="Custom WordPress plugins, production React interfaces, API integrations and performance optimization — engagement models, process and fit for working with Reuben Oluwafemi."
+        description="Custom WordPress plugins, React & Vue.js interfaces, API integrations and performance work — engagement models, process and project fit."
         canonical="https://www.usereuben.com/services"
       />
       <Navigation />

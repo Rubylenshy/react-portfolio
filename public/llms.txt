@@ -1,10 +1,10 @@
 # Reuben Oluwafemi
 
-> Design & Plugin Engineer building custom WordPress plugins and production React interfaces, plus the API integrations and performance work around them. Also known as Reuben Tomoloju.
+> WordPress Plugin & Frontend Developer building custom WordPress plugins and production React and Vue.js interfaces, plus the API integrations and performance work around them. Also known as Reuben Tomoloju.
 
 ## About
 
-Reuben Oluwafemi (also published as Reuben Tomoloju on WordPress.org, LinkedIn and GitHub) is a frontend and WordPress plugin engineer. He designs and engineers the parts of a product that have to hold up under real traffic: custom WordPress and WooCommerce plugins, React interfaces, the integrations between them, and the performance work that keeps it all fast. Clients work directly with him, with no hand-offs.
+Reuben Oluwafemi (also published as Reuben Tomoloju on WordPress.org, LinkedIn and GitHub) is a WordPress plugin and frontend developer. He designs and engineers the parts of a product that have to hold up under real traffic: custom WordPress and WooCommerce plugins, React and Vue.js interfaces, the integrations between them, and the performance work that keeps it all fast. Clients work directly with him, with no hand-offs.
 
 - [About](https://www.usereuben.com/about): background, skills and experience
 - [Projects](https://www.usereuben.com/projects): plugin and frontend work
@@ -14,7 +14,7 @@ Reuben Oluwafemi (also published as Reuben Tomoloju on WordPress.org, LinkedIn a
 ## Services
 
 - **Plugin Build** (4–6 weeks): a custom WordPress or WooCommerce plugin designed around the client's workflow, secured by default and documented for handover.
-- **Frontend Build** (6–10 weeks): designs turned into a production React or Next.js interface, with WCAG AA accessibility and a Lighthouse 90+ performance budget.
+- **Frontend Build** (6–10 weeks): designs turned into a production React, Vue.js or Next.js interface, with WCAG AA accessibility and a Lighthouse 90+ performance budget.
 - **Integrate & Optimize** (2–4 weeks): performance and code audits, Core Web Vitals fixes, CRM and marketing API integrations, app-to-app automation.
 
 Most engagements run 2 to 12 weeks, depending on scope.

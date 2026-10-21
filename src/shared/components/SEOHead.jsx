@@ -2,9 +2,9 @@ import { Helmet } from 'react-helmet-async'
 
 const SITE_NAME = 'Reuben Oluwafemi'
 const SITE_URL = 'https://www.usereuben.com'
-const DEFAULT_IMAGE = `${SITE_URL}/og-cover.png`
+const DEFAULT_IMAGE = `${SITE_URL}/og-cover.jpg`
 const DEFAULT_DESCRIPTION =
-  'Reuben Oluwafemi is a Design & Frontend Engineer specializing in crafting intuitive user interfaces and developing innovative WordPress plugins.'
+  'Reuben Oluwafemi is a WordPress Plugin & Frontend Developer building custom WordPress plugins and intuitive React and Vue.js interfaces.'
 
 /**
  * SEOHead — drop into any page to set <title>, meta, OG, Twitter Card,
@@ -17,6 +17,8 @@ const DEFAULT_DESCRIPTION =
  * @param {string}  type         - OG type: "website" | "article"
  * @param {object}  schema       - JSON-LD schema object (or array)
  * @param {boolean} noindex      - Keep the page out of search results (private, sample, 404)
+ * @param {boolean} titleSuffix  - Append " — Reuben Oluwafemi" (off for articles, whose titles
+ *                                 already fill Google's ~60-character limit)
  */
 const SEOHead = ({
   title,
@@ -26,8 +28,11 @@ const SEOHead = ({
   type = 'website',
   schema = null,
   noindex = false,
+  titleSuffix = true,
 }) => {
-  const fullTitle = title ? `${title} — ${SITE_NAME}` : `${SITE_NAME} — Design & Plugin Engineer`
+  const fullTitle = !title
+    ? `WordPress Plugin & Frontend Developer — ${SITE_NAME}`
+    : titleSuffix ? `${title} — ${SITE_NAME}` : title
 
   return (
     <Helmet>

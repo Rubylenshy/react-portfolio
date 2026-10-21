@@ -10,6 +10,16 @@ import SkillsChart from './components/SkillsChart'
 import ExperienceTimeline from './components/ExperienceTimeline'
 import BirthdayConfetti from './components/BirthdayConfetti'
 import WishesFab from './components/WishesFab'
+import person from '../../shared/data/person.json'
+
+const aboutSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    '@id': 'https://www.usereuben.com/about#profile',
+    url: 'https://www.usereuben.com/about',
+    name: 'About Reuben Oluwafemi',
+    mainEntity: person,
+}
 
 const BADGE_TEXT = 'Frontend Dev · Designer · CMS Plugin Dev · '
 
@@ -55,8 +65,9 @@ const About = () => {
             <WishesFab />
             <SEOHead
                 title="About"
-                description="Reuben Oluwafemi is a Design & Frontend Engineer specializing in WordPress plugin architecture and modern frontend engineering. Learn about his background, skills, and experience."
+                description="About Reuben Oluwafemi, WordPress Plugin & Frontend Developer: plugin architecture, React and Vue.js frontends, background, skills and experience."
                 canonical="https://www.usereuben.com/about"
+                schema={aboutSchema}
             />
             <Navigation />
 
@@ -105,7 +116,7 @@ const About = () => {
             <section className="max-w-[1400px] mx-auto grid-frame px-4 md:px-10 py-16 md:py-24">
                 <Eyebrow num="02" label="Showreel" className="mb-10" data-reveal />
                 <div data-reveal>
-                    <Showreel src="/videos/usereuben_showcase.mp4" />
+                    <Showreel src="/videos/usereuben_showcase.mp4" poster="/videos/usereuben_showcase-poster.webp" />
                 </div>
             </section>
 
