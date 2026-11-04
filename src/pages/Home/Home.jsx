@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { gsap } from 'gsap'
 import Navigation from '../../shared/components/Navigation'
 import Hero from './components/Hero'
 import AboutIntro from '../../shared/components/AboutIntro'
@@ -44,22 +43,6 @@ const Home = () => {
     }, 300)
     return () => clearTimeout(timer)
   }, [location.hash])
-
-  // The loader timeline plays the hero intro on the very first load. On any later
-  // arrival at Home (from another route, or a revisit) play a short intro here instead.
-  useEffect(() => {
-    const introWillPlay = !window.__loaderPlayed
-    window.__homeVisited = true
-    if (introWillPlay) return
-
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduce) {
-      gsap.set('.hero-char, .hero-fade-in', { opacity: 1, y: 0, yPercent: 0 })
-      return
-    }
-    gsap.fromTo('.hero-char', { yPercent: 100, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.9, stagger: 0.08, ease: 'expo.out' })
-    gsap.to('.hero-fade-in', { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'expo.out', delay: 0.2 })
-  }, [])
 
   return (
     <>

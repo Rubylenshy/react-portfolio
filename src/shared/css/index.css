@@ -697,13 +697,127 @@ select.field option {
   animation: zoomIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Hero intro — elements start hidden, useAnimations plays them in */
-.hero-char {
+/* ============================================================
+   Hero name lockup (motion lives in pages/Home/lib/heroMotion.js)
+   ============================================================ */
+.hero-fade-in { transform: translateY(16px); }
+
+/* Each line masks its letters; the extra top padding leaves room for the cursor lift */
+.hero-line {
+  overflow: hidden;
+  padding-top: 0.14em;
+  margin-top: -0.14em;
+}
+.hero-line ~ .hero-line { margin-top: -0.18em; }
+
+.hero-word {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.hero-letter,
+.hero-ghost-letter {
   display: inline-block;
   will-change: transform, opacity;
 }
 
-.hero-fade-in { transform: translateY(16px); }
+.hero-ghost-letter { text-align: center; }
+
+/* Resolved ghost letters flash signal, then cool back to the outline */
+.hero-ghost-letter.is-lit { animation: hero-ghost-lit 1.2s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@keyframes hero-ghost-lit {
+  0% {
+    color: var(--color-signal-text);
+    -webkit-text-stroke-color: var(--color-signal-text);
+  }
+  100% {
+    color: var(--color-ghost);
+    -webkit-text-stroke-color: var(--color-border-strong);
+  }
+}
+
+/* Halftone spotlight: a dotted copy of the ghost line, masked to a circle that follows
+   the cursor (or sweeps on idle). Kerning is off to match the per-letter spans. */
+.hero-ghost-word::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-kerning: none;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-signal-text);
+  background-image: radial-gradient(circle, var(--color-signal-text) 0 1.3px, transparent 1.8px);
+  background-size: 7px 7px;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-mask-image: radial-gradient(circle var(--spot-r, 0px) at var(--spot-x, 50%) var(--spot-y, 50%), #000 35%, transparent 100%);
+  mask-image: radial-gradient(circle var(--spot-r, 0px) at var(--spot-x, 50%) var(--spot-y, 50%), #000 35%, transparent 100%);
+  pointer-events: none;
+  opacity: 0;
+  animation: hero-halftone-drift 6s linear infinite;
+}
+.hero.is-live .hero-ghost-word::after { opacity: 1; }
+
+@keyframes hero-halftone-drift {
+  to { background-position: 70px 35px; }
+}
+
+/* Glitch: two offset, sliced copies of a first-name letter flicker for ~half a second */
+.hero-glyph {
+  position: relative;
+  display: inline-block;
+}
+.hero-glyph::before,
+.hero-glyph::after {
+  content: attr(data-char);
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.hero-glyph.is-glitch { animation: hero-glitch-skew 0.45s steps(3, end); }
+.hero-glyph.is-glitch::before {
+  color: var(--color-signal-text);
+  animation: hero-glitch-a 0.45s steps(4, end) both;
+}
+.hero-glyph.is-glitch::after {
+  color: var(--color-text-muted);
+  animation: hero-glitch-b 0.45s steps(4, end) both;
+}
+
+@keyframes hero-glitch-skew {
+  0%, 100% { transform: none; }
+  33% { transform: skewX(-8deg) translateX(0.02em); }
+  66% { transform: skewX(5deg) translateX(-0.015em); }
+}
+
+@keyframes hero-glitch-a {
+  0%   { opacity: 1; clip-path: inset(8% 0 72% 0); transform: translateX(-0.05em); }
+  25%  { clip-path: inset(56% 0 18% 0); transform: translateX(0.06em); }
+  50%  { clip-path: inset(30% 0 48% 0); transform: translateX(-0.03em); }
+  75%  { clip-path: inset(78% 0 4% 0); transform: translateX(0.04em); }
+  100% { opacity: 0; clip-path: inset(0 0 100% 0); transform: none; }
+}
+
+@keyframes hero-glitch-b {
+  0%   { opacity: 1; clip-path: inset(62% 0 14% 0); transform: translateX(0.05em); }
+  25%  { clip-path: inset(14% 0 66% 0); transform: translateX(-0.06em); }
+  50%  { clip-path: inset(44% 0 30% 0); transform: translateX(0.03em); }
+  75%  { clip-path: inset(2% 0 84% 0); transform: translateX(-0.04em); }
+  100% { opacity: 0; clip-path: inset(0 0 100% 0); transform: none; }
+}
+
+/* Signal hairline draws under the paragraph's key phrases once the hero is live */
+.hero-mark {
+  background: linear-gradient(var(--color-signal-text), var(--color-signal-text)) left bottom / 0% 1px no-repeat;
+  transition: background-size 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hero.is-live .hero-mark { background-size: 100% 1px; }
+.hero.is-live .hero-mark + .hero-mark { transition-delay: 0.15s; }
 
 /* ============================================================
    Reduced motion — stop everything decorative
