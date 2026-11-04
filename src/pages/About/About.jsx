@@ -116,7 +116,7 @@ const About = () => {
             <section className="max-w-[1400px] mx-auto grid-frame px-4 md:px-10 py-16 md:py-24">
                 <Eyebrow num="02" label="Showreel" className="mb-10" data-reveal />
                 <div data-reveal>
-                    <Showreel src="/videos/usereuben_showcase.mp4" poster="/videos/usereuben_showcase-poster.webp" />
+                    <Showreel src="/videos/usereuben_showcase-v2.mp4" poster="/videos/usereuben_showcase-v2-poster.webp" />
                 </div>
             </section>
 

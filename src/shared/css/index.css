@@ -527,6 +527,46 @@ html[data-theme="light"] .pill-danger { color: #C2272D; }
 .media-hover:hover img,
 .group:hover .media-hover img { transform: scale(1.02); }
 
+/* Desktop nav — floating pills with a soft hairline ledge */
+.nav-pill,
+.nav-cap {
+  position: relative;
+  z-index: 1;
+  border-radius: 9999px;
+  border: 1px solid var(--color-border-strong);
+  box-shadow: 0 1px 0 0 var(--color-border-strong), 0 6px 18px -12px rgba(0,0,0,0.45);
+}
+.nav-pill {
+  background: var(--color-surface);
+  transition: background-color 0.3s;
+}
+/* Holds bordered buttons, so it drops its own outline and ledge */
+.nav-pill-plain {
+  border-color: transparent;
+  box-shadow: 0 6px 18px -12px rgba(0,0,0,0.45);
+}
+
+/* Capsule cap: stays white in both themes so the dark logo mark reads */
+.nav-cap {
+  background: #FFFFFF;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-cap:hover { transform: rotate(-6deg); }
+
+/* Curved neck: overlaps 5px under the cap and the pill on each side */
+.nav-neck {
+  flex: none;
+  margin: 0 -5px;
+  position: relative;
+  z-index: 0;
+}
+.nav-neck-fill { fill: var(--color-surface); }
+.nav-neck-edge {
+  fill: none;
+  stroke: var(--color-border-strong);
+  stroke-width: 1;
+}
+
 /* Signal dot */
 .signal-dot {
   display: inline-block;
@@ -702,31 +742,41 @@ select.field option {
    ============================================================ */
 .hero-fade-in { transform: translateY(16px); }
 
-/* Each line masks its letters; the extra top padding leaves room for the cursor lift */
+/* Each line masks its letters for the intro; the extra top padding leaves room for the
+   cursor lift. Once live the mask lifts so the scroll orbit can leave the line. */
 .hero-line {
   overflow: hidden;
   padding-top: 0.14em;
   margin-top: -0.14em;
 }
 .hero-line ~ .hero-line { margin-top: -0.18em; }
+.hero.is-live .hero-line { overflow: visible; }
 
 .hero-word {
+  --halftone: 1;
   position: relative;
   display: inline-block;
   white-space: nowrap;
-  will-change: transform;
 }
 
 .hero-letter,
-.hero-ghost-letter {
+.hero-glyph,
+.hero-ghost-letter,
+.hero-ghost-glyph {
   display: inline-block;
-  will-change: transform, opacity;
 }
 
-.hero-ghost-letter { text-align: center; }
+/* Orbiting letters vanish once they turn their back to the viewer */
+.hero-glyph,
+.hero-ghost-letter {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.hero-ghost-glyph { text-align: center; }
 
 /* Resolved ghost letters flash signal, then cool back to the outline */
-.hero-ghost-letter.is-lit { animation: hero-ghost-lit 1.2s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.hero-ghost-glyph.is-lit { animation: hero-ghost-lit 1s cubic-bezier(0.16, 1, 0.3, 1) both; }
 
 @keyframes hero-ghost-lit {
   0% {
@@ -740,7 +790,7 @@ select.field option {
 }
 
 /* Halftone spotlight: a dotted copy of the ghost line, masked to a circle that follows
-   the cursor (or sweeps on idle). Kerning is off to match the per-letter spans. */
+   the cursor. Kerning is off to match the per-letter spans. */
 .hero-ghost-word::after {
   content: attr(data-text);
   position: absolute;
@@ -757,59 +807,8 @@ select.field option {
   mask-image: radial-gradient(circle var(--spot-r, 0px) at var(--spot-x, 50%) var(--spot-y, 50%), #000 35%, transparent 100%);
   pointer-events: none;
   opacity: 0;
-  animation: hero-halftone-drift 6s linear infinite;
 }
-.hero.is-live .hero-ghost-word::after { opacity: 1; }
-
-@keyframes hero-halftone-drift {
-  to { background-position: 70px 35px; }
-}
-
-/* Glitch: two offset, sliced copies of a first-name letter flicker for ~half a second */
-.hero-glyph {
-  position: relative;
-  display: inline-block;
-}
-.hero-glyph::before,
-.hero-glyph::after {
-  content: attr(data-char);
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-  pointer-events: none;
-}
-.hero-glyph.is-glitch { animation: hero-glitch-skew 0.45s steps(3, end); }
-.hero-glyph.is-glitch::before {
-  color: var(--color-signal-text);
-  animation: hero-glitch-a 0.45s steps(4, end) both;
-}
-.hero-glyph.is-glitch::after {
-  color: var(--color-text-muted);
-  animation: hero-glitch-b 0.45s steps(4, end) both;
-}
-
-@keyframes hero-glitch-skew {
-  0%, 100% { transform: none; }
-  33% { transform: skewX(-8deg) translateX(0.02em); }
-  66% { transform: skewX(5deg) translateX(-0.015em); }
-}
-
-@keyframes hero-glitch-a {
-  0%   { opacity: 1; clip-path: inset(8% 0 72% 0); transform: translateX(-0.05em); }
-  25%  { clip-path: inset(56% 0 18% 0); transform: translateX(0.06em); }
-  50%  { clip-path: inset(30% 0 48% 0); transform: translateX(-0.03em); }
-  75%  { clip-path: inset(78% 0 4% 0); transform: translateX(0.04em); }
-  100% { opacity: 0; clip-path: inset(0 0 100% 0); transform: none; }
-}
-
-@keyframes hero-glitch-b {
-  0%   { opacity: 1; clip-path: inset(62% 0 14% 0); transform: translateX(0.05em); }
-  25%  { clip-path: inset(14% 0 66% 0); transform: translateX(-0.06em); }
-  50%  { clip-path: inset(44% 0 30% 0); transform: translateX(0.03em); }
-  75%  { clip-path: inset(2% 0 84% 0); transform: translateX(-0.04em); }
-  100% { opacity: 0; clip-path: inset(0 0 100% 0); transform: none; }
-}
+.hero.is-live .hero-ghost-word::after { opacity: var(--halftone); }
 
 /* Signal hairline draws under the paragraph's key phrases once the hero is live */
 .hero-mark {

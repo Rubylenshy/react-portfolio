@@ -7,9 +7,9 @@ gsap.registerPlugin(ScrollTrigger)
 // Fired by useAnimations' loader timeline when the hero should start playing in
 export const LOADER_REVEAL_EVENT = 'loader:reveal'
 
-const GHOST_START = 0.35
-const GHOST_STAGGER = 0.07
-const GHOST_DECODE = 0.42
+const GHOST_START = 0.3
+const GHOST_STAGGER = 0.05
+const GHOST_DECODE = 0.32
 
 const fontsReady = () =>
   Promise.race([
@@ -17,27 +17,23 @@ const fontsReady = () =>
     new Promise((resolve) => setTimeout(resolve, 1500)),
   ])
 
-// Hero name lockup: intro (3D letter rise + ghost-line decode), then while live a cursor
-// lift on the first name, a halftone spotlight on the ghost line, idle sweeps and glitches,
-// and a scroll-scrubbed split of the two lines. Returns a cleanup function.
+// Hero name lockup: intro (3D letter rise + ghost-line decode), a cursor lift on the first
+// name and a halftone spotlight on the ghost line, and a scroll-scrubbed 3D orbit that spins
+// both lines away as the hero leaves (and back in on the way up). Returns a cleanup function.
 export function initHeroMotion(root, { waitForLoader }) {
   const q = (sel) => [...root.querySelectorAll(sel)]
   const h1 = root.querySelector('.hero-name')
-  const ghostWord = root.querySelector('.hero-ghost-word')
+  const [firstWord, ghostWord] = q('.hero-word')
   const letters = q('.hero-letter')
   const glyphs = q('.hero-glyph')
   const ghostLetters = q('.hero-ghost-letter')
+  const ghostGlyphs = q('.hero-ghost-glyph')
   const fades = q('.hero-fade-in')
-  const decoders = q('[data-scramble]')
   const fine = window.matchMedia('(pointer: fine)').matches
 
   const cancels = []
-  const calls = []
   let killed = false
   let live = false
-  let visible = true
-  let hovering = false
-  let sweepTl = null
   let lifts = []
   let fontSize = parseFloat(getComputedStyle(h1).fontSize)
 
@@ -49,17 +45,37 @@ export function initHeroMotion(root, { waitForLoader }) {
       transformPerspective: 700,
       transformOrigin: '50% 100%',
     })
-    gsap.set(ghostLetters, { opacity: 0 })
+    gsap.set(ghostGlyphs, { opacity: 0 })
 
-    // The two lines drift apart as the hero scrolls away
-    const [firstWord, lastWord] = q('.hero-word')
-    const split = (xPercent) => ({
-      xPercent,
-      ease: 'none',
-      scrollTrigger: { trigger: root, start: 'top top', end: () => `+=${h1.offsetTop + h1.offsetHeight}`, scrub: 0.6 },
+    // Each letter circles a vertical axis just behind itself and recedes, fanning outward,
+    // so nothing swings toward the viewer; backface-visibility hides it past 90deg
+    const orbit = (targets, dir) => {
+      const mid = (targets.length - 1) / 2
+      return {
+        rotationY: dir * 180,
+        z: () => -fontSize * 0.7,
+        x: (i) => (i - mid) * fontSize * 0.12,
+        yPercent: -35,
+        transformPerspective: 900,
+        transformOrigin: () => `50% 50% ${-fontSize * 0.45}px`,
+        ease: 'power2.in',
+        stagger: { each: 0.05, from: dir > 0 ? 'start' : 'end' },
+      }
+    }
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: root,
+        start: 'top top',
+        end: () => `+=${h1.offsetTop + h1.offsetHeight}`,
+        scrub: 0.8,
+        invalidateOnRefresh: true,
+      },
     })
-    gsap.to(firstWord, split(-14))
-    gsap.to(lastWord, split(9))
+      .to(ghostWord, { '--halftone': 0, duration: 0.15 }, 0)
+      .to(glyphs, orbit(glyphs, -1), 0)
+      .to(ghostLetters, orbit(ghostLetters, 1), 0.08)
+      .to([...glyphs, ...ghostLetters], { opacity: 0, duration: 0.5, ease: 'none' }, 0.45)
   }, root)
 
   // ── Halftone spotlight on the ghost line (eased toward `target` every frame) ──
@@ -80,36 +96,6 @@ export function initHeroMotion(root, { waitForLoader }) {
     ghostWord.style.setProperty('--spot-r', `${Math.max(0, spot.r).toFixed(1)}px`)
   }
 
-  const sweep = () => {
-    if (!live || !visible || hovering || document.hidden) return
-    const w = ghostWord.offsetWidth
-    const R = fontSize * 0.75
-    Object.assign(target, { x: -R, y: ghostWord.offsetHeight * 0.5, r: 0 })
-    Object.assign(spot, target)
-    sweepTl = gsap.timeline()
-      .to(target, { r: R, duration: 0.5, ease: 'power2.out' }, 0)
-      .to(target, { x: w + R, duration: 2.2, ease: 'power1.inOut' }, 0)
-      .to(target, { r: 0, duration: 0.5, ease: 'power2.in' }, 1.7)
-  }
-
-  const glitch = () => {
-    if (!live || !visible || document.hidden) return
-    const el = glyphs[(Math.random() * glyphs.length) | 0]
-    el.classList.remove('is-glitch')
-    void el.offsetWidth
-    el.classList.add('is-glitch')
-  }
-
-  // Repeats `fn` at random intervals; each loop keeps only its pending call in `calls`
-  const loop = (fn, min, max) => {
-    const slot = calls.length
-    const next = () => {
-      fn()
-      calls[slot] = gsap.delayedCall(gsap.utils.random(min, max), next)
-    }
-    calls[slot] = gsap.delayedCall(gsap.utils.random(min, max), next)
-  }
-
   // ── Pointer: lift first-name letters near the cursor, steer the spotlight ──
   const onMove = (e) => {
     if (!live) return
@@ -117,8 +103,8 @@ export function initHeroMotion(root, { waitForLoader }) {
     target.x = e.clientX - g.left
     target.y = e.clientY - g.top
 
+    const word = firstWord.getBoundingClientRect()
     letters.forEach((el, i) => {
-      const word = el.offsetParent.getBoundingClientRect()
       const cx = word.left + el.offsetLeft + el.offsetWidth / 2
       const cy = word.top + word.height / 2
       const k = Math.max(0, 1 - Math.hypot(e.clientX - cx, e.clientY - cy) / (fontSize * 1.2))
@@ -127,14 +113,10 @@ export function initHeroMotion(root, { waitForLoader }) {
   }
 
   const onEnter = () => {
-    if (!live) return
-    hovering = true
-    sweepTl?.kill()
-    target.r = fontSize * 0.85
+    if (live) target.r = fontSize * 0.85
   }
 
   const onLeave = () => {
-    hovering = false
     target.r = 0
     lifts.forEach((lift) => lift(0))
   }
@@ -148,9 +130,6 @@ export function initHeroMotion(root, { waitForLoader }) {
     root.classList.add('is-live')
     gsap.set(letters, { clearProps: 'transform,opacity' })
     lifts = letters.map((el) => gsap.quickTo(el, 'y', { duration: 0.6, ease: 'power3.out' }))
-    sweep()
-    loop(sweep, 6, 9)
-    loop(glitch, 1.8, 4.2)
   }
 
   // ── Intro ──
@@ -170,7 +149,7 @@ export function initHeroMotion(root, { waitForLoader }) {
   const play = () => {
     if (killed) return
     // Lock each ghost letter to its final width so the decode doesn't shift the line
-    ghostLetters.forEach((el) => {
+    ghostGlyphs.forEach((el) => {
       el.style.width = `${el.getBoundingClientRect().width}px`
     })
 
@@ -180,18 +159,15 @@ export function initHeroMotion(root, { waitForLoader }) {
         yPercent: 0,
         rotateX: 0,
         opacity: 1,
-        duration: 1.1,
+        duration: 0.9,
         ease: 'expo.out',
-        stagger: 0.06,
+        stagger: 0.045,
       })
-      ghostLetters.forEach((el, i) => {
+      ghostGlyphs.forEach((el, i) => {
         tl.call(decodeGhost, [el], GHOST_START + i * GHOST_STAGGER)
       })
-      tl.to(fades, { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'expo.out' }, 0.45)
-      tl.call(() => {
-        decoders.forEach((el, i) => cancels.push(scramble(el, { duration: 0.9, delay: i * 0.08 })))
-      }, null, 0.5)
-      tl.call(goLive, null, GHOST_START + ghostLetters.length * GHOST_STAGGER + GHOST_DECODE + 0.3)
+      tl.to(fades, { opacity: 1, y: 0, duration: 0.8, stagger: 0.08, ease: 'expo.out' }, 0.4)
+      tl.call(goLive, null, GHOST_START + ghostGlyphs.length * GHOST_STAGGER + GHOST_DECODE + 0.2)
     })
   }
 
@@ -209,11 +185,6 @@ export function initHeroMotion(root, { waitForLoader }) {
     start()
   }
 
-  const io = new IntersectionObserver(([entry]) => {
-    visible = entry.isIntersecting
-  })
-  io.observe(h1)
-
   gsap.ticker.add(tick)
   window.addEventListener('resize', onResize)
   if (fine) {
@@ -227,15 +198,12 @@ export function initHeroMotion(root, { waitForLoader }) {
     clearTimeout(fallback)
     document.removeEventListener(LOADER_REVEAL_EVENT, start)
     cancels.forEach((cancel) => cancel())
-    calls.forEach((call) => call.kill())
-    sweepTl?.kill()
-    io.disconnect()
     gsap.ticker.remove(tick)
     window.removeEventListener('resize', onResize)
     root.removeEventListener('pointermove', onMove)
     root.removeEventListener('pointerenter', onEnter)
     root.removeEventListener('pointerleave', onLeave)
-    ghostLetters.forEach((el) => {
+    ghostGlyphs.forEach((el) => {
       el.style.width = ''
       el.style.opacity = ''
       el.classList.remove('is-lit')

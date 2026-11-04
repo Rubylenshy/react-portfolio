@@ -1,6 +1,5 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import Showreel from '../../../shared/components/Showreel'
-import { scramble } from '../../../shared/lib/scramble'
 import { initHeroMotion } from '../lib/heroMotion'
 import LiveClock from './LiveClock'
 
@@ -32,13 +31,6 @@ const Hero = () => {
     else element.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const redecode = (e) => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const el = e.currentTarget
-    el.__cancelScramble?.()
-    el.__cancelScramble = scramble(el, { duration: 0.5 })
-  }
-
   return (
     <section
       ref={rootRef}
@@ -46,10 +38,11 @@ const Hero = () => {
       data-hero
       className="hero relative max-w-[1400px] mx-auto grid-frame px-4 md:px-10 pt-28 md:pt-40 pb-16 md:pb-24"
     >
-      <div className="hero-fade-in opacity-0 flex items-center justify-center md:justify-between gap-4 mb-8 md:mb-10">
-        <span className="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)]">
+      {/* Availability lives in the desktop nav; the badge stays for mobile */}
+      <div className="hero-fade-in opacity-0 flex items-center justify-center md:justify-end gap-4 mb-8 md:mb-10">
+        <span className="md:hidden inline-flex items-center gap-2.5 px-3.5 py-2 rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)]">
           <span className="signal-dot signal-dot-pulse" aria-hidden="true" />
-          <span data-scramble className="font-mono text-[11px] uppercase tracking-eyebrow text-secondary">
+          <span className="font-mono text-[11px] uppercase tracking-eyebrow text-secondary">
             Available for Hire
           </span>
         </span>
@@ -70,15 +63,14 @@ const Hero = () => {
         <span className="hero-line block">
           <span className="hero-word hero-ghost-word display-ghost" data-text={LAST_NAME}>
             {[...LAST_NAME].map((char, i) => (
-              <span key={i} className="hero-ghost-letter">{char}</span>
+              <span key={i} className="hero-ghost-letter">
+                <span className="hero-ghost-glyph">{char}</span>
+              </span>
             ))}
           </span>
         </span>
-        {/* Role line is part of the H1 so the page's main heading names the service, not just the person */}
-        <span className="hero-fade-in opacity-0 block mt-5 md:mt-7 font-mono font-medium normal-case text-[13px] md:text-base leading-normal tracking-eyebrow text-secondary">
-          <span className="sr-only">, </span>
-          <span data-scramble>WordPress Plugin &amp; Frontend Developer</span>
-        </span>
+        {/* Not shown, but kept in the H1 so the page's main heading still names the service */}
+        <span className="sr-only">, WordPress Plugin &amp; Frontend Developer</span>
       </h1>
 
       {/* Flanking micro-paragraphs */}
@@ -93,8 +85,8 @@ const Hero = () => {
         <div className="hero-fade-in opacity-0 flex flex-col items-center md:items-end gap-5">
           <ul className="flex md:flex-col flex-wrap justify-center md:items-end gap-x-4 gap-y-1.5">
             {ROLES.map((role) => (
-              <li key={role} className="hero-role font-mono text-[11px] md:text-xs uppercase tracking-eyebrow text-secondary">
-                <span data-scramble onPointerEnter={redecode}>{role}</span>
+              <li key={role} className="font-mono text-[11px] md:text-xs uppercase tracking-eyebrow text-secondary">
+                {role}
               </li>
             ))}
           </ul>
@@ -114,7 +106,7 @@ const Hero = () => {
 
       {/* Full-width rounded media panel */}
       <div className="hero-fade-in opacity-0 mt-14 md:mt-20">
-        <Showreel src="/videos/usereuben_showcase.mp4" poster="/videos/usereuben_showcase-poster.webp" parallax />
+        <Showreel src="/videos/usereuben_showcase-v2.mp4" poster="/videos/usereuben_showcase-v2-poster.webp" parallax />
       </div>
     </section>
   )
