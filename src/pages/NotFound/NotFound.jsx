@@ -2,10 +2,12 @@ import { ArrowLeft } from 'lucide-react'
 import Navigation from '../../shared/components/Navigation'
 import Footer from '../../shared/components/Footer'
 import Pill from '../../shared/components/Pill'
+import SEOHead from '../../shared/components/SEOHead'
 
 const NotFound = () => {
   return (
     <>
+      <SEOHead title="Page not found" noindex />
       <Navigation />
 
       <main

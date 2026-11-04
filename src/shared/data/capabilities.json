@@ -10,7 +10,7 @@
     "id": "frontend",
     "role": "Frontend Engineer",
     "icon": "layers",
-    "description": "Translating designs into production-ready React interfaces with modern frontend techniques.",
+    "description": "Translating designs into production-ready React and Vue.js interfaces with modern frontend techniques.",
     "pills": ["Web App UI", "E-commerce", "AI-Driven UI"]
   },
   {

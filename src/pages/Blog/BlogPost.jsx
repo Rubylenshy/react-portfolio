@@ -5,8 +5,18 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus, oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import php from 'react-syntax-highlighter/dist/esm/languages/prism/php'
+import javascript from 'react-syntax-highlighter/dist/esm/languages/prism/javascript'
+import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx'
+import typescript from 'react-syntax-highlighter/dist/esm/languages/prism/typescript'
+import json from 'react-syntax-highlighter/dist/esm/languages/prism/json'
+import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash'
+import yaml from 'react-syntax-highlighter/dist/esm/languages/prism/yaml'
+import css from 'react-syntax-highlighter/dist/esm/languages/prism/css'
+import markup from 'react-syntax-highlighter/dist/esm/languages/prism/markup'
+import sql from 'react-syntax-highlighter/dist/esm/languages/prism/sql'
 import { Share2, Check, Calendar, Clock } from 'lucide-react'
 import Navigation from '../../shared/components/Navigation'
 import Breadcrumb from './components/Breadcrumb'
@@ -14,6 +24,15 @@ import Footer from '../../shared/components/Footer'
 import Contact from '../../shared/components/Contact'
 import blogsData from './data/blogs.json'
 import { useTheme } from '../../shared/context/ThemeContext'
+import { usePrerenderData } from '../../shared/context/PrerenderContext'
+import person from '../../shared/data/person.json'
+
+// PrismLight ships no grammars: register the fence languages posts use (```php etc.).
+// Unregistered languages still render, just without highlighting.
+Object.entries({
+  php, javascript, js: javascript, jsx, typescript, ts: typescript, tsx: typescript,
+  json, bash, sh: bash, shell: bash, yaml, yml: yaml, css, html: markup, xml: markup, sql,
+}).forEach(([name, grammar]) => SyntaxHighlighter.registerLanguage(name, grammar))
 
 /* ─── helpers ─── */
 function formatDate(dateStr) {
@@ -205,7 +224,8 @@ const CodeBlock = ({ node, inline, className, children, ...props }) => {
 /* ─── Main BlogPost Page ─── */
 const BlogPost = () => {
   const { slug } = useParams()
-  const [markdown, setMarkdown] = useState(null)
+  const { blogMarkdown } = usePrerenderData()
+  const [markdown, setMarkdown] = useState(() => blogMarkdown?.[slug] ?? null)
   const [error, setError] = useState(false)
 
   const post = blogsData.find(p => p.slug === slug)
@@ -214,6 +234,12 @@ const BlogPost = () => {
 
   useEffect(() => {
     if (!post) return
+    // Prerendered pages ship their markdown inline; only fetch for client-side navigation
+    const preloaded = blogMarkdown?.[slug]
+    if (preloaded) {
+      setMarkdown(preloaded)
+      return
+    }
     fetch(`/blogs/${slug}.md`)
       .then(r => {
         if (!r.ok) throw new Error('Not found')
@@ -223,33 +249,43 @@ const BlogPost = () => {
       .catch(() => setError(true))
   }, [slug, post])
 
+  const postUrl = `https://www.usereuben.com/blogs/${slug}`
   const articleSchema = post
     ? {
         '@context': 'https://schema.org',
-        '@type': 'Article',
-        headline: post.title,
-        description: post.excerpt,
-        datePublished: post.date,
-        author: {
-          '@type': 'Person',
-          name: post.author,
-          url: 'https://www.usereuben.com/',
-        },
-        publisher: {
-          '@type': 'Person',
-          name: 'Reuben Oluwafemi',
-          url: 'https://www.usereuben.com/',
-        },
-        url: `https://www.usereuben.com/blogs/${post.slug}`,
-        ...(getThumbnailSrc(post.thumbnail) && {
-          image: getThumbnailSrc(post.thumbnail),
-        }),
+        '@graph': [
+          {
+            '@type': 'BlogPosting',
+            '@id': `${postUrl}#article`,
+            headline: post.title,
+            description: post.excerpt,
+            datePublished: post.date,
+            dateModified: post.updated || post.date,
+            mainEntityOfPage: postUrl,
+            url: postUrl,
+            keywords: post.tags.join(', '),
+            author: { '@id': person['@id'], name: person.name, url: 'https://www.usereuben.com/about' },
+            publisher: { '@id': person['@id'], name: person.name },
+            ...(getThumbnailSrc(post.thumbnail) && {
+              image: getThumbnailSrc(post.thumbnail),
+            }),
+          },
+          {
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.usereuben.com/' },
+              { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.usereuben.com/blogs' },
+              { '@type': 'ListItem', position: 3, name: post.title, item: postUrl },
+            ],
+          },
+        ],
       }
     : null
 
   if (!post) {
     return (
       <div className="min-h-screen flex flex-col">
+        <SEOHead title="Post not found" noindex />
         <Navigation />
         <div className="flex-1 flex items-center justify-center text-[var(--color-text-secondary)] font-mono text-sm">
           Post not found.{' '}
@@ -265,9 +301,10 @@ const BlogPost = () => {
     <div className="min-h-screen flex flex-col">
       {post && (
         <SEOHead
-          title={post.title}
+          title={post.seoTitle || post.title}
+          titleSuffix={false}
           description={post.excerpt}
-          canonical={`https://www.usereuben.com/blogs/${post.slug}`}
+          canonical={postUrl}
           image={getThumbnailSrc(post.thumbnail) || undefined}
           type="article"
           schema={articleSchema}
@@ -362,6 +399,8 @@ const BlogPost = () => {
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]]}
                 components={{
+                  // The post's "# Title" line repeats the header <h1>; keep one H1 per page
+                  h1: () => null,
                   table({ node, ...rest }) {
                     return (
                       <div className="table-scroll" tabIndex={0} role="region" aria-label="Scrollable table">

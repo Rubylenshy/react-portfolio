@@ -2,6 +2,7 @@
   {
     "slug": "wp-enqueue-script-explained",
     "title": "wp_enqueue_script, Explained: Every Parameter, and Why Your Footer Script Breaks the Page",
+    "seoTitle": "wp_enqueue_script Explained: Every Parameter & Footer Bugs",
     "excerpt": "Every parameter of wp_enqueue_script, and why an undeclared dependency makes your axios interceptor fail on every request.",
     "date": "2026-10-02",
     "author": "Reuben Oluwafemi",
@@ -13,6 +14,7 @@
   {
     "slug": "wp-ajax-vs-wp-ajax-nopriv",
     "title": "wp_ajax vs wp_ajax_nopriv: Who Gets In, and What Can Go Wrong",
+    "seoTitle": "wp_ajax vs wp_ajax_nopriv: Who Gets In & What Goes Wrong",
     "excerpt": "The hook prefix decides who can reach your WordPress AJAX handler. Only your own checks decide who can use it.",
     "date": "2026-10-02",
     "author": "Reuben Oluwafemi",
@@ -24,6 +26,7 @@
   {
     "slug": "github-actions-variable-interpolation",
     "title": "${{ }} vs ${ } in GitHub Actions: The Variable Interpolation Trap",
+    "seoTitle": "${{ }} vs ${ } in GitHub Actions: The Interpolation Trap",
     "excerpt": "One runs before the shell ever starts, the other runs inside it — here's why that difference broke your workflow and how to use each correctly.",
     "date": "2026-07-07",
     "author": "Reuben Oluwafemi",
@@ -35,6 +38,7 @@
   {
     "slug": "ci-cd-syntax-error",
     "title": "The CI/CD Syntax Error That Just Cost You 3 Hours of Debugging",
+    "seoTitle": "The CI/CD Syntax Error That Cost You 3 Hours of Debugging",
     "excerpt": "One missing colon in a YAML workflow file. Three hours of hair-pulling. Here's how to spot it faster next time.",
     "date": "2026-06-24",
     "author": "Reuben Oluwafemi",

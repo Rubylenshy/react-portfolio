@@ -42,11 +42,10 @@ export function useAnimations() {
         // No loader, no intro, no reveals — just show everything
         window.__loaderPlayed = true
         if (overlayEl) overlayEl.style.display = 'none'
-        gsap.set('.hero-char, .hero-fade-in', { opacity: 1, y: 0 })
         return
       }
 
-      // Play loader + hero intro only once per session
+      // Play the loader only once per session
       if (overlayEl && !window.__loaderPlayed) {
         window.__loaderPlayed = true
 
@@ -63,20 +62,8 @@ export function useAnimations() {
             },
           })
           .set(overlayEl, { display: 'none' })
-          .from('.hero-char', {
-            yPercent: 100,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.08,
-            ease: 'expo.out',
-          }, '-=0.5')
-          .to('.hero-fade-in', {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.12,
-            ease: 'expo.out',
-          }, '-=0.6')
+          // Home's Hero plays its own intro on this signal (see heroMotion.js)
+          .call(() => document.dispatchEvent(new Event('loader:reveal')), null, '-=0.5')
       } else if (overlayEl && window.__loaderPlayed) {
         // Ensure overlay is hidden on non-initial routes
         overlayEl.style.display = 'none'

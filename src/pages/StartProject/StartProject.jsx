@@ -148,7 +148,7 @@ const StartProject = () => {
     <>
       <SEOHead
         title="Start a Project"
-        description="Tell Reuben Oluwafemi what you're building — a short brief form for custom WordPress plugins, React frontends, integrations and performance work. Replies within 48 hours."
+        description="Tell Reuben Oluwafemi what you're building: a brief for WordPress plugins, React or Vue.js frontends, integrations and performance work. Replies in 48h."
         canonical="https://www.usereuben.com/start-a-project"
       />
       <Navigation />

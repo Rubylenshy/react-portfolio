@@ -527,6 +527,46 @@ html[data-theme="light"] .pill-danger { color: #C2272D; }
 .media-hover:hover img,
 .group:hover .media-hover img { transform: scale(1.02); }
 
+/* Desktop nav — floating pills with a soft hairline ledge */
+.nav-pill,
+.nav-cap {
+  position: relative;
+  z-index: 1;
+  border-radius: 9999px;
+  border: 1px solid var(--color-border-strong);
+  box-shadow: 0 1px 0 0 var(--color-border-strong), 0 6px 18px -12px rgba(0,0,0,0.45);
+}
+.nav-pill {
+  background: var(--color-surface);
+  transition: background-color 0.3s;
+}
+/* Holds bordered buttons, so it drops its own outline and ledge */
+.nav-pill-plain {
+  border-color: transparent;
+  box-shadow: 0 6px 18px -12px rgba(0,0,0,0.45);
+}
+
+/* Capsule cap: stays white in both themes so the dark logo mark reads */
+.nav-cap {
+  background: #FFFFFF;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-cap:hover { transform: rotate(-6deg); }
+
+/* Curved neck: overlaps 5px under the cap and the pill on each side */
+.nav-neck {
+  flex: none;
+  margin: 0 -5px;
+  position: relative;
+  z-index: 0;
+}
+.nav-neck-fill { fill: var(--color-surface); }
+.nav-neck-edge {
+  fill: none;
+  stroke: var(--color-border-strong);
+  stroke-width: 1;
+}
+
 /* Signal dot */
 .signal-dot {
   display: inline-block;
@@ -697,13 +737,86 @@ select.field option {
   animation: zoomIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Hero intro — elements start hidden, useAnimations plays them in */
-.hero-char {
+/* ============================================================
+   Hero name lockup (motion lives in pages/Home/lib/heroMotion.js)
+   ============================================================ */
+.hero-fade-in { transform: translateY(16px); }
+
+/* Each line masks its letters for the intro; the extra top padding leaves room for the
+   cursor lift. Once live the mask lifts so the scroll orbit can leave the line. */
+.hero-line {
+  overflow: hidden;
+  padding-top: 0.14em;
+  margin-top: -0.14em;
+}
+.hero-line ~ .hero-line { margin-top: -0.18em; }
+.hero.is-live .hero-line { overflow: visible; }
+
+.hero-word {
+  --halftone: 1;
+  position: relative;
   display: inline-block;
-  will-change: transform, opacity;
+  white-space: nowrap;
 }
 
-.hero-fade-in { transform: translateY(16px); }
+.hero-letter,
+.hero-glyph,
+.hero-ghost-letter,
+.hero-ghost-glyph {
+  display: inline-block;
+}
+
+/* Orbiting letters vanish once they turn their back to the viewer */
+.hero-glyph,
+.hero-ghost-letter {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.hero-ghost-glyph { text-align: center; }
+
+/* Resolved ghost letters flash signal, then cool back to the outline */
+.hero-ghost-glyph.is-lit { animation: hero-ghost-lit 1s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@keyframes hero-ghost-lit {
+  0% {
+    color: var(--color-signal-text);
+    -webkit-text-stroke-color: var(--color-signal-text);
+  }
+  100% {
+    color: var(--color-ghost);
+    -webkit-text-stroke-color: var(--color-border-strong);
+  }
+}
+
+/* Halftone spotlight: a dotted copy of the ghost line, masked to a circle that follows
+   the cursor. Kerning is off to match the per-letter spans. */
+.hero-ghost-word::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-kerning: none;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-signal-text);
+  background-image: radial-gradient(circle, var(--color-signal-text) 0 1.3px, transparent 1.8px);
+  background-size: 7px 7px;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-mask-image: radial-gradient(circle var(--spot-r, 0px) at var(--spot-x, 50%) var(--spot-y, 50%), #000 35%, transparent 100%);
+  mask-image: radial-gradient(circle var(--spot-r, 0px) at var(--spot-x, 50%) var(--spot-y, 50%), #000 35%, transparent 100%);
+  pointer-events: none;
+  opacity: 0;
+}
+.hero.is-live .hero-ghost-word::after { opacity: var(--halftone); }
+
+/* Signal hairline draws under the paragraph's key phrases once the hero is live */
+.hero-mark {
+  background: linear-gradient(var(--color-signal-text), var(--color-signal-text)) left bottom / 0% 1px no-repeat;
+  transition: background-size 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hero.is-live .hero-mark { background-size: 100% 1px; }
+.hero.is-live .hero-mark + .hero-mark { transition-delay: 0.15s; }
 
 /* ============================================================
    Reduced motion — stop everything decorative
