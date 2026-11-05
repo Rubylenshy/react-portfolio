@@ -28,6 +28,8 @@ WordPress plugins:
 - [AltTexty](https://plugli.com): AI bulk alt-text generator for image accessibility
 
 Frontend:
+- [SpiritWise](https://spiritwise-neon.vercel.app/): sermon streaming app with listening streaks and AI Bible-passage lookup
+- [Clouds Studios](https://www.thecloudsstudios.com/): portrait and wedding photography site with galleries and session booking
 - [Shortly](https://url-shortener-zeta-ebon.vercel.app/): URL shortener built in React on the Shrtcode API
 - [Agile System](https://agile-system.vercel.app/): Kanban-style project management dashboard
 - [Nestlify](https://nestlify-react-app.vercel.app/): SaaS marketing site
