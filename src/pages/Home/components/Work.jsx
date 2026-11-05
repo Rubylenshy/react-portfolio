@@ -15,6 +15,12 @@ const badgeLabels = {
   php: 'PHP',
   woocommerce: 'WooCommerce',
   stripe: 'Stripe API',
+  zustand: 'Zustand',
+  django: 'Django',
+  claude: 'Claude AI',
+  gsap: 'GSAP',
+  emailjs: 'EmailJS',
+  fastapi: 'FastAPI',
 }
 
 const getBadges = (stackIcons = []) =>

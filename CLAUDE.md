@@ -101,9 +101,11 @@ display type, and a single acid-lime signal color used sparingly.
   Its palettes (dark: #000108 → #0BD1FF ramp; light: blues on off-white) live in the component's
   `PALETTES`, not CSS tokens. The ring's outline and hot nodes are computed on the CPU into a
   512×1 angle texture per frame; timeline tuning is in `waveState()`. It caps at 60fps, pauses
-  when hidden, and renders one static frame under reduced motion. The main 95%-wide content wrapper in
-  `App.jsx` is deliberately opaque (`bg-[var(--color-bg)]`, `relative z-[2]`), so the animation only
-  shows in the gutters around it; sections inside don't need their own page background. The older
+  when hidden, and renders one static frame under reduced motion. The main content wrapper in
+  `App.jsx` (95% wide, capped at `max-w-[1400px]` to match the sections) is deliberately opaque
+  (`bg-[var(--color-bg)]`, `relative z-[2]`), so the animation only shows in the gutters around it.
+  It uses `overflow-x-clip`, not `overflow-x-hidden`: `hidden` makes it a scroll container and breaks
+  `position: sticky` inside (e.g. the Selected Work intro column); sections inside don't need their own page background. The older
   `BeamField` (CSS beams, `--beam-*` tokens) is kept and can be swapped back in `App.jsx`.
 - **Component classes** (global CSS): `.pill` + `.pill-invert|signal|ghost|active` (+ `.pill-sm`,
   `.pill-lg`, `.pill-arrow`), `.icon-btn`, `.tag` / `.tag-signal`, `.card` / `.card-hover`,

@@ -86,13 +86,7 @@ const About = () => {
                 </div>
 
                 <div className="relative">
-                    <div className="flex flex-wrap items-center justify-between gap-6 mb-10 md:mb-14" data-reveal-group>
-                        <span className="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)]">
-                            <span className="signal-dot signal-dot-pulse" aria-hidden="true" />
-                            <span className="font-mono text-[11px] uppercase tracking-eyebrow text-secondary">
-                                Available for Hire
-                            </span>
-                        </span>
+                    <div className="flex flex-wrap items-center justify-end gap-6 mb-10 md:mb-14" data-reveal-group>
                         <RotatingBadge />
                     </div>
 

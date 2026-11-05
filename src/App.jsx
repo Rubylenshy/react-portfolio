@@ -74,7 +74,7 @@ function App() {
     <>
       <a href="#main" className="skip-link">Skip to content</a>
       <Backdrop />
-      <div className="relative z-[2] overflow-x-hidden w-[95%] mx-auto bg-[var(--color-bg)] transition-colors duration-300">
+      <div className="relative z-[2] overflow-x-clip w-[95%] max-w-[1400px] mx-auto bg-[var(--color-bg)] transition-colors duration-300">
         <ScrollToTop />
         <Loader />
         <Cursor />

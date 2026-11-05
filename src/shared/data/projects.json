@@ -1,26 +1,50 @@
 [
   {
-    "title": "Shortly",
-    "subtitle": "URL Shortener Integration",
+    "title": "SpiritWise",
+    "subtitle": "Your daily scripture journey, elevated by the Word",
     "type": "frontend",
-    "description": "A functional URL shortening application integrated with the Shrtcode API. It allows users to generate short links and manage them within a session.",
-    "mockup": "https://lh3.googleusercontent.com/u/0/d/1vci4v7JydDkBiXX-_mAT89ww69GyskLa",
+    "description": "Stream thousands of sermons, build unbreakable listening streaks, and look up any Bible passage the moment a preacher mentions it.",
+    "mockup": "https://lh3.googleusercontent.com/u/0/d/1PykHA7qDtaRchhzwyMsLJEG1M9yEIYSX",
     "bullet_points": [
-      "API integration for link shortening",
-      "Copy-to-clipboard functionality",
-      "Link history management",
-      "Form validation and error handling",
-      "Responsive landing page"
+      "AI scripture reference detection",
+      "Live transcript with verse lookup",
+      "Listening streaks, XP and badges",
+      "Persistent floating audio player",
+      "Playlists, series and leaderboard"
     ],
     "stack_icons": [
       "react",
-      "javascript",
-      "sass",
-      "api"
+      "tailwind",
+      "zustand",
+      "django"
     ],
-    "live_link": "https://url-shortener-zeta-ebon.vercel.app/",
-    "code_link": "https://github.com/Rubylenshy/url-shortener",
+    "live_link": "https://spiritwise-neon.vercel.app/",
+    "code_link": "#",
     "direction": "right"
+  },
+  {
+    "title": "Clouds Studios",
+    "subtitle": "Photography Studio Website",
+    "type": "frontend",
+    "description": "A portrait and wedding photographer passionate about capturing people, emotions and stories in their most authentic and beautiful form.",
+    "mockup": "https://lh3.googleusercontent.com/u/0/d/1AOAn9CHtAsBCDcThaPpVlsjKzajSjvXv",
+    "bullet_points": [
+      "Filterable galleries with lightbox",
+      "Multi-step session booking form",
+      "GSAP scroll-driven animations",
+      "Rate cards and FAQ sections",
+      "Email booking notifications"
+    ],
+    "stack_icons": [
+      "react",
+      "tailwind",
+      "gsap",
+      "emailjs",
+      "fastapi"
+    ],
+    "live_link": "https://www.thecloudsstudios.com/",
+    "code_link": "#",
+    "direction": "left"
   },
   {
     "title": "Linksy",
@@ -45,6 +69,29 @@
     ],
     "live_link": "https://linksyai.com",
     "code_link": "#",
+    "direction": "right"
+  },
+  {
+    "title": "Shortly",
+    "subtitle": "URL Shortener Integration",
+    "type": "frontend",
+    "description": "A functional URL shortening application integrated with the Shrtcode API. It allows users to generate short links and manage them within a session.",
+    "mockup": "https://lh3.googleusercontent.com/u/0/d/1vci4v7JydDkBiXX-_mAT89ww69GyskLa",
+    "bullet_points": [
+      "API integration for link shortening",
+      "Copy-to-clipboard functionality",
+      "Link history management",
+      "Form validation and error handling",
+      "Responsive landing page"
+    ],
+    "stack_icons": [
+      "react",
+      "javascript",
+      "sass",
+      "api"
+    ],
+    "live_link": "https://url-shortener-zeta-ebon.vercel.app/",
+    "code_link": "https://github.com/Rubylenshy/url-shortener",
     "direction": "left"
   },
   {
